@@ -14,7 +14,7 @@ import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    header: null,
+    header: <View style={{ height: 70, width: '100%', backgroundColor: '#106136' }}></View>,
   };
 
   render() {

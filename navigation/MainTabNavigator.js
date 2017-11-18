@@ -1,24 +1,28 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { TabNavigator, TabBarBottom } from 'react-navigation';
 
 import Colors from '../constants/Colors';
 
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import Categories from '../screens/Categories';
+import MyLibrary from '../screens/MyLibrary';
+import Stores from '../screens/Stores';
 
 export default TabNavigator(
   {
-    Home: {
+    "الرئيسيه": {
       screen: HomeScreen,
     },
-    Links: {
-      screen: LinksScreen,
+    "مكتبتي": {
+        screen: MyLibrary,
     },
-    Settings: {
-      screen: SettingsScreen,
+    "الأقسام": {
+      screen: Categories,
+    },
+    "الفروع": {
+      screen: Stores,
     },
   },
   {
@@ -27,32 +31,50 @@ export default TabNavigator(
         const { routeName } = navigation.state;
         let iconName;
         switch (routeName) {
-          case 'Home':
+        case 'الرئيسيه':
             iconName =
               Platform.OS === 'ios'
-                ? `ios-information-circle${focused ? '' : '-outline'}`
-                : 'md-information-circle';
+                ? `ios-home${focused ? '' : '-outline'}`
+                : 'md-home';
             break;
-          case 'Links':
-            iconName = Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link';
+          case 'الأقسام':
+            iconName = Platform.OS === 'ios' ? `ios-keypad${focused ? '' : '-outline'}` : 'md-keypad';
             break;
-          case 'Settings':
+        case 'مكتبتي':
             iconName =
-              Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options';
+              Platform.OS === 'ios' ? `ios-book${focused ? '' : '-outline'}` : 'md-book';
+            break;
+        case 'الفروع':
+            iconName =
+              Platform.OS === 'ios' ? `ios-map${focused ? '' : '-outline'}` : 'md-map';
+            break;
         }
         return (
           <Ionicons
             name={iconName}
             size={28}
-            style={{ marginBottom: -3 }}
             color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
           />
         );
       },
+
+      tabBarLabel: ({ focused }) => {
+        const { routeName } = navigation.state;
+        return (
+            <Text style={{textAlign: 'center', marginBottom: 8, fontSize: 12, fontFamily: Platform.OS === 'ios' ? 'Courier-Bold' : 'sans-serif-condensed' , fontWeight: 'bold', color: focused ? Colors.tabIconSelected : Colors.tabIconDefault }}> {routeName} </Text>
+        );
+      },
+
+
     }),
     tabBarComponent: TabBarBottom,
     tabBarPosition: 'bottom',
-    animationEnabled: false,
-    swipeEnabled: false,
+    animationEnabled: true,
+    swipeEnabled: true,
+    tabBarOptions: {
+        style: {
+            height: 57
+        }
+    }
   }
 );
