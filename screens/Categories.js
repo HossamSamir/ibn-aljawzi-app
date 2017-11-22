@@ -1,19 +1,29 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
+import {
+  Image,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  FlatList,
+  ScrollView
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+
+import Header from '../components/Header';
 
 export default class Categories extends React.Component {
+
   static navigationOptions = {
-    title: 'الأقسام',
+      header: <Header />
   };
 
   render() {
     return (
-      <ScrollView style={styles.container}>
-        {/* Go ahead and delete ExpoLinksView and replace it with your
-           * content, we just wanted to provide you with some helpful links */}
-        <ExpoLinksView />
-      </ScrollView>
+      <View style={styles.container}>
+        <Text>This screen still under development...</Text>
+      </View>
     );
   }
 }
@@ -21,7 +31,6 @@ export default class Categories extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
     backgroundColor: '#fff',
   },
 });
