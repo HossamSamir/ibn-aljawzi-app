@@ -15,7 +15,7 @@ import {
 import { Constants } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 
-export default class Header extends React.Component {
+export default class BookCard extends React.Component {
   render() {
     return (
         <View style={{ margin: 20,  }}>
