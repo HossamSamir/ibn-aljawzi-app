@@ -13,6 +13,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Container, Header, Content, Tab, Tabs, TabHeading } from 'native-base';
 import MyHeader from '../components/Header';
 import MapTab from '../components/MapTab';
+import StoresListTab from '../components/StoresListTab';
 
 export default class Stores extends React.Component {
 
@@ -22,7 +23,7 @@ export default class Stores extends React.Component {
 
   render() {
     return (
-        <Tabs initialPage={0} background='#106234' style={{ backgroundColor: '#106234' }}>
+        <Tabs initialPage={0}>
           <Tab heading = {
               <TabHeading>
                   <Ionicons
@@ -45,7 +46,7 @@ export default class Stores extends React.Component {
                   <Text style={{ color: Platform.OS === 'ios' ? '#106234' : 'white' }}>Stores List</Text>
               </TabHeading>
           }>
-            <Text>Tab two</Text>
+            <StoresListTab />
           </Tab>
         </Tabs>
     );
