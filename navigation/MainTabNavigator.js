@@ -53,7 +53,7 @@ export default TabNavigator(
           <Ionicons
             name={iconName}
             size={28}
-            color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+            color={focused ? '#106234' : Colors.tabIconDefault}
           />
         );
       },
@@ -61,7 +61,7 @@ export default TabNavigator(
       tabBarLabel: ({ focused }) => {
         const { routeName } = navigation.state;
         return (
-            <Text style={{textAlign: 'center', marginBottom: 8, fontSize: 12, fontFamily: Platform.OS === 'ios' ? 'Courier-Bold' : 'sans-serif-condensed' , fontWeight: 'bold', color: focused ? Colors.tabIconSelected : Colors.tabIconDefault }}> {routeName} </Text>
+            <Text style={{textAlign: 'center', marginBottom: 8, fontSize: 12, fontFamily: Platform.OS === 'ios' ? 'Courier-Bold' : 'sans-serif-condensed' , fontWeight: 'bold', color: focused ? '#106234' : Colors.tabIconDefault }}> {routeName} </Text>
         );
       },
 

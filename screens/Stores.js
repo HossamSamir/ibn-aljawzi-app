@@ -10,20 +10,43 @@ import {
   ScrollView
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
-import Header from '../components/Header';
+import { Container, Header, Content, Tab, Tabs, TabHeading } from 'native-base';
+import MyHeader from '../components/Header';
 
 export default class Stores extends React.Component {
 
   static navigationOptions = {
-      header: <Header />
+      header: <MyHeader />
   };
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text>This screen still under development...</Text>
-      </View>
+        <Tabs initialPage={0} background='#106234' style={{ backgroundColor: '#106234' }}>
+          <Tab heading = {
+              <TabHeading>
+                  <Ionicons
+                    name='ios-map'
+                    size={28}
+                    style={{ color: Platform.OS === 'ios' ? '#106234' : 'white', marginRight: 10 }}
+                  />
+                  <Text style={{ color: Platform.OS === 'ios' ? '#106234' : 'white' }}>Maps</Text>
+              </TabHeading>
+          }>
+            <Text>Tab one</Text>
+          </Tab>
+          <Tab heading = {
+              <TabHeading>
+                  <Ionicons
+                    name='ios-list-outline'
+                    size={28}
+                    style={{ color: Platform.OS === 'ios' ? '#106234' : 'white', marginRight: 10 }}
+                  />
+                  <Text style={{ color: Platform.OS === 'ios' ? '#106234' : 'white' }}>Stores List</Text>
+              </TabHeading>
+          }>
+            <Text>Tab two</Text>
+          </Tab>
+        </Tabs>
     );
   }
 }
