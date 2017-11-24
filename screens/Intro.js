@@ -22,34 +22,52 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
             <Swiper style={styles.wrapper}
-            showsButtons={true} buttonWrapperStyle={{backgroundColor: 'transparent', flexDirection: 'row', position: 'absolute',  bottom: 0, flex: 1, paddingHorizontal: 10, paddingVertical: 10, marginTop: '50%'}}
+            showsButtons={true}
+            buttonWrapperStyle={{backgroundColor: 'transparent', flexDirection: 'row', position: 'absolute',  bottom: 0, flex: 1, paddingHorizontal: 30, paddingVertical: 10, marginTop: '68%'}}
+            activeDot={<View style={{backgroundColor:'#106234', width: 8, height: 8,borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 10, marginBottom: 3,}} />}
             nextButton={
-                <TouchableOpacity onPress={ () => {
-                  this.props.navigation.navigate('Main', {})
-                }}>
-                    <Text style={{}}>Get Started</Text>
-                </TouchableOpacity>
+                    <Text style={{ display: 'none' }}></Text>
             }
             prevButton={
                 <TouchableOpacity onPress={ () => {
                   this.props.navigation.navigate('Main', {})
                 }}>
-                    <Text style={{}}>Skip</Text>
+                    <Text style={{ color: '#0366d6' }}>Skip</Text>
                 </TouchableOpacity>
             }
             >
-            <View style={styles.slide1}>
-                <TouchableOpacity onPress={ () => {
+            <View style={styles.slide}>
+                <Image
+                    source={require('../assets/images/1.jpg')}
+                    style={{ width: '100%', height: '100%', resizeMode: 'contain' }}
+                />
+            </View>
+            <View style={styles.slide}>
+                <Image
+                    source={require('../assets/images/2.jpg')}
+                    style={{ width: '100%', height: '100%', resizeMode: 'contain' }}
+                />
+            </View>
+            <View style={styles.slide}>
+                <Image
+                    source={require('../assets/images/3.jpg')}
+                    style={{ width: '100%', height: '100%', resizeMode: 'contain' }}
+                />
+            </View>
+            <View style={styles.slide}>
+                <Image
+                    source={require('../assets/images/4.jpg')}
+                    style={{ width: '100%', height: '100%', resizeMode: 'contain' }} />
+            </View>
+            <View style={styles.slide}>
+                <Image
+                    source={require('../assets/images/5.jpg')}
+                    style={{ width: '100%', height: '100%', resizeMode: 'contain' }} />
+                <TouchableOpacity style={{ position: 'absolute', right: 0, bottom: 10 }} onPress={ () => {
                   this.props.navigation.navigate('Main', {})
                 }}>
-                    <Text style={styles.text}>Hello Swiper</Text>
+                    <Text style={{ backgroundColor: '#106234', color: 'white', padding: 10, marginRight: 10, fontWeight: 'bold', borderRadius: 10 }}>Get Started</Text>
                 </TouchableOpacity>
-            </View>
-            <View style={styles.slide2}>
-              <Text style={styles.text}>Beautiful</Text>
-            </View>
-            <View style={styles.slide3}>
-              <Text style={styles.text}>And simple</Text>
             </View>
           </Swiper>
     );
@@ -58,28 +76,9 @@ export default class HomeScreen extends React.Component {
 
 var styles = StyleSheet.create({
   wrapper: {
+      backgroundColor: 'white'
   },
-  slide1: {
+  slide: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#9DD6EB',
-  },
-  slide2: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#97CAE5',
-  },
-  slide3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#92BBD9',
-  },
-  text: {
-    color: '#fff',
-    fontSize: 30,
-    fontWeight: 'bold',
   }
 })
