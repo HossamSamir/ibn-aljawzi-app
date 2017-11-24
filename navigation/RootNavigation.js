@@ -5,8 +5,13 @@ import { StackNavigator } from 'react-navigation';
 import MainTabNavigator from './MainTabNavigator';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
+import Intro from '../screens/Intro';
+
 const RootStackNavigator = StackNavigator(
   {
+    Intro: {
+      screen: Intro,
+    },
     Main: {
       screen: MainTabNavigator,
     },
