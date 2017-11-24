@@ -22,12 +22,28 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
             <Swiper style={styles.wrapper}
-            showsButtons={true} buttonWrapperStyle={{backgroundColor: 'transparent', flexDirection: 'row', position: 'absolute',  bottom: 10, flex: 1, paddingHorizontal: 10, paddingVertical: 10, marginTop: 200}}
-            nextButton={<Text style={{}}>Get Started</Text>}
-            prevButton={<Text style={{}}>Skip</Text>}
+            showsButtons={true} buttonWrapperStyle={{backgroundColor: 'transparent', flexDirection: 'row', position: 'absolute',  bottom: 0, flex: 1, paddingHorizontal: 10, paddingVertical: 10, marginTop: '50%'}}
+            nextButton={
+                <TouchableOpacity onPress={ () => {
+                  this.props.navigation.navigate('Main', {})
+                }}>
+                    <Text style={{}}>Get Started</Text>
+                </TouchableOpacity>
+            }
+            prevButton={
+                <TouchableOpacity onPress={ () => {
+                  this.props.navigation.navigate('Main', {})
+                }}>
+                    <Text style={{}}>Skip</Text>
+                </TouchableOpacity>
+            }
             >
             <View style={styles.slide1}>
-              <Text style={styles.text}>Hello Swiper</Text>
+                <TouchableOpacity onPress={ () => {
+                  this.props.navigation.navigate('Main', {})
+                }}>
+                    <Text style={styles.text}>Hello Swiper</Text>
+                </TouchableOpacity>
             </View>
             <View style={styles.slide2}>
               <Text style={styles.text}>Beautiful</Text>
