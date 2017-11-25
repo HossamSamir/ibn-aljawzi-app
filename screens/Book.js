@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import { BlurView } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
+import Lightbox from 'react-native-lightbox';
 
 import Header from '../components/Header';
 
@@ -22,25 +23,35 @@ export default class BookCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            mainCats: [
-                    {cat_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/1.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
-                    {cat_ID: 1, book_name: 'Book name', book_photo: require('../assets/images/temp_books/2.jpeg'),  author_name: "Ahmed Hassan", author_ID: 1},
-                    {cat_ID: 2, book_name: 'Book name', book_photo: require('../assets/images/temp_books/3.jpeg'),  author_name: "Ahmed Hassan", author_ID: 2},
-                    {cat_ID: 3, book_name: 'Book name', book_photo: require('../assets/images/temp_books/4.jpeg'),  author_name: "Ahmed Hassan", author_ID: 3},
-                    {cat_ID: 4, book_name: 'Book name', book_photo: require('../assets/images/temp_books/5.jpeg'),  author_name: "Ahmed Hassan", author_ID: 4},
-                    {cat_ID: 5, book_name: 'Book name', book_photo: require('../assets/images/temp_books/6.jpeg'),  author_name: "Ahmed Hassan", author_ID: 5},
-                    {cat_ID: 6, book_name: 'Book name', book_photo: require('../assets/images/temp_books/7.jpeg'),  author_name: "Ahmed Hassan", author_ID: 6},
+            screenshots: [
+                    {Book_ID: 0, book_photo: require('../assets/images/temp_books/1.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                    {Book_ID: 1, book_photo: require('../assets/images/temp_books/2.jpeg'),  author_name: "Ahmed Hassan", author_ID: 1},
+                    {Book_ID: 2, book_photo: require('../assets/images/temp_books/3.jpeg'),  author_name: "Ahmed Hassan", author_ID: 2},
+                    {Book_ID: 3, book_photo: require('../assets/images/temp_books/4.jpeg'),  author_name: "Ahmed Hassan", author_ID: 3},
+                    {Book_ID: 4, book_photo: require('../assets/images/temp_books/5.jpeg'),  author_name: "Ahmed Hassan", author_ID: 4},
+                    {Book_ID: 5, book_photo: require('../assets/images/temp_books/6.jpeg'),  author_name: "Ahmed Hassan", author_ID: 5},
+                    {Book_ID: 6, book_photo: require('../assets/images/temp_books/7.jpeg'),  author_name: "Ahmed Hassan", author_ID: 6},
+                ],
+            comments: [
+                    {comment_ID: 0,  user_ID: 0, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....', rate: 4},
+                    {comment_ID: 1,  user_ID: 1, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....', rate: 4},
+                    {comment_ID: 2,  user_ID: 2, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....', rate: 4},
+                    {comment_ID: 3,  user_ID: 3, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....', rate: 4},
+                    {comment_ID: 4,  user_ID: 4, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....', rate: 4},
+                    {comment_ID: 5,  user_ID: 5, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....', rate: 4},
+                    {comment_ID: 6,  user_ID: 6, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....', rate: 4},
                 ],
         }
     }
-_keyExtractor = (item, index) => item.cat_ID;
+_keyExtractor = (item, index) => item.Book_ID;
+_keyExtractor2 = (item, index) => item.comment_ID;
 static navigationOptions = {
     header: <Header />
 };
 
   render() {
     return (
-        <View>
+        <ScrollView>
             <Image blurRadius={10} source={require('../assets/images/temp_books/7.jpeg')} style={{ width: '100%', height: 430, position: 'absolute', }} />
             <Image source={require('../assets/images/curve.png')} style={{ width: '100%', height: 100, position: 'absolute', top: 370}} />
 
@@ -48,11 +59,13 @@ static navigationOptions = {
               horizontal={true}
               showsHorizontalScrollIndicator={false}
               style={{ maxHeight: 200, }}
-              data = {this.state.mainCats}
+              data = {this.state.screenshots}
               keyExtractor={this._keyExtractor}
               renderItem = {({ item }) => (
-                  <Image source={item.book_photo}
-                  style={{width: 130, height: 130, margin: 20, borderRadius: 10,}} />
+                  <Lightbox didOpen={ () => console.log('asasfasfasfasf') }>
+                      <Image source={item.book_photo}
+                      style={{width: 130, height: 130, margin: 20, borderRadius: 10,}} />
+                  </Lightbox>
               )} />
               <View style={{  flexDirection: 'row', height: 150, margin: 20, }}>
                 <View style={{ flex: .5,  }}>
@@ -106,7 +119,102 @@ static navigationOptions = {
                 </View>
               </View>
               <Text style={{ color: '#0E142A', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 18, margin: 12, marginTop: 20}}>Description</Text>
-        </View>
+              <Text style={{ color: '#737481', backgroundColor: '#fff', fontWeight: 'bold', fontSize: 16, padding: 12, marginTop: 10}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.</Text>
+
+              <View style={{ alignItems: 'center', justifyContent: 'center', flexDirection: 'row', backgroundColor: '#fff' }}>
+              <Ionicons
+                name='ios-star-outline'
+                size={30}
+                color='crimson'
+                style={{ marginHorizontal: 1, backgroundColor: 'transparent', marginHorizontal: 5 }}
+              />
+              <Ionicons
+                name='ios-star-outline'
+                size={30}
+                color='crimson'
+                style={{marginHorizontal: 1, backgroundColor: 'transparent', marginHorizontal: 5 }}
+              />
+              <Ionicons
+                name='ios-star-outline'
+                size={30}
+                color='crimson'
+                style={{marginHorizontal: 1, backgroundColor: 'transparent', marginHorizontal: 5 }}
+              />
+              <Ionicons
+                name='ios-star-outline'
+                size={30}
+                color='crimson'
+                style={{marginHorizontal: 1, backgroundColor: 'transparent', marginHorizontal: 5 }}
+              />
+              <Ionicons
+                name='ios-star-outline'
+                size={30}
+                color='crimson'
+                style={{marginHorizontal: 1, backgroundColor: 'transparent', marginHorizontal: 5 }}
+              />
+              </View>
+
+              <Text style={{ color: '#0E142A', backgroundColor: '#fff', fontWeight: 'bold', fontSize: 18, padding: 12, }}>Reviews</Text>
+
+              <View style={{ width: '100%', flexDirection: 'row', padding: 12, backgroundColor: '#fff'}}>
+                <TextInput underlineColorAndroid='#858788' placeholderTextColor='#858788' placeholder='Add a comment...' style={{ flex: 1 }} />
+                <TouchableOpacity style={{ flex: .5, marginHorizontal: 30, borderRadius: 5, flexDirection: 'row', backgroundColor: '#E16626', alignItems: 'center', justifyContent: 'center' }}>
+                    <Ionicons
+                      name='ios-chatboxes-outline'
+                      size={30}
+                      color='white'
+                      style={{backgroundColor: 'transparent', paddingLeft: 10 }}
+                    />
+                    <Text style={{ color: 'white', padding: 10 }}>Comment</Text>
+                </TouchableOpacity>
+              </View>
+
+              <FlatList
+                style={{ backgroundColor: '#fff' }}
+                data = {this.state.comments}
+                keyExtractor={this._keyExtractor2}
+                renderItem = {({ item }) => (
+                    <View style={{ marginVertical: 18, padding: 12 }}>
+                        <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ backgroundColor: 'transparent', marginHorizontal: 12, fontWeight: 'bold', fontSize: 14, flex: .4 }}>{item.username}</Text>
+                        <View style={{ flexDirection: 'row', flex: 1 }}>
+                        <Ionicons
+                          name='ios-star'
+                          size={19}
+                          color='#EBD31C'
+                          style={{ marginHorizontal: 1, backgroundColor: 'transparent' }}
+                        />
+                        <Ionicons
+                          name='ios-star'
+                          size={19}
+                          color='#EBD31C'
+                          style={{marginHorizontal: 1, backgroundColor: 'transparent' }}
+                        />
+                        <Ionicons
+                          name='ios-star'
+                          size={19}
+                          color='#EBD31C'
+                          style={{marginHorizontal: 1, backgroundColor: 'transparent' }}
+                        />
+                        <Ionicons
+                          name='ios-star-half'
+                          size={19}
+                          color='#EBD31C'
+                          style={{marginHorizontal: 1, backgroundColor: 'transparent' }}
+                        />
+                        <Ionicons
+                          name='ios-star-outline'
+                          size={19}
+                          color='#EBD31C'
+                          style={{marginHorizontal: 1, backgroundColor: 'transparent' }}
+                        />
+                        </View>
+                        </View>
+                        <Text style={{ marginHorizontal: 12, paddingBottom: 12 }}>{ item.comment }</Text>
+                    </View>
+                )} />
+
+        </ScrollView>
     );
   }
 }
