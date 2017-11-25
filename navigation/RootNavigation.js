@@ -6,14 +6,18 @@ import MainTabNavigator from './MainTabNavigator';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
 
 import Intro from '../screens/Intro';
+import Book from '../screens/Book';
 
 const RootStackNavigator = StackNavigator(
   {
+      Main: {
+          screen: MainTabNavigator,
+      },
+    Book: {
+      screen: Book,
+    },
     Intro: {
       screen: Intro,
-    },
-    Main: {
-      screen: MainTabNavigator,
     },
   },
   {

@@ -41,9 +41,25 @@ export default class MyLibrary extends React.Component {
                 keyExtractor={this._keyExtractor}
                 renderItem = {({ item }) => (
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+
+                    <TouchableOpacity onPress={ () => {
+                      this.props.navigation.navigate('Book', {})
+                    }}>
                         <MyBookCard book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={ () => {
+                      this.props.navigation.navigate('Book', {})
+                    }}>
                         <MyBookCard book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={ () => {
+                      this.props.navigation.navigate('Book', {})
+                    }}>
                         <MyBookCard book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+                    </TouchableOpacity>
+
                     </View>
                 )} />
           </View>

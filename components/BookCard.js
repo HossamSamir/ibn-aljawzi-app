@@ -18,7 +18,7 @@ import { Ionicons } from '@expo/vector-icons';
 export default class BookCard extends React.Component {
   render() {
     return (
-        <View style={{ margin: 20,  }}>
+        <View style={{ margin: 20,  }} >
         <Image source={this.props.book_photo}
            style={{width: 160, height: 170, borderRadius: 10, marginBottom: 10}} />
             <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#106234' }}>{this.props.book_name.toUpperCase()}</Text>

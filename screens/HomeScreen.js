@@ -72,7 +72,11 @@ _keyExtractor = (item, index) => item.cat_ID;
           data = {this.state.recommended}
           keyExtractor={this._keyExtractor}
           renderItem = {({ item }) => (
-              <BookCard book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+              <TouchableOpacity onPress={ () => {
+                this.props.navigation.navigate('Book', {})
+              }}>
+                <BookCard book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+              </TouchableOpacity>
           )} />
 
         <Text style={{ marginLeft: 20, marginTop: 20, fontWeight: 'bold', }}>POPULAR BOOKS</Text>
@@ -84,7 +88,11 @@ _keyExtractor = (item, index) => item.cat_ID;
           data = {this.state.recommended}
           keyExtractor={this._keyExtractor}
           renderItem = {({ item }) => (
-              <BookCard book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+              <TouchableOpacity onPress={ () => {
+                this.props.navigation.navigate('Book', {})
+              }}>
+                <BookCard book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+              </TouchableOpacity>
           )} />
 
         </ImageBackground>

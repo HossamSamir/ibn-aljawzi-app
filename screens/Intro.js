@@ -19,10 +19,13 @@ export default class HomeScreen extends React.Component {
         header: null
     }
 
+
+
   render() {
     return (
             <Swiper style={styles.wrapper}
             showsButtons={true}
+            loop={false}
             buttonWrapperStyle={{backgroundColor: 'transparent', flexDirection: 'row', position: 'absolute',  bottom: 0, flex: 1, paddingHorizontal: 30, paddingVertical: 10, marginTop: '68%'}}
             activeDot={<View style={{backgroundColor:'#106234', width: 8, height: 8,borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 10, marginBottom: 3,}} />}
             nextButton={
