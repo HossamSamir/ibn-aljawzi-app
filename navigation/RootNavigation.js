@@ -10,12 +10,12 @@ import Book from '../screens/Book';
 
 const RootStackNavigator = StackNavigator(
   {
+      Book: {
+          screen: Book,
+      },
       Main: {
           screen: MainTabNavigator,
       },
-    Book: {
-      screen: Book,
-    },
     Intro: {
       screen: Intro,
     },
