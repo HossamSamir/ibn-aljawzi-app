@@ -41,7 +41,9 @@ static navigationOptions = {
   render() {
     return (
         <View>
-            <Image blurRadius={10} source={require('../assets/images/temp_books/7.jpeg')} style={{ width: '100%', height: 360, position: 'absolute' }} />
+            <Image blurRadius={10} source={require('../assets/images/temp_books/7.jpeg')} style={{ width: '100%', height: 430, position: 'absolute', }} />
+            <Image source={require('../assets/images/curve.png')} style={{ width: '100%', height: 100, position: 'absolute', top: 370}} />
+
             <FlatList
               horizontal={true}
               showsHorizontalScrollIndicator={false}
@@ -52,26 +54,58 @@ static navigationOptions = {
                   <Image source={item.book_photo}
                   style={{width: 130, height: 130, margin: 20, borderRadius: 10,}} />
               )} />
-              <View style={{  flexDirection: 'row', height: 150, margin: 20,  }}>
+              <View style={{  flexDirection: 'row', height: 150, margin: 20, }}>
                 <View style={{ flex: .5,  }}>
                     <Image source={require('../assets/images/temp_books/7.jpeg')} style={{ width: '100%', height: '100%', borderRadius: 10, resizeMode: 'cover' }} />
                 </View>
                 <View style={{ flex: 1, paddingLeft: 15, }}>
-                    <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 23 }}>{'book name'.toUpperCase()}</Text>
-                    <Text style={{ color: '#676667', fontWeight: 'bold', fontSize: 15 }}>Ropert bally</Text>
-                    <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 16, marginTop: 8, }}>
+                    <Text style={{ color: 'white', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 23 }}>{'book name'.toUpperCase()}</Text>
+                    <Text style={{ color: '#676667', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 15 }}>Ropert bally</Text>
+                    <Text style={{ color: 'white', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 16, marginTop: 8, }}>
                     <Ionicons
                       name='ios-pricetag-outline'
                       size={23}
                       color='white'
-                      style={{backgroundColor: 'transparent', marginRight: 10,  }}
+                      style={{backgroundColor: 'transparent',  }}
+                    />{'  Horror'}</Text>
+                    <View style={{ flexDirection: 'row' }}>
+                    <Ionicons
+                      name='ios-star'
+                      size={19}
+                      color='#EBD31C'
+                      style={{ marginHorizontal: 1, backgroundColor: 'transparent' }}
                     />
-                    Horror</Text>
+                    <Ionicons
+                      name='ios-star'
+                      size={19}
+                      color='#EBD31C'
+                      style={{marginHorizontal: 1, backgroundColor: 'transparent' }}
+                    />
+                    <Ionicons
+                      name='ios-star'
+                      size={19}
+                      color='#EBD31C'
+                      style={{marginHorizontal: 1, backgroundColor: 'transparent' }}
+                    />
+                    <Ionicons
+                      name='ios-star-half'
+                      size={19}
+                      color='#EBD31C'
+                      style={{marginHorizontal: 1, backgroundColor: 'transparent' }}
+                    />
+                    <Ionicons
+                      name='ios-star-outline'
+                      size={19}
+                      color='#EBD31C'
+                      style={{marginHorizontal: 1, backgroundColor: 'transparent' }}
+                    />
+                    </View>
                     <TouchableOpacity style={{ backgroundColor: '#1CAE4D', borderRadius: 10, marginVertical: 25, maxWidth: 130,  }}>
-                        <Text style={{ color: 'white', padding: 10, fontWeight: 'bold', fontSize: 16, textAlign: 'center' }}>BUY 10.99$</Text>
+                        <Text style={{ color: 'white', backgroundColor: 'transparent', padding: 10, fontWeight: 'bold', fontSize: 16, textAlign: 'center' }}>BUY 10.99$</Text>
                     </TouchableOpacity>
                 </View>
               </View>
+              <Text style={{ color: '#0E142A', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 18, margin: 12, marginTop: 20}}>Description</Text>
         </View>
     );
   }
