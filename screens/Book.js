@@ -113,7 +113,9 @@ static navigationOptions = {
                       style={{marginHorizontal: 1, backgroundColor: 'transparent' }}
                     />
                     </View>
-                    <TouchableOpacity style={{ backgroundColor: '#1CAE4D', borderRadius: 10, marginVertical: 25, maxWidth: 130,  }}>
+                    <TouchableOpacity onPress={ () => {
+                        this.props.navigation.navigate('Payment', {})
+                    }} style={{ backgroundColor: '#1CAE4D', borderRadius: 10, marginVertical: 25, maxWidth: 130,  }}>
                         <Text style={{ color: 'white', backgroundColor: 'transparent', padding: 10, fontWeight: 'bold', fontSize: 16, textAlign: 'center' }}>BUY 10.99$</Text>
                     </TouchableOpacity>
                 </View>
