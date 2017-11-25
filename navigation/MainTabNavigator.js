@@ -52,18 +52,38 @@ export default TabNavigator(
         return (
           <Ionicons
             name={iconName}
-            size={28}
+            size={32}
             color={focused ? '#106234' : Colors.tabIconDefault}
           />
         );
       },
 
+      // Removing bottom tab labels as the DAMN client asked .. and leaving the old code coz he's gonna want it back again.
+
+      // tabBarLabel: ({ focused }) => {
+      //   const { routeName } = navigation.state;
+      //   return (
+      //       <Text style={{textAlign: 'center', marginBottom: 8, fontSize: 12, fontFamily: Platform.OS === 'ios' ? 'Courier-Bold' : 'sans-serif-condensed' , fontWeight: 'bold', color: focused ? '#106234' : Colors.tabIconDefault }}> {routeName} </Text>
+      //   );
+      // },
+
       tabBarLabel: ({ focused }) => {
         const { routeName } = navigation.state;
         return (
-            <Text style={{textAlign: 'center', marginBottom: 8, fontSize: 12, fontFamily: Platform.OS === 'ios' ? 'Courier-Bold' : 'sans-serif-condensed' , fontWeight: 'bold', color: focused ? '#106234' : Colors.tabIconDefault }}> {routeName} </Text>
+            <Text>{null}</Text>
         );
       },
+
+      // ....................../´¯/)
+      // ....................,/¯../
+      // .................../..../
+      // ............./´¯/'...'/´¯¯`·¸
+      // ........../'/.../..../......./¨¯\
+      // ........('(...´...´.... ¯~/'...')
+      // .........\.................'...../
+      // ..........''...\.......... _.·´
+      // ............\..............(
+      // ..............\.............\...
 
 
     }),
