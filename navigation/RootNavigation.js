@@ -8,20 +8,24 @@ import registerForPushNotificationsAsync from '../api/registerForPushNotificatio
 import Intro from '../screens/Intro';
 import Book from '../screens/Book';
 import Payment from '../screens/Payment';
+import Category from '../screens/Category';
 
 const RootStackNavigator = StackNavigator(
   {
-      Intro: {
-          screen: Intro,
-      },
       Main: {
           screen: MainTabNavigator,
+      },
+      Intro: {
+          screen: Intro,
       },
       Book: {
         screen: Book,
       },
       Payment: {
         screen: Payment,
+      },
+      Category: {
+        screen: Category,
       },
   },
   {

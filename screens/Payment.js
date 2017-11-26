@@ -10,7 +10,7 @@ export default class Payment extends React.Component {
   render() {
     return (
         <WebView
-            source={{uri: 'https://paypal.com'}}  />
+            source={{uri: 'https://github.com/facebook/react-native'}} />
     );
   }
 }

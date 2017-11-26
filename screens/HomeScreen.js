@@ -60,7 +60,11 @@ _keyExtractor = (item, index) => item.cat_ID;
         data = {this.state.mainCats}
         keyExtractor={this._keyExtractor}
         renderItem = {({ item }) => (
-            <Text style={{ color: 'white', backgroundColor: '#106234', paddingVertical: 10, paddingHorizontal: 40, margin: 20, borderRadius: 18, fontSize: 12, fontWeight: 'bold' }}>{item.cat_name.toUpperCase()}</Text>
+            <TouchableOpacity onPress={ () => {
+              this.props.navigation.navigate('Category', {})
+            }}>
+                <Text style={{ color: 'white', backgroundColor: '#106234', paddingVertical: 10, paddingHorizontal: 40, margin: 20, borderRadius: 18, fontSize: 12, fontWeight: 'bold' }}>{item.cat_name.toUpperCase()}</Text>
+            </TouchableOpacity>
         )} />
 
         <Text style={{ marginLeft: 20, marginTop: 20, fontWeight: 'bold',  }}>RECOMMENDED FOR YOU</Text>
