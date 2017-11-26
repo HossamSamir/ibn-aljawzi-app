@@ -13,11 +13,11 @@ import subCategory from '../screens/subCategory';
 
 const RootStackNavigator = StackNavigator(
   {
-      Main: {
-          screen: MainTabNavigator,
-      },
       Intro: {
           screen: Intro,
+      },
+      Main: {
+          screen: MainTabNavigator,
       },
       Book: {
         screen: Book,
