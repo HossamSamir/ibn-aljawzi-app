@@ -9,6 +9,7 @@ import Intro from '../screens/Intro';
 import Book from '../screens/Book';
 import Payment from '../screens/Payment';
 import Category from '../screens/Category';
+import subCategory from '../screens/subCategory';
 
 const RootStackNavigator = StackNavigator(
   {
@@ -26,6 +27,9 @@ const RootStackNavigator = StackNavigator(
       },
       Category: {
         screen: Category,
+      },
+      subCategory: {
+        screen: subCategory,
       },
   },
   {
