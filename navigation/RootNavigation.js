@@ -33,6 +33,7 @@ const RootStackNavigator = StackNavigator(
       },
   },
   {
+     // headerMode: 'none',
     navigationOptions: () => ({
       headerTitleStyle: {
         fontWeight: 'normal',

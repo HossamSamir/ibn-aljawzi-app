@@ -8,10 +8,10 @@ import {
   View,
   FlatList,
   ScrollView,
-  ImageBackground
+  ImageBackground,
+  Button
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Rating } from 'react-native-elements';
 
 import Header from '../components/Header';
 import BookCard from '../components/BookCard';
@@ -40,9 +40,9 @@ export default class HomeScreen extends React.Component {
         }
     }
 _keyExtractor = (item, index) => item.cat_ID;
-  static navigationOptions = {
+  /*static navigationOptions = {
       header: <Header />
-  };
+  };*/
 
   render() {
     return (
@@ -52,7 +52,6 @@ _keyExtractor = (item, index) => item.cat_ID;
           style={{
               flex: 1
           }}>
-
       <FlatList
         horizontal={true}
         showsHorizontalScrollIndicator={false}

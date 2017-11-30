@@ -1,14 +1,17 @@
 import React from 'react';
-import { Platform, Text } from 'react-native';
+import { Platform, Text, Button } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { TabNavigator, TabBarBottom } from 'react-navigation';
 
 import Colors from '../constants/Colors';
 
 import HomeScreen from '../screens/HomeScreen';
+import AboutUs from '../screens/AboutUs';
 import Categories from '../screens/Categories';
 import MyLibrary from '../screens/MyLibrary';
 import Stores from '../screens/Stores';
+
+import Header from '../components/Header';
 
 export default TabNavigator(
   {
@@ -27,7 +30,8 @@ export default TabNavigator(
   },
   {
     navigationOptions: ({ navigation }) => ({
-      tabBarIcon: ({ focused }) => {
+    header: <Header navigation={navigation} />,
+    tabBarIcon: ({ focused }) => {
         const { routeName } = navigation.state;
         let iconName;
         switch (routeName) {
@@ -56,7 +60,7 @@ export default TabNavigator(
             color={focused ? '#106234' : Colors.tabIconDefault}
           />
         );
-      },
+    },
 
       // Removing bottom tab labels as the DAMN client asked .. and leaving the old code coz he's gonna want it back again.
 
@@ -91,10 +95,10 @@ export default TabNavigator(
     tabBarPosition: 'bottom',
     animationEnabled: true,
     swipeEnabled: true,
-    tabBarOptions: {
-        style: {
-            height: 57
-        }
-    }
+    // tabBarOptions: {
+    //     style: {
+    //         height: 57
+    //     }
+    // }
   }
 );
