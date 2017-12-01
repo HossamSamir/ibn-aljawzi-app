@@ -36,9 +36,9 @@ export default class Header extends React.Component {
             <View style={{ flex: 3, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginRight: 15 }}>
                 <TextInput
                     underlineColorAndroid='transparent'
-                    placeholder='seacrh'
+                    placeholder='Search'
                     placeholderTextColor='rgba(16, 98, 52, 0.5803921568627451)'
-                    style={{ flex: 1, backgroundColor: 'white', borderRadius: 10, fontSize: 18, color: '#106234', padding: 1,  paddingLeft: 20, paddingRight: 35 }}
+                    style={{ flex: 1, backgroundColor: 'white', borderRadius: 13, fontSize: 18, color: '#106234', padding: 1,  paddingLeft: 17, paddingRight: 35 }}
                 />
                 <Ionicons
                   name='ios-search-outline'
