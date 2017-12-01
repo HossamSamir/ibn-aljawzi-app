@@ -3,7 +3,7 @@ import { KeyboardAvoidingView, TextInput, Button, View, Text } from "react-nativ
 
 export default class Menu extends React.Component {
     static navigationOptions = {
-        title: "Feedback"
+        title: "Contact us"
     };
 
     render() {
