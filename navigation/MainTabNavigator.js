@@ -9,6 +9,7 @@ import HomeScreen from '../screens/HomeScreen';
 import Categories from '../screens/Categories';
 import MyLibrary from '../screens/MyLibrary';
 import Stores from '../screens/Stores';
+import MenuNavigation from './MenuNavigation';
 
 export default TabNavigator(
   {
@@ -23,6 +24,9 @@ export default TabNavigator(
     },
     "الفروع": {
       screen: Stores,
+    },
+    "المزيد": {
+      screen: MenuNavigation,
     },
   },
   {
@@ -47,6 +51,10 @@ export default TabNavigator(
         case 'الفروع':
             iconName =
               Platform.OS === 'ios' ? `ios-map${focused ? '' : '-outline'}` : 'md-map';
+            break;
+        case 'المزيد':
+            iconName =
+              Platform.OS === 'ios' ? `ios-more${focused ? '' : '-outline'}` : 'md-more';
             break;
         }
         return (
@@ -91,10 +99,10 @@ export default TabNavigator(
     tabBarPosition: 'bottom',
     animationEnabled: true,
     swipeEnabled: true,
-    tabBarOptions: {
+    /*tabBarOptions: {
         style: {
             height: 57
         }
-    }
+    }*/
   }
 );

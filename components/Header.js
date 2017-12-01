@@ -12,17 +12,7 @@ export default class Header extends React.Component {
   render() {
     return (
         <View style={{ flex: .1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',  backgroundColor: '#106234', paddingTop: Platform.OS == 'ios' ? 20 : 0, paddingVertical: 0, paddingHorizontal: 10, }}>
-            <View style={{ flex: .5, marginLeft: -10, paddingRight: 60}}>
-            <Image
-              style={{
-                  resizeMode: 'contain',
-                  width: '100%',
-                  height: '100%',
-              }}
-              source={require('../assets/images/menu.png')}
-            />
-            </View>
-            <View style={{ flex: .5, paddingRight: 10}}>
+            <View style={{ flex: .5, marginLeft: 0, paddingRight: 60}}>
             <Image
               style={{
                   resizeMode: 'contain',
@@ -31,8 +21,8 @@ export default class Header extends React.Component {
               }}
               source={require('../assets/images/logo.png')}
             />
-
             </View>
+
             <View style={{ flex: 3, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginRight: 15 }}>
                 <TextInput
                     underlineColorAndroid='transparent'
