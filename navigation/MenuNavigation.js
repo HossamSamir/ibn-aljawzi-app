@@ -4,6 +4,7 @@ import { StackNavigator } from 'react-navigation';
 import Feedback from '../screens/menu/Feedback';
 import AboutUs from '../screens/menu/AboutUs';
 import Settings from '../screens/menu/Settings';
+import Orders from '../screens/menu/Orders';
 import ListAll from '../screens/menu/ListAll';
 
 const MenuNavigation = StackNavigator (
@@ -12,6 +13,7 @@ const MenuNavigation = StackNavigator (
         AboutUs: { screen: AboutUs },
         Feedback: { screen: Feedback },
         Settings: { screen: Settings },
+        Orders: { screen: Orders },
     },
     {
         initialRouteName: 'ListAll',
