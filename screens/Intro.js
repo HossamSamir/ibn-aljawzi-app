@@ -13,13 +13,14 @@ import { Ionicons } from '@expo/vector-icons';
 
 import Swiper from 'react-native-swiper';
 
+import { NavigationActions } from 'react-navigation'
+
 export default class HomeScreen extends React.Component {
 
     static navigationOptions = {
-        header: null
+        header: null,
+        headerLeft: null
     }
-
-
 
   render() {
     return (
@@ -33,7 +34,12 @@ export default class HomeScreen extends React.Component {
             }
             prevButton={
                 <TouchableOpacity onPress={ () => {
-                  this.props.navigation.navigate('Main', {})
+                    this.props.navigation.dispatch(NavigationActions.reset({
+                      index: 0,
+                      actions: [
+                        NavigationActions.navigate({ routeName: 'Main' })
+                      ]
+                    }))
                 }}>
                     <Text style={{ color: '#0366d6' }}>Skip</Text>
                 </TouchableOpacity>
@@ -67,7 +73,12 @@ export default class HomeScreen extends React.Component {
                     source={require('../assets/images/5.jpg')}
                     style={{ width: '100%', height: '100%', resizeMode: 'contain' }} />
                 <TouchableOpacity style={{ position: 'absolute', right: 0, bottom: 10 }} onPress={ () => {
-                  this.props.navigation.navigate('Main', {})
+                    this.props.navigation.dispatch(NavigationActions.reset({
+                      index: 0,
+                      actions: [
+                        NavigationActions.navigate({ routeName: 'Main' })
+                      ]
+                    }))
                 }}>
                     <Text style={{ backgroundColor: '#106234', color: 'white', padding: 10, marginRight: 10, fontWeight: 'bold', borderRadius: 10 }}>Get Started</Text>
                 </TouchableOpacity>
