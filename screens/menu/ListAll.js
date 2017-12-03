@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import Header from '../../components/Header';
 
-export default class Menu extends React.Component {
+export default class ListAll extends React.Component {
     static navigationOptions = {
         title: "More options",
         header: <Header />
@@ -18,6 +18,7 @@ export default class Menu extends React.Component {
                       resizeMode: 'cover',
                       width: '100%',
                       height: '40%',
+                      marginBottom: 11
                   }}
                   source={require('../../assets/images/menu-bg.jpg')}/>
 

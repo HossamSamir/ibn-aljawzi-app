@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Picker, StyleSheet, Text } from "react-native";
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
-export default class Menu extends React.Component {
+export default class Settings extends React.Component {
 
     constructor(props) {
         super(props);
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     },
     captionText: {
         color: '#111111',
-        fontSize: 22,
+        fontSize: 18,
         fontWeight: 'bold'
     },
     picker: {
