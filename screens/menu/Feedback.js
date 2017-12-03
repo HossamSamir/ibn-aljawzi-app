@@ -1,5 +1,6 @@
 import React from 'react';
-import { KeyboardAvoidingView, TextInput, Button, View, Text } from "react-native";
+import { KeyboardAvoidingView, TextInput, View, Text } from "react-native";
+import { Button } from "react-native-elements";
 
 export default class Feedback extends React.Component {
     static navigationOptions = {
@@ -25,10 +26,17 @@ export default class Feedback extends React.Component {
                         style={{ textAlignVertical: 'top', width: '83%', height: '50%', maxHeight: '75%', color: 'black', backgroundColor: 'white', borderRadius: 14, fontSize: 18,
                              paddingTop: 5, paddingBottom: 5, paddingRight: 7, paddingLeft: 7, marginBottom: 16 }}/>
 
-                    <Button
-                            onPress={() => this.props.navigation.navigate("NONE")}
-                            color='#106234'
-                            title="Send" />
+                    <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', width: '100%'}}>
+                        <Button
+                                onPress={() => this.props.navigation.navigate("NONE")}
+                                color='white'
+                                backgroundColor='#106234'
+                                containerViewStyle={{borderRadius:20}}
+                                borderRadius={20}
+                                fontWeight='bold'
+                                buttonStyle={{width: '100%', padding: 9}}
+                                title="Send" />
+                    </View>
 
                     </KeyboardAvoidingView>
 
