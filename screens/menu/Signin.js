@@ -1,30 +1,21 @@
 import React from 'react';
-import { AsyncStorage, StyleSheet, TextInput, View, Text, Image } from "react-native";
+import { AsyncStorage, ActivityIndicator, StyleSheet, TextInput, View, Text, Image } from "react-native";
 import { Button } from "react-native-elements";
 import { Ionicons } from '@expo/vector-icons';
 
 import { NavigationActions } from 'react-navigation'
 
 export default class Signin extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
             // not logged in
-            'login': '0'
+            'login': '1'
         }
-    }
 
-    setLoginStatus = (value) => {
-        AsyncStorage.setItem('login', value);
-        this.setState({ 'login': value });
-    }
-
-    componentDidMount = () => {
         AsyncStorage.getItem('login').then(
             (value) => {
-                // not necessary anyway
-                //this.setState({ 'login': value })
+                this.setState({ 'login': value })
 
                 if(value == '1')
                 {
@@ -37,7 +28,12 @@ export default class Signin extends React.Component {
                 }
             }
         );
-    };
+    }
+
+    setLoginStatus = (value) => {
+        AsyncStorage.setItem('login', value);
+        this.setState({ 'login': value });
+    }
 
     static navigationOptions = {
         title: "Sign in"
@@ -46,7 +42,11 @@ export default class Signin extends React.Component {
     render() {
         if(this.state.login == '1')
         {
-            return null;
+            return (
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', padding: 10 }}>
+                    <ActivityIndicator size="large" color="#106234" />
+                </View>
+            );
         }
         else
         {
