@@ -47,7 +47,7 @@ _keyExtractor = (item, index) => item.id;
                       <TouchableOpacity onPress={ () => {
                         this.props.navigation.navigate('Book', {})
                       }}>
-                          <OneBookCard addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+                          <OneBookCard id={item.id} addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
                       </TouchableOpacity>
                   </View>
               )} />

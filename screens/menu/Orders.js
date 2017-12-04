@@ -69,15 +69,6 @@ export default class Orders extends React.Component {
         }
     };
 
-    /*GetTableData = () => {
-        var arr = [], subarr = [];
-        this.state.orders.forEach(function(order) {
-            var subarr = [order.name, order.method, order.status];
-            arr.push(subarr);
-        });
-        return arr;
-    };*/
-
     static navigationOptions = {
         title: "My orders"
     };
