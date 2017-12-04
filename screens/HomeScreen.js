@@ -24,9 +24,9 @@ export default class HomeScreen extends React.Component {
             mainCats: [
                     {cat_ID: 0, cat_name: 'Top selling'},
                     {cat_ID: 1, cat_name: 'Trending'},
-                    {cat_ID: 2, cat_name: 'Top selling'},
-                    {cat_ID: 3, cat_name: 'Top selling'},
-                    {cat_ID: 4, cat_name: 'Top selling'},
+                    {cat_ID: 2, cat_name: 'Soulful'},
+                    {cat_ID: 3, cat_name: 'History'},
+                    {cat_ID: 4, cat_name: 'Entertainment'},
                 ],
             recommended: [
                     {cat_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/1.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
