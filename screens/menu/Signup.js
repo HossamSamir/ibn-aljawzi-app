@@ -6,37 +6,45 @@ import { Ionicons } from '@expo/vector-icons';
 import { NavigationActions } from 'react-navigation'
 
 export default class Signup extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            // not logged in
-            'login': '1'
-        }
+    setLoginStatus = (value) => {
+        AsyncStorage.setItem('login', value);
+        this.setState({ 'login': value });
+    }
 
+    navigateToHomeOrIntro = () => {
         AsyncStorage.getItem('login').then(
             (value) => {
                 this.setState({ 'login': value })
 
                 if(value == '1')
                 {
-                    this.props.navigation.dispatch(NavigationActions.reset({
-                      index: 0,
-                      actions: [
-                        NavigationActions.navigate({ routeName: 'Intro' })
-                      ]
-                  }));
+                    AsyncStorage.getItem('seenIntro').then(
+                        (value2) => {
+                            var navigateTo = (value2 == '1') ? ('Main') : ('Intro');
+                            this.props.navigation.dispatch(NavigationActions.reset({
+                              index: 0,
+                              actions: [
+                                NavigationActions.navigate({ routeName: navigateTo })
+                              ]
+                            }));
+                        }
+                    );
                 }
             }
         );
-    }
+    };
 
-    setLoginStatus = (value) => {
-        AsyncStorage.setItem('login', value);
-        this.setState({ 'login': value });
+    constructor(props) {
+        super(props);
+        this.state = {
+            'login': '1'
+        }
+
+        this.navigateToHomeOrIntro();
     }
 
     static navigationOptions = {
-        title: "Sign up"
+        header: null
     };
 
     render() {
@@ -122,14 +130,7 @@ export default class Signup extends React.Component {
                             <Button
                                 onPress={() => {
                                     this.setLoginStatus('1');
-
-                                    // navigate to intro
-                                    this.props.navigation.dispatch(NavigationActions.reset({
-                                      index: 0,
-                                      actions: [
-                                        NavigationActions.navigate({ routeName: 'Intro' })
-                                      ]
-                                  }))
+                                    this.navigateToHomeOrIntro();
                                 }}
                                 color='white'
                                 backgroundColor='#106234'
