@@ -22,21 +22,21 @@ export default class Category extends React.Component {
         super(props);
         this.state = {
             subCats: [
-                {cat_ID: 0, cat_name: 'Sub category 1'},
-                {cat_ID: 1, cat_name: 'Sub category 2'},
-                {cat_ID: 2, cat_name: 'Sub category 3'},
-                {cat_ID: 3, cat_name: 'Sub category 4'},
-                {cat_ID: 4, cat_name: 'Sub category 5'},
+                {id: 0, cat_name: 'Sub category 1'},
+                {id: 1, cat_name: 'Sub category 2'},
+                {id: 2, cat_name: 'Sub category 3'},
+                {id: 3, cat_name: 'Sub category 4'},
+                {id: 4, cat_name: 'Sub category 5'},
             ],
             recommended: [
-                {cat_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/1.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
-                {cat_ID: 1, book_name: 'Book name', book_photo: require('../assets/images/temp_books/2.jpeg'),  author_name: "Ahmed Hassan", author_ID: 1},
-                {cat_ID: 2, book_name: 'Book name', book_photo: require('../assets/images/temp_books/3.jpeg'),  author_name: "Ahmed Hassan", author_ID: 2},
-                {cat_ID: 3, book_name: 'Book name', book_photo: require('../assets/images/temp_books/4.jpeg'),  author_name: "Ahmed Hassan", author_ID: 3},
+                {id: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/1.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                {id: 1, book_name: 'Book name', book_photo: require('../assets/images/temp_books/2.jpeg'),  author_name: "Ahmed Hassan", author_ID: 1},
+                {id: 2, book_name: 'Book name', book_photo: require('../assets/images/temp_books/3.jpeg'),  author_name: "Ahmed Hassan", author_ID: 2},
+                {id: 3, book_name: 'Book name', book_photo: require('../assets/images/temp_books/4.jpeg'),  author_name: "Ahmed Hassan", author_ID: 3},
             ],
         }
     }
-_keyExtractor = (item, index) => item.cat_ID;
+_keyExtractor = (item, index) => item.id;
 /*static navigationOptions = {
     header: <Header />
 };*/
