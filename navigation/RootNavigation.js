@@ -10,10 +10,11 @@ import Book from '../screens/Book';
 import Payment from '../screens/Payment';
 import Category from '../screens/Category';
 import subCategory from '../screens/subCategory';
-
 import Signup from '../screens/menu/Signup';
 import Signin from '../screens/menu/Signin';
+import SearchResult from '../screens/SearchResult';
 
+import Header from '../components/Header';
 
 const RootStackNavigator = StackNavigator(
   {
@@ -25,6 +26,7 @@ const RootStackNavigator = StackNavigator(
       Main: {
           screen: MainTabNavigator,
       },
+      SearchResult: { screen: SearchResult },
       Book: {
         screen: Book,
       },
@@ -39,7 +41,8 @@ const RootStackNavigator = StackNavigator(
       },
   },
   {
-    navigationOptions: () => ({
+    navigationOptions: ({ navigation }) => ({
+        header: <Header nav={navigation} />,
       headerTitleStyle: {
         fontWeight: 'normal',
       },

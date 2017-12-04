@@ -11,6 +11,8 @@ import MyLibrary from '../screens/MyLibrary';
 import Stores from '../screens/Stores';
 import MenuNavigation from './MenuNavigation';
 
+import Header from '../components/Header';
+
 export default TabNavigator(
   {
     "الرئيسيه": {
@@ -31,6 +33,7 @@ export default TabNavigator(
   },
   {
     navigationOptions: ({ navigation }) => ({
+        header: <Header nav={navigation} />,
       tabBarIcon: ({ focused }) => {
         const { routeName } = navigation.state;
         let iconName;

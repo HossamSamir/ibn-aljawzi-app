@@ -9,6 +9,20 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 
 export default class Header extends React.Component {
+    constructor(props){
+        super(props)
+
+        this.state = {
+          searchText: ''
+        }
+    }
+
+    doSearch = () => {
+        if(this.state.searchText !== '')
+            this.props.nav.navigate("SearchResult", {searchingFor: this.state.searchText});
+    };
+
+
   render() {
     return (
         <View style={{ flex: .1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',  backgroundColor: '#106234', paddingTop: Platform.OS == 'ios' ? 20 : 0, paddingVertical: 0, paddingHorizontal: 10, }}>
@@ -29,10 +43,13 @@ export default class Header extends React.Component {
                     placeholder='Search'
                     placeholderTextColor='rgba(16, 98, 52, 0.5803921568627451)'
                     style={{ flex: 1, backgroundColor: 'white', borderRadius: 13, fontSize: 18, color: '#106234', padding: 1,  paddingLeft: 17, paddingRight: 35 }}
+                    onChangeText={(text) => this.setState({searchText:text})}
+                    onSubmitEditing={(event) => this.doSearch() }
                 />
                 <Ionicons
+                    onPress={ () => this.doSearch() }
                   name='ios-search-outline'
-                  size={23}
+                  size={25}
                   color='rgba(16, 98, 52, 0.5803921568627451)'
                   style={{ marginLeft: -30, backgroundColor: 'transparent' }}
                 />

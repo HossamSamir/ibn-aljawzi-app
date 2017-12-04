@@ -45,9 +45,9 @@ export default class BookCard extends React.Component {
     }
 _keyExtractor = (item, index) => item.Book_ID;
 _keyExtractor2 = (item, index) => item.comment_ID;
-static navigationOptions = {
+/*static navigationOptions = {
     header: <Header />
-};
+};*/
 
   render() {
     return (

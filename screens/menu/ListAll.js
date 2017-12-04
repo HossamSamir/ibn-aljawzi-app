@@ -2,12 +2,9 @@ import React from 'react';
 import { FlatList, TouchableOpacity, View, Text, Image } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
-import Header from '../../components/Header';
-
 export default class ListAll extends React.Component {
     static navigationOptions = {
         title: "More options",
-        header: <Header />
     };
 
     render() {

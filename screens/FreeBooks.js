@@ -15,9 +15,9 @@ import Header from '../components/Header';
 
 export default class FreeBooks extends React.Component {
 
-  static navigationOptions = {
-      header: <Header />
-  };
+    /*static navigationOptions = {
+        header: <Header />
+    };*/
 
   render() {
     return (

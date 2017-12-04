@@ -7,6 +7,8 @@ import Settings from '../screens/menu/Settings';
 import Orders from '../screens/menu/Orders';
 import ListAll from '../screens/menu/ListAll';
 
+import Header from '../components/Header';
+
 const MenuNavigation = StackNavigator (
     {
         ListAll: { screen: ListAll },
@@ -18,6 +20,9 @@ const MenuNavigation = StackNavigator (
     {
         initialRouteName: 'ListAll',
         headerMode: 'none',
+        navigationOptions: ({ navigation }) => ({
+            header: <Header nav={navigation} />,
+        })
     }
 );
 

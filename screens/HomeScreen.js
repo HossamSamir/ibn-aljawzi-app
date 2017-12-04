@@ -40,9 +40,11 @@ export default class HomeScreen extends React.Component {
         }
     }
 _keyExtractor = (item, index) => item.cat_ID;
-  static navigationOptions = {
+
+  /*static navigationOptions = {
       header: <Header />
-  };
+  };*/
+  //navigationOptions = (navigation) => {header: <Header nav={navigation} />};
 
   render() {
     return (

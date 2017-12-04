@@ -29,9 +29,9 @@ export default class Categories extends React.Component {
     }
     _keyExtractor = (item, index) => item.cat_ID;
 
-  static navigationOptions = {
-      header: <Header />
-  };
+    /*static navigationOptions = {
+        header: <Header />
+    };*/
 
   render() {
     return (

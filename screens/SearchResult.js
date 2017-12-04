@@ -18,7 +18,7 @@ export default class MyLibrary extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            recommended: [
+            result: [
                     {cat_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/1.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
                     {cat_ID: 1, book_name: 'Book name', book_photo: require('../assets/images/temp_books/2.jpeg'),  author_name: "Ahmed Hassan", author_ID: 1},
                     {cat_ID: 2, book_name: 'Book name', book_photo: require('../assets/images/temp_books/3.jpeg'),  author_name: "Ahmed Hassan", author_ID: 2},
@@ -33,17 +33,21 @@ export default class MyLibrary extends React.Component {
     }
     _keyExtractor = (item, index) => item.cat_ID;
 
-    /*static navigationOptions = {
-        header: <Header />
-    };*/
+  static navigationOptions = {
+      title: 'Search results'
+  };
 
   render() {
     return (
-          <View style={styles.container}>
-              <FlatList
+        <View style={styles.container}>
+            <Text style={{ color: '#333333', fontWeight: 'bold', padding: 9, backgroundColor: '#EEEEEE' }}>
+                Showing results for: <Text style={{ fontWeight: 'normal' }}>{this.props.navigation.state.params.searchingFor}</Text>
+            </Text>
+
+            <FlatList
                 style={{ flexDirection: 'column' }}
                 numColumns={3}
-                data = {this.state.recommended}
+                data = {this.state.result}
                 keyExtractor={this._keyExtractor}
                 renderItem = {({ item }) => (
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
@@ -54,7 +58,7 @@ export default class MyLibrary extends React.Component {
                         </TouchableOpacity>
                     </View>
                 )} />
-          </View>
+        </View>
     );
   }
 }
