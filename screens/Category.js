@@ -28,7 +28,7 @@ export default class Category extends React.Component {
                 {id: 3, cat_name: 'Sub category 4'},
                 {id: 4, cat_name: 'Sub category 5'},
             ],
-            recommended: [
+            books: [
                 {id: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/1.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
                 {id: 1, book_name: 'Book name', book_photo: require('../assets/images/temp_books/2.jpeg'),  author_name: "Ahmed Hassan", author_ID: 1},
                 {id: 2, book_name: 'Book name', book_photo: require('../assets/images/temp_books/3.jpeg'),  author_name: "Ahmed Hassan", author_ID: 2},
@@ -62,7 +62,7 @@ _keyExtractor = (item, index) => item.id;
         <FlatList
           style={{ flexDirection: 'column' }}
           numColumns={3}
-          data = {this.state.recommended}
+          data = {this.state.books}
           keyExtractor={this._keyExtractor}
           renderItem = {({ item }) => (
               <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
