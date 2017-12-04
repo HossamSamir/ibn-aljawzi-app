@@ -11,8 +11,14 @@ import Payment from '../screens/Payment';
 import Category from '../screens/Category';
 import subCategory from '../screens/subCategory';
 
+import Signup from '../screens/menu/Signup';
+import Signin from '../screens/menu/Signin';
+
+
 const RootStackNavigator = StackNavigator(
   {
+      Signin: { screen: Signin },
+      Signup: { screen: Signup },
       Intro: {
           screen: Intro,
       },
