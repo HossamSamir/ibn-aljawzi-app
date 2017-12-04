@@ -21,7 +21,7 @@ export default class subCategory extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-                recommended: [
+                booksOfSubCat: [
                         {cat_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/1.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
                         {cat_ID: 1, book_name: 'Book name', book_photo: require('../assets/images/temp_books/2.jpeg'),  author_name: "Ahmed Hassan", author_ID: 1},
                         {cat_ID: 2, book_name: 'Book name', book_photo: require('../assets/images/temp_books/3.jpeg'),  author_name: "Ahmed Hassan", author_ID: 2},
@@ -36,37 +36,22 @@ _keyExtractor = (item, index) => item.cat_ID;
 
   render() {
     return (
-      <ScrollView style={styles.container}>
-
-        <FlatList
-          style={{ flexDirection: 'column' }}
-          data = {this.state.recommended}
-          keyExtractor={this._keyExtractor}
-          renderItem = {({ item }) => (
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-
-              <TouchableOpacity onPress={ () => {
-                this.props.navigation.navigate('Book', {})
-              }}>
-                  <OneBookCard addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
-              </TouchableOpacity>
-
-              <TouchableOpacity onPress={ () => {
-                this.props.navigation.navigate('Book', {})
-              }}>
-                  <OneBookCard addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
-              </TouchableOpacity>
-
-              <TouchableOpacity onPress={ () => {
-                this.props.navigation.navigate('Book', {})
-              }}>
-                  <OneBookCard addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
-              </TouchableOpacity>
-
-              </View>
-          )} />
-
-      </ScrollView>
+        <View style={styles.container}>
+            <FlatList
+              style={{ flexDirection: 'column' }}
+              numColumns={3}
+              data = {this.state.booksOfSubCat}
+              keyExtractor={this._keyExtractor}
+              renderItem = {({ item }) => (
+                  <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                      <TouchableOpacity onPress={ () => {
+                        this.props.navigation.navigate('Book', {})
+                      }}>
+                          <OneBookCard addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+                      </TouchableOpacity>
+                  </View>
+              )} />
+        </View>
     );
   }
 }
