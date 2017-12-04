@@ -28,18 +28,72 @@ export default class HomeScreen extends React.Component {
                 {cat_ID: 3, cat_name: 'History'},
                 {cat_ID: 4, cat_name: 'Entertainment'},
             ],
-            recommended: [
-                    {cat_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/1.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
-                    {cat_ID: 1, book_name: 'Book name', book_photo: require('../assets/images/temp_books/2.jpeg'),  author_name: "Ahmed Hassan", author_ID: 1},
-                    {cat_ID: 2, book_name: 'Book name', book_photo: require('../assets/images/temp_books/3.jpeg'),  author_name: "Ahmed Hassan", author_ID: 2},
-                    {cat_ID: 3, book_name: 'Book name', book_photo: require('../assets/images/temp_books/4.jpeg'),  author_name: "Ahmed Hassan", author_ID: 3},
-                    {cat_ID: 4, book_name: 'Book name', book_photo: require('../assets/images/temp_books/5.jpeg'),  author_name: "Ahmed Hassan", author_ID: 4},
-                    {cat_ID: 5, book_name: 'Book name', book_photo: require('../assets/images/temp_books/6.jpeg'),  author_name: "Ahmed Hassan", author_ID: 5},
-                    {cat_ID: 6, book_name: 'Book name', book_photo: require('../assets/images/temp_books/7.jpeg'),  author_name: "Ahmed Hassan", author_ID: 6},
+            booksInCats: [
+                {
+                    cat_ID: 0, cat_name: "Top selling",
+                    cat_books: [
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/1.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/2.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/3.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/4.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/6.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/2.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/7.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                    ]
+                },
+                {
+                    cat_ID: 1, cat_name: "Trending",
+                    cat_books: [
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/4.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/1.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/3.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/3.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/6.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/6.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/1.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                    ]
+                },
+                {
+                    cat_ID: 2, cat_name: "Soulful",
+                    cat_books: [
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/3.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/2.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/5.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/5.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/6.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/1.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/7.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                    ]
+                },
+                {
+                    cat_ID: 3, cat_name: "History",
+                    cat_books: [
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/1.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/2.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/3.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/4.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/6.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/2.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/7.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                    ]
+                },
+                {
+                    cat_ID: 4, cat_name: "Entertainment",
+                    cat_books: [
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/5.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/3.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/3.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/4.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/1.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/2.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                        {book_ID: 0, book_name: 'Book name', book_photo: require('../assets/images/temp_books/7.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
+                    ]
+                },
                 ],
         }
     }
 _keyExtractor = (item, index) => item.cat_ID;
+_keyExtractor2 = (item, index) => item.book_ID;
 
   /*static navigationOptions = {
       header: <Header />
@@ -69,36 +123,34 @@ _keyExtractor = (item, index) => item.cat_ID;
             </TouchableOpacity>
         )} />
 
-        <Text style={{ marginLeft: 20, marginTop: 20, fontWeight: 'bold',  }}>RECOMMENDED FOR YOU</Text>
-
         <FlatList
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          style={{  }}
-          data = {this.state.recommended}
-          keyExtractor={this._keyExtractor}
-          renderItem = {({ item }) => (
-              <TouchableOpacity onPress={ () => {
-                this.props.navigation.navigate('Book', {})
-              }}>
-                <OneBookCard addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
-              </TouchableOpacity>
-          )} />
+            style={{ flexDirection: 'column' }}
+            data = {this.state.booksInCats}
+            keyExtractor={this._keyExtractor}
+            renderItem = {({ item }) => (
+            <View>
+                <Text style={{ marginLeft: 20, marginTop: 20, fontWeight: 'bold', color: '#555555', fontSize: 20 }}>{item.cat_name.toUpperCase()}</Text>
 
-        <Text style={{ marginLeft: 20, marginTop: 20, fontWeight: 'bold', }}>POPULAR BOOKS</Text>
+                <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'flex-end', marginRight: 15}} onPress={ () => {
+                  this.props.navigation.navigate('Category', {})
+                }}>
+                    <Text style={{ color: '#106234', backgroundColor: 'white', fontWeight: 'bold' }}>See more</Text>
+                </TouchableOpacity>
 
-        <FlatList
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          style={{  }}
-          data = {this.state.recommended}
-          keyExtractor={this._keyExtractor}
-          renderItem = {({ item }) => (
-              <TouchableOpacity onPress={ () => {
-                this.props.navigation.navigate('Book', {})
-              }}>
-                <OneBookCard addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
-              </TouchableOpacity>
+                <FlatList
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    style={{  }}
+                    data = {item.cat_books}
+                    keyExtractor={this._keyExtractor2}
+                    renderItem = {({ item }) => (
+                    <TouchableOpacity onPress={ () => {
+                      this.props.navigation.navigate('Book', {})
+                    }}>
+                      <OneBookCard addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+                    </TouchableOpacity>
+                )} />
+            </View>
           )} />
 
         </ImageBackground>
