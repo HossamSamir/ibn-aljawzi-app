@@ -42,6 +42,7 @@ export default class Header extends React.Component {
                     underlineColorAndroid='transparent'
                     placeholder='Search'
                     placeholderTextColor='rgba(16, 98, 52, 0.5803921568627451)'
+                    returnKeyType={"search"}
                     style={{ flex: 1, backgroundColor: 'white', borderRadius: 13, fontSize: 18, color: '#106234', padding: 1,  paddingLeft: 17, paddingRight: 35 }}
                     onChangeText={(text) => this.setState({searchText:text})}
                     onSubmitEditing={(event) => this.doSearch() }
