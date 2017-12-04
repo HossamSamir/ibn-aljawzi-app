@@ -128,28 +128,38 @@ _keyExtractor2 = (item, index) => item.book_ID;
             data = {this.state.booksInCats}
             keyExtractor={this._keyExtractor}
             renderItem = {({ item }) => (
-            <View>
-                <Text style={{ marginLeft: 20, marginTop: 20, fontWeight: 'bold', color: '#555555', fontSize: 20 }}>{item.cat_name.toUpperCase()}</Text>
+            <View style={{marginBottom:22}}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <Text style={{ marginLeft: 20, fontWeight: 'bold', color: '#555555', fontSize: 20 }}>
+                        {item.cat_name.toUpperCase()}
+                    </Text>
 
-                <TouchableOpacity style={{flexDirection: 'row', justifyContent: 'flex-end', marginRight: 15}} onPress={ () => {
-                  this.props.navigation.navigate('Category', {})
-                }}>
-                    <Text style={{ color: '#106234', backgroundColor: 'white', fontWeight: 'bold' }}>See more</Text>
-                </TouchableOpacity>
-
-                <FlatList
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                    style={{  }}
-                    data = {item.cat_books}
-                    keyExtractor={this._keyExtractor2}
-                    renderItem = {({ item }) => (
                     <TouchableOpacity onPress={ () => {
-                      this.props.navigation.navigate('Book', {})
+                      this.props.navigation.navigate('Category', {})
                     }}>
-                      <OneBookCard addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+                        <Ionicons
+                          name='ios-arrow-dropright-circle-outline'
+                          size={24}
+                          color='#106234'
+                          style={{marginLeft:10, padding:0, backgroundColor: 'transparent',  }}/>
                     </TouchableOpacity>
-                )} />
+                </View>
+
+                <View>
+                    <FlatList
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        style={{  }}
+                        data = {item.cat_books}
+                        keyExtractor={this._keyExtractor2}
+                        renderItem = {({ item }) => (
+                            <TouchableOpacity onPress={ () => {
+                              this.props.navigation.navigate('Book', {})
+                            }}>
+                              <OneBookCard addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+                            </TouchableOpacity>
+                    )} />
+                </View>
             </View>
           )} />
 
