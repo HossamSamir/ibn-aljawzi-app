@@ -13,7 +13,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 
 import Header from '../components/Header';
-import MyBookCard from '../components/MyBookCard';
+import OneBookCard from '../components/OneBookCard';
 
 export default class Categories extends React.Component {
     constructor(props) {

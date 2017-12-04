@@ -12,7 +12,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 
 import Header from '../components/Header';
-import MyBookCard from '../components/MyBookCard';
+import OneBookCard from '../components/OneBookCard';
 
 export default class MyLibrary extends React.Component {
     constructor(props) {
@@ -50,7 +50,7 @@ export default class MyLibrary extends React.Component {
                         <TouchableOpacity onPress={ () => {
                           this.props.navigation.navigate('Book', {})
                         }}>
-                            <MyBookCard book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+                            <OneBookCard addButton={0} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
                         </TouchableOpacity>
                     </View>
                 )} />

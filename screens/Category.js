@@ -14,7 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Rating } from 'react-native-elements';
 
 import Header from '../components/Header';
-import MyBookCard from '../components/MyBookCard';
+import OneBookCard from '../components/OneBookCard';
 
 export default class Category extends React.Component {
 
@@ -69,19 +69,19 @@ _keyExtractor = (item, index) => item.cat_ID;
               <TouchableOpacity onPress={ () => {
                 this.props.navigation.navigate('Book', {})
               }}>
-                  <MyBookCard book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+                  <OneBookCard addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
               </TouchableOpacity>
 
               <TouchableOpacity onPress={ () => {
                 this.props.navigation.navigate('Book', {})
               }}>
-                  <MyBookCard book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+                  <OneBookCard addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
               </TouchableOpacity>
 
               <TouchableOpacity onPress={ () => {
                 this.props.navigation.navigate('Book', {})
               }}>
-                  <MyBookCard book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+                  <OneBookCard addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
               </TouchableOpacity>
 
               </View>

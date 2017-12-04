@@ -14,7 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Rating } from 'react-native-elements';
 
 import Header from '../components/Header';
-import BookCard from '../components/BookCard';
+import OneBookCard from '../components/OneBookCard';
 
 export default class HomeScreen extends React.Component {
 
@@ -81,7 +81,7 @@ _keyExtractor = (item, index) => item.cat_ID;
               <TouchableOpacity onPress={ () => {
                 this.props.navigation.navigate('Book', {})
               }}>
-                <BookCard book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+                <OneBookCard addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
               </TouchableOpacity>
           )} />
 
@@ -97,7 +97,7 @@ _keyExtractor = (item, index) => item.cat_ID;
               <TouchableOpacity onPress={ () => {
                 this.props.navigation.navigate('Book', {})
               }}>
-                <BookCard book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+                <OneBookCard addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
               </TouchableOpacity>
           )} />
 
