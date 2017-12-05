@@ -38,7 +38,7 @@ export default class Categories extends React.Component {
               keyExtractor={this._keyExtractor}
               renderItem = {({ item }) => (
                   <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginVertical: 13, marginHorizontal: 10 }}>
-                      <TouchableOpacity onPress={ () => {this.props.navigation.navigate('Category', {main_cat_id: item.cat_ID})}}
+                      <TouchableOpacity onPress={ () => {this.props.navigation.navigate('Category', {main_cat_id: item.cat_ID, cat_name: item.cat_name})}}
                         style={{ flex: 1, flexDirection: 'row', backgroundColor: '#106234', paddingVertical: 12, paddingHorizontal: 10,  borderRadius: 15, alignItems: 'center', justifyContent: 'center' }}>
                           <Text style={{ color: 'white', backgroundColor:'transparent', fontSize: 13, fontWeight: 'bold' }}>{item.cat_name.toUpperCase()}</Text>
                       </TouchableOpacity>

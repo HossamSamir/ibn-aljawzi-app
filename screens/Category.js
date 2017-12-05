@@ -55,11 +55,15 @@ _keyExtractor = (item, index) => item.id;
         keyExtractor={this._keyExtractor}
         renderItem = {({ item }) => (
             <TouchableOpacity onPress={ () => {
-              this.props.navigation.navigate('subCategory', {sub_cat_id: item.id})
+              this.props.navigation.navigate('subCategory', {sub_cat_id: item.id, sub_cat_name: item.cat_name})
             }}>
                 <Text style={{ color: 'white', backgroundColor: '#106234', paddingVertical: 10, paddingHorizontal: 40, margin: 20, borderRadius: 18, fontSize: 12, fontWeight: 'bold' }}>{item.cat_name.toUpperCase()}</Text>
             </TouchableOpacity>
         )} />
+
+        <Text style={{ marginLeft: 12, fontWeight: 'bold', color: '#555555', fontSize: 20 }}>
+            {this.props.navigation.state.params.cat_name.toUpperCase()}
+        </Text>
 
         <FlatList
           style={{ flexDirection: 'column' }}
