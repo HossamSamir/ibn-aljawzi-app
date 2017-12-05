@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { AsyncStorage, ScrollView, Text, View, StyleSheet, Picker } from 'react-native';
+import { Platform, Dimensions, AsyncStorage, ScrollView, Text, View, StyleSheet } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import SelectInput from 'react-native-select-input-ios';
 
 import MenuBackButton from './MenuBackButton'
 
@@ -85,14 +86,20 @@ export default class App extends Component {
 
                           <Text style={styles.captionText}>Language</Text>
                     </View>
-
-                    <Picker
-                        style={styles.picker}
-                        selectedValue={this.state.language}
-                        onValueChange={(itemValue) => this.onLanguageChange(itemValue)}>
-                        <Picker.Item label="English" value={0} />
-                        <Picker.Item label="العربية" value={1} />
-                    </Picker>
+                    <View style={styles.pickerContainer}>
+                        <SelectInput
+                            buttonsTextColor='#104A25'
+                            buttonsBackgroundColor='#F5FAF7'
+                          value={this.state.language}
+                          submitKeyText='Change'
+                          options={[
+                              {value: 0, label: 'English'},
+                              {value: 1, label: 'العربية'}
+                          ]}
+                          onSubmitEditing={(itemValue) => this.onLanguageChange(itemValue)}
+                          style={styles.picker}
+                        />
+                    </View>
                 </View>
 
                 <View style={styles.innerContainer}>
@@ -105,15 +112,21 @@ export default class App extends Component {
 
                           <Text style={styles.captionText}>Font size</Text>
                     </View>
-
-                    <Picker
-                        style={styles.picker}
-                        selectedValue={this.state.font}
-                        onValueChange={(itemValue) => this.onFontChange(itemValue)}>
-                        <Picker.Item label="Large" value={2} />
-                        <Picker.Item label="Medium" value={1} />
-                        <Picker.Item label="Small" value={0} />
-                    </Picker>
+                    <View style={styles.pickerContainer}>
+                        <SelectInput
+                            buttonsTextColor='#104A25'
+                            buttonsBackgroundColor='#F5FAF7'
+                          value={this.state.font}
+                          submitKeyText='Change'
+                          options={[
+                              {value: 0, label: 'Small'},
+                              {value: 1, label: 'Medium'},
+                              {value: 2, label: 'Large'}
+                          ]}
+                          onSubmitEditing={(itemValue) => this.onFontChange(itemValue)}
+                          style={styles.picker}
+                        />
+                    </View>
                 </View>
 
                 <View style={styles.innerContainer}>
@@ -126,17 +139,22 @@ export default class App extends Component {
 
                           <Text style={styles.captionText}>Currency</Text>
                     </View>
-
-                    <Picker
-                        style={styles.picker}
-                        itemStyle={styles.pickerItem}
-                        selectedValue={this.state.currency}
-                        onValueChange={(itemValue) => this.onCurrencyChange(itemValue)}>
-                        <Picker.Item label="Saudi riyal" value={1} />
-                        <Picker.Item label="United States Dollar ($)" value={0} />
-                    </Picker>
+                    <View style={styles.pickerContainer}>
+                        <SelectInput
+                            buttonsTextColor='#104A25'
+                            buttonsBackgroundColor='#F5FAF7'
+                          value={this.state.currency}
+                          submitKeyText='Change'
+                          options={[
+                              {value: 0, label: 'United States Dollar ($)'},
+                              {value: 1, label: 'Saudi riyal'}
+                          ]}
+                          onSubmitEditing={(itemValue) => this.onCurrencyChange(itemValue)}
+                          style={styles.picker}
+                        />
+                    </View>
                 </View>
-            </ScrollView>
+              </ScrollView>
         );
     }
 }
@@ -147,14 +165,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        paddingTop: 21
+        width: Dimensions.get('window').width
     },
     innerContainer: {
         flex: 1,
         padding: 18
     },
     captionContainer: {
-        paddingTop: 10,
         flex: 1, flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'
     },
     captionText: {
@@ -162,13 +179,17 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold'
     },
-    picker: {
-        color: '#555555',
-        marginTop: 0,
-
+    pickerContainer: {
+        padding: 7,
+        flexDirection: 'row',
+        justifyContent: 'center'
     },
-    pickerItem: {
-
+    picker: {
+        paddingVertical: (Platform.OS === 'ios' ? 8 : 0),
+        borderRadius: 5,
+        borderWidth: 0.8,
+        borderColor: '#63BA83',
+        width: '70%'
     },
     icon: {
         fontWeight: 'bold',
