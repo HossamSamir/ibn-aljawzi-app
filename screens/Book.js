@@ -18,7 +18,7 @@ import { BlurView } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import Lightbox from 'react-native-lightbox';
 
-import Header from '../components/Header';
+//import Header from '../components/Header';
 
 // API: send this.props.navigation.state.params.book_ID to the server
 

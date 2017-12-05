@@ -13,7 +13,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { Rating } from 'react-native-elements';
 
-import Header from '../components/Header';
+//import Header from '../components/Header';
 import OneBookCard from '../components/OneBookCard';
 
 export default class HomeScreen extends React.Component {

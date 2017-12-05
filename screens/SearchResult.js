@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-import Header from '../components/Header';
 import OneBookCard from '../components/OneBookCard';
 
 // API: send this.props.navigation.state.params.searchingFor to the server and it should reply with this.state.result
