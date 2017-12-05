@@ -1,10 +1,9 @@
-import React from 'react';
-import { View, Picker, StyleSheet, Text } from "react-native";
+import React, { Component } from 'react';
+import { ScrollView, Text, View, StyleSheet, Picker } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
-export default class Settings extends React.Component {
-
-    constructor(props) {
+export default class App extends Component {
+  constructor(props) {
         super(props);
         this.state = {
             language: 0, // 0 = english, 1 = arabic
@@ -13,13 +12,9 @@ export default class Settings extends React.Component {
         }
     }
 
-    static navigationOptions = {
-        title: "Settings"
-    };
-
-    render() {
+  render() {
         return (
-            <View style={styles.container}>
+            <ScrollView contentContainerStyle={styles.container}>
                 <View style={styles.innerContainer}>
                     <View style={styles.captionContainer}>
                         <MaterialIcons
@@ -34,7 +29,7 @@ export default class Settings extends React.Component {
                     <Picker
                         style={styles.picker}
                         selectedValue={this.state.language}
-                        onValueChange={(itemValue, itemIndex) => this.setState({language: itemValue})}>
+                        onValueChange={(itemValue) => this.setState({language: itemValue})}>
                         <Picker.Item label="English" value={0} />
                         <Picker.Item label="العربية" value={1} />
                     </Picker>
@@ -54,7 +49,7 @@ export default class Settings extends React.Component {
                     <Picker
                         style={styles.picker}
                         selectedValue={this.state.font}
-                        onValueChange={(itemValue, itemIndex) => this.setState({font: itemValue})}>
+                        onValueChange={(itemValue) => this.setState({font: itemValue})}>
                         <Picker.Item label="Large" value={2} />
                         <Picker.Item label="Medium" value={1} />
                         <Picker.Item label="Small" value={0} />
@@ -76,30 +71,27 @@ export default class Settings extends React.Component {
                         style={styles.picker}
                         itemStyle={styles.pickerItem}
                         selectedValue={this.state.currency}
-                        onValueChange={(itemValue, itemIndex) => this.setState({currency: itemValue})}>
+                        onValueChange={(itemValue) => this.setState({currency: itemValue})}>
                         <Picker.Item label="Saudi riyal" value={1} />
                         <Picker.Item label="United States Dollar ($)" value={0} />
                     </Picker>
                 </View>
-            </View>
+            </ScrollView>
         );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-      flex:1,
+        flex:1,
         backgroundColor: 'white',
         flexDirection: 'column',
         justifyContent: 'flex-start',
-        alignItems: 'center',
-        paddingTop: 20
+        paddingTop: 21
     },
     innerContainer: {
         flex: 1,
-        padding: 20,
-        marginBottom: 20,
-        width: '100%'
+        padding: 18
     },
     captionContainer: {
         paddingTop: 10,
