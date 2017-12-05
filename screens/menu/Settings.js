@@ -74,6 +74,7 @@ export default class Settings extends React.Component {
 
                     <Picker
                         style={styles.picker}
+                        itemStyle={styles.pickerItem}
                         selectedValue={this.state.currency}
                         onValueChange={(itemValue, itemIndex) => this.setState({currency: itemValue})}>
                         <Picker.Item label="Saudi riyal" value={1} />
@@ -87,13 +88,18 @@ export default class Settings extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
+      flex:1,
+        backgroundColor: 'white',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
         paddingTop: 20
     },
     innerContainer: {
+        flex: 1,
         padding: 20,
         marginBottom: 20,
-        borderBottomColor: '#63BA83',
-        borderBottomWidth: 0.5,
+        width: '100%'
     },
     captionContainer: {
         paddingTop: 10,
@@ -106,7 +112,11 @@ const styles = StyleSheet.create({
     },
     picker: {
         color: '#555555',
-        marginTop: 10
+        marginTop: 0,
+
+    },
+    pickerItem: {
+
     },
     icon: {
         fontWeight: 'bold',
