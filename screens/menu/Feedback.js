@@ -2,6 +2,8 @@ import React from 'react';
 import { KeyboardAvoidingView, TextInput, View, Text } from "react-native";
 import { Button } from "react-native-elements";
 
+import MenuBackButton from './MenuBackButton'
+
 export default class Feedback extends React.Component {
     static navigationOptions = {
         title: "Contact us"
@@ -10,6 +12,8 @@ export default class Feedback extends React.Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
+                <MenuBackButton navigation={this.props.navigation} />
+
                 <KeyboardAvoidingView
                     behavior='padding'
                     style={{ width: '100%', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>

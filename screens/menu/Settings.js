@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { ScrollView, Text, View, StyleSheet, Picker } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
+import MenuBackButton from './MenuBackButton'
+
 export default class App extends Component {
   constructor(props) {
         super(props);
@@ -15,6 +17,8 @@ export default class App extends Component {
   render() {
         return (
             <ScrollView contentContainerStyle={styles.container}>
+                <MenuBackButton navigation={this.props.navigation} />
+
                 <View style={styles.innerContainer}>
                     <View style={styles.captionContainer}>
                         <MaterialIcons

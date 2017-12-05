@@ -1,6 +1,9 @@
 import React from 'react';
-import { Text, StyleSheet, View } from "react-native";
+import { Platform, TouchableOpacity, Text, StyleSheet, View } from "react-native";
 import { Table, Row, Rows} from 'react-native-table-component';
+import { Ionicons } from '@expo/vector-icons';
+
+import MenuBackButton from './MenuBackButton'
 
 export default class Orders extends React.Component {
     constructor(props) {
@@ -77,6 +80,8 @@ export default class Orders extends React.Component {
 
         return (
             <View style={{ backgroundColor: '#FCFFFD', height: '100%' }}>
+                <MenuBackButton navigation={this.props.navigation} />
+
                 <Text style={{ color: '#0E142A', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 18, margin: 12, marginTop: 20}}>My orders</Text>
                 <Table style={styles.table} borderStyle={{borderWidth: 0.5, borderColor: '#63BA83'}}>
                     <Row data={["Name", "Delivery type", "Status"]} style={styles.head} textStyle={styles.headText} flexArr={[2, 2, 1]}/>
