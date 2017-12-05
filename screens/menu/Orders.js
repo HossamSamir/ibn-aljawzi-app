@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from "react-native";
+import { Text, StyleSheet, View } from "react-native";
 import { Table, Row, Rows} from 'react-native-table-component';
 
 export default class Orders extends React.Component {
@@ -18,8 +18,8 @@ export default class Orders extends React.Component {
 
             */
             /*
-                NOTICE 1: send this as an array in an array, no objects here
-                NOTICE 2: FOR API LOOK AT ThIS
+                NOTICE 1: send this as arrays in an array, no objects here
+                NOTICE 2: FOR API LOOK AT THIS
                 SEND THE LAST 2 COLUMNS AS INTEGERS NOT STRINGS
                 WE WILL CONVERT TO STRING INSIDE THE APP (WITH GetMethodAsStr and GetStatusAsStr), NOT ON THE SERVER
                 NOTICE 3: DO NOT SEND ORDERS WITH STATUS = 2 (AKA ALREADY RECEIVED BY CUSTOMER)
@@ -76,7 +76,8 @@ export default class Orders extends React.Component {
     render() {
 
         return (
-            <View style={{ backgroundColor: 'white', height: '100%' }}>
+            <View style={{ backgroundColor: '#FCFFFD', height: '100%' }}>
+                <Text style={{ color: '#0E142A', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 18, margin: 12, marginTop: 20}}>My orders</Text>
                 <Table style={styles.table} borderStyle={{borderWidth: 0.5, borderColor: '#63BA83'}}>
                     <Row data={["Name", "Delivery type", "Status"]} style={styles.head} textStyle={styles.headText} flexArr={[2, 2, 1]}/>
                     <Rows data={this.state.orders} style={styles.row} textStyle={styles.text} flexArr={[2, 2, 1]}/>
@@ -91,5 +92,5 @@ const styles = StyleSheet.create({
     head: { height: 40, backgroundColor: '#B6E3C6' },
     headText: { textAlign: 'center', color: '#126330' },
     text: { textAlign: 'center', color: '#104A25' },
-    row: { height: 30 }
+    row: { height: 30, backgroundColor: '#F5FAF7' }
 });

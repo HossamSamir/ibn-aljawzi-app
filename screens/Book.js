@@ -11,7 +11,8 @@ import {
   Button,
   Alert,
   ListView,
-  TextInput
+  TextInput,
+  Dimensions
 } from 'react-native';
 import { BlurView } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
@@ -62,9 +63,17 @@ _keyExtractor2 = (item, index) => item.comment_ID;
               data = {this.state.screenshots}
               keyExtractor={this._keyExtractor}
               renderItem = {({ item }) => (
-                  <Lightbox didOpen={ () => console.log('asasfasfasfasf') }>
+                  <Lightbox
+                        renderContent={ () => {
+                            return (
+                                <Image source={item.book_photo}
+                                resizeMode='contain'
+                                style={{width: null, resizeMode: 'contain', height: Dimensions.get('window').height, borderRadius: 10,}} />
+                            );
+                        }}>
                       <Image source={item.book_photo}
-                      style={{width: 130, height: 130, margin: 20, borderRadius: 10,}} />
+                      resizeMode='contain'
+                      style={{width: 140, height: 140, margin: 20, borderRadius: 10,}} />
                   </Lightbox>
               )} />
               <View style={{  flexDirection: 'row', height: 150, margin: 20, }}>
@@ -94,15 +103,15 @@ _keyExtractor2 = (item, index) => item.comment_ID;
               <Text style={{ color: '#0E142A', backgroundColor: '#fff', fontWeight: 'bold', fontSize: 18, padding: 12, }}>Reviews</Text>
 
               <View style={{ width: '100%', flexDirection: 'row', padding: 12, backgroundColor: '#fff'}}>
-                <TextInput underlineColorAndroid='#858788' placeholderTextColor='#858788' placeholder='Add a comment...' style={{ flex: 1 }} />
-                <TouchableOpacity style={{ flex: .5, marginHorizontal: 30, borderRadius: 5, flexDirection: 'row', backgroundColor: '#E16626', alignItems: 'center', justifyContent: 'center' }}>
+                <TextInput underlineColorAndroid='transparent' placeholderTextColor='#858788' placeholder='Write a comment here...' style={{ flex: 1 }} />
+                <TouchableOpacity style={{ flex: .5, paddingVertical: 10, paddingHorizontal: 16, marginHorizontal: 30, borderRadius: 5, flexDirection: 'row', backgroundColor: '#E16626', alignItems: 'center', justifyContent: 'center' }}>
                     <Ionicons
                       name='ios-chatboxes-outline'
                       size={30}
                       color='white'
-                      style={{backgroundColor: 'transparent', paddingLeft: 10 }}
+                      style={{backgroundColor: 'transparent', marginRight: 8 }}
                     />
-                    <Text style={{ color: 'white', padding: 10 }}>Comment</Text>
+                    <Text style={{ color: 'white' }}>Comment</Text>
                 </TouchableOpacity>
               </View>
 
@@ -111,41 +120,9 @@ _keyExtractor2 = (item, index) => item.comment_ID;
                 data = {this.state.comments}
                 keyExtractor={this._keyExtractor2}
                 renderItem = {({ item }) => (
-                    <View style={{ marginVertical: 18, padding: 12 }}>
-                        <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={{ marginVertical: 18}}>
+                        <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
                         <Text style={{ backgroundColor: 'transparent', marginHorizontal: 12, fontWeight: 'bold', fontSize: 14, flex: .4 }}>{item.username}</Text>
-                        <View style={{ flexDirection: 'row', flex: 1 }}>
-                        <Ionicons
-                          name='ios-star'
-                          size={19}
-                          color='#EBD31C'
-                          style={{ marginHorizontal: 1, backgroundColor: 'transparent' }}
-                        />
-                        <Ionicons
-                          name='ios-star'
-                          size={19}
-                          color='#EBD31C'
-                          style={{marginHorizontal: 1, backgroundColor: 'transparent' }}
-                        />
-                        <Ionicons
-                          name='ios-star'
-                          size={19}
-                          color='#EBD31C'
-                          style={{marginHorizontal: 1, backgroundColor: 'transparent' }}
-                        />
-                        <Ionicons
-                          name='ios-star-half'
-                          size={19}
-                          color='#EBD31C'
-                          style={{marginHorizontal: 1, backgroundColor: 'transparent' }}
-                        />
-                        <Ionicons
-                          name='ios-star-outline'
-                          size={19}
-                          color='#EBD31C'
-                          style={{marginHorizontal: 1, backgroundColor: 'transparent' }}
-                        />
-                        </View>
                         </View>
                         <Text style={{ marginHorizontal: 12, paddingBottom: 12 }}>{ item.comment }</Text>
                     </View>
