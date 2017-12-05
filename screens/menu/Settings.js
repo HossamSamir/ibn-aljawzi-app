@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { ScrollView, Text, View, StyleSheet, Picker } from 'react-native';
+import { AsyncStorage, ScrollView, Text, View, StyleSheet, Picker } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 
 import MenuBackButton from './MenuBackButton'
+
+// API: load this.state.currency from database
+// API: when user changes currency, send the new value to database
 
 export default class App extends Component {
   constructor(props) {
@@ -13,6 +16,59 @@ export default class App extends Component {
             currency: 0 // 0 = dollar, 1 = Saudi riyal
         }
     }
+
+    componentDidMount() {
+        this.loadSettings();
+    }
+
+    readSettingFromStorage = (setting, callback) => {
+        AsyncStorage.getItem(setting).then(
+            (value) => {
+                callback(value);
+            }
+        );
+    };
+
+    loadSettings = () => {
+        var settingsArr = ['language', 'font', 'currency'];
+        settingsArr.map((setting, index) => {
+            this.readSettingFromStorage(setting, (value) => {
+                if(value !== null && value !== undefined)
+                {
+                    switch(index)
+                    {
+                        case 0:
+                            this.setState({ 'language': parseInt(value) })
+                            break;
+                        case 1:
+                            this.setState({ 'font': parseInt(value) })
+                            break;
+                        case 2:
+                            this.setState({ 'currency': parseInt(value) })
+                            break;
+                    }
+                }
+            });
+        });
+    };
+
+    onLanguageChange = (newValue) => {
+        AsyncStorage.setItem('language', String(newValue));
+        this.setState({language: newValue});
+
+    };
+
+    onCurrencyChange = (newValue) => {
+        AsyncStorage.setItem('currency', String(newValue));
+        this.setState({currency: newValue});
+
+    };
+
+    onFontChange = (newValue) => {
+        AsyncStorage.setItem('font', String(newValue));
+        this.setState({font: newValue});
+
+    };
 
   render() {
         return (
@@ -33,7 +89,7 @@ export default class App extends Component {
                     <Picker
                         style={styles.picker}
                         selectedValue={this.state.language}
-                        onValueChange={(itemValue) => this.setState({language: itemValue})}>
+                        onValueChange={(itemValue) => this.onLanguageChange(itemValue)}>
                         <Picker.Item label="English" value={0} />
                         <Picker.Item label="العربية" value={1} />
                     </Picker>
@@ -53,7 +109,7 @@ export default class App extends Component {
                     <Picker
                         style={styles.picker}
                         selectedValue={this.state.font}
-                        onValueChange={(itemValue) => this.setState({font: itemValue})}>
+                        onValueChange={(itemValue) => this.onFontChange(itemValue)}>
                         <Picker.Item label="Large" value={2} />
                         <Picker.Item label="Medium" value={1} />
                         <Picker.Item label="Small" value={0} />
@@ -75,7 +131,7 @@ export default class App extends Component {
                         style={styles.picker}
                         itemStyle={styles.pickerItem}
                         selectedValue={this.state.currency}
-                        onValueChange={(itemValue) => this.setState({currency: itemValue})}>
+                        onValueChange={(itemValue) => this.onCurrencyChange(itemValue)}>
                         <Picker.Item label="Saudi riyal" value={1} />
                         <Picker.Item label="United States Dollar ($)" value={0} />
                     </Picker>
