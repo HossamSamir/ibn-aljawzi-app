@@ -39,6 +39,10 @@ _keyExtractor = (item, index) => item.id;
   render() {
     return (
         <View style={styles.container}>
+            <Text style={{ marginLeft: 12, marginTop: 4, fontWeight: 'bold', color: '#555555', fontSize: 20 }}>
+                {this.props.navigation.state.params.sub_cat_name.toUpperCase()}
+            </Text>
+
             <FlatList
               style={{ flexDirection: 'column' }}
               numColumns={3}

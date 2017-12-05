@@ -45,11 +45,11 @@ export default TabNavigator(
                 : 'md-home';
             break;
           case 'الأقسام':
-            iconName = Platform.OS === 'ios' ? `ios-keypad${focused ? '' : '-outline'}` : 'md-keypad';
+            iconName = Platform.OS === 'ios' ? `ios-albums${focused ? '' : '-outline'}` : 'ios-albums';
             break;
         case 'مكتبتي':
             iconName =
-              Platform.OS === 'ios' ? `ios-book${focused ? '' : '-outline'}` : 'md-book';
+              Platform.OS === 'ios' ? `ios-star${focused ? '' : '-outline'}` : 'md-star';
             break;
         case 'الفروع':
             iconName =
