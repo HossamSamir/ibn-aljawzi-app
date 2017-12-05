@@ -78,13 +78,6 @@ export default TabNavigator(
       //   );
       // },
 
-      tabBarLabel: ({ focused }) => {
-        const { routeName } = navigation.state;
-        return (
-            <Text>{null}</Text>
-        );
-      },
-
       // ....................../´¯/)
       // ....................,/¯../
       // .................../..../
@@ -98,6 +91,7 @@ export default TabNavigator(
 
 
     }),
+    tabBarOptions: {showLabel:false},
     tabBarComponent: TabBarBottom,
     tabBarPosition: 'bottom',
     animationEnabled: true,
