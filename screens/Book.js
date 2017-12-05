@@ -20,6 +20,8 @@ import Lightbox from 'react-native-lightbox';
 
 import Header from '../components/Header';
 
+// API: send this.props.navigation.state.params.book_ID to the server
+
 export default class BookCard extends React.Component {
     constructor(props) {
         super(props);
@@ -34,13 +36,13 @@ export default class BookCard extends React.Component {
                     {Book_ID: 6, book_photo: require('../assets/images/temp_books/7.jpeg'),  author_name: "Ahmed Hassan", author_ID: 6},
                 ],
             comments: [
-                    {comment_ID: 0,  user_ID: 0, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....', rate: 4},
-                    {comment_ID: 1,  user_ID: 1, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....', rate: 4},
-                    {comment_ID: 2,  user_ID: 2, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....', rate: 4},
-                    {comment_ID: 3,  user_ID: 3, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....', rate: 4},
-                    {comment_ID: 4,  user_ID: 4, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....', rate: 4},
-                    {comment_ID: 5,  user_ID: 5, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....', rate: 4},
-                    {comment_ID: 6,  user_ID: 6, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....', rate: 4},
+                    {comment_ID: 0,  user_ID: 0, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
+                    {comment_ID: 1,  user_ID: 1, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
+                    {comment_ID: 2,  user_ID: 2, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
+                    {comment_ID: 3,  user_ID: 3, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
+                    {comment_ID: 4,  user_ID: 4, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
+                    {comment_ID: 5,  user_ID: 5, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
+                    {comment_ID: 6,  user_ID: 6, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
                 ],
         }
     }

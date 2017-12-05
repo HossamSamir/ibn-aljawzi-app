@@ -16,6 +16,8 @@ import { Rating } from 'react-native-elements';
 //import Header from '../components/Header';
 import OneBookCard from '../components/OneBookCard';
 
+// API: send this.props.navigation.state.params.main_cat_id to the server, get this.state.subCats and this.state.books of that main category
+
 export default class Category extends React.Component {
 
     constructor(props) {
@@ -53,7 +55,7 @@ _keyExtractor = (item, index) => item.id;
         keyExtractor={this._keyExtractor}
         renderItem = {({ item }) => (
             <TouchableOpacity onPress={ () => {
-              this.props.navigation.navigate('subCategory', {})
+              this.props.navigation.navigate('subCategory', {sub_cat_id: item.id})
             }}>
                 <Text style={{ color: 'white', backgroundColor: '#106234', paddingVertical: 10, paddingHorizontal: 40, margin: 20, borderRadius: 18, fontSize: 12, fontWeight: 'bold' }}>{item.cat_name.toUpperCase()}</Text>
             </TouchableOpacity>
@@ -67,7 +69,7 @@ _keyExtractor = (item, index) => item.id;
           renderItem = {({ item }) => (
               <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                   <TouchableOpacity onPress={ () => {
-                    this.props.navigation.navigate('Book', {})
+                    this.props.navigation.navigate('Book', {book_ID: item.id})
                   }}>
                       <OneBookCard id={item.id} addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
                   </TouchableOpacity>

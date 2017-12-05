@@ -117,7 +117,7 @@ _keyExtractor2 = (item, index) => item.book_ID;
         keyExtractor={this._keyExtractor}
         renderItem = {({ item }) => (
             <TouchableOpacity onPress={ () => {
-              this.props.navigation.navigate('Category', {})
+              this.props.navigation.navigate('Category', {main_cat_id: item.cat_ID})
             }}>
                 <Text style={{ color: 'white', backgroundColor: '#106234', paddingVertical: 10, paddingHorizontal: 40, margin: 20, borderRadius: 18, fontSize: 12, fontWeight: 'bold' }}>{item.cat_name.toUpperCase()}</Text>
             </TouchableOpacity>
@@ -135,7 +135,7 @@ _keyExtractor2 = (item, index) => item.book_ID;
                     </Text>
 
                     <TouchableOpacity onPress={ () => {
-                      this.props.navigation.navigate('Category', {})
+                      this.props.navigation.navigate('Category', {main_cat_id: item.cat_ID})
                     }}>
                         <Ionicons
                           name='ios-arrow-dropright-circle-outline'
@@ -154,7 +154,7 @@ _keyExtractor2 = (item, index) => item.book_ID;
                         keyExtractor={this._keyExtractor2}
                         renderItem = {({ item }) => (
                             <TouchableOpacity onPress={ () => {
-                              this.props.navigation.navigate('Book', {})
+                              this.props.navigation.navigate('Book', {book_ID: item.book_ID})
                             }}>
                               <OneBookCard id={item.book_ID} addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
                             </TouchableOpacity>

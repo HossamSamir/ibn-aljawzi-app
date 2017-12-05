@@ -48,7 +48,7 @@ export default class MyLibrary extends React.Component {
                 renderItem = {({ item }) => (
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                         <TouchableOpacity onPress={ () => {
-                          this.props.navigation.navigate('Book', {})
+                          this.props.navigation.navigate('Book', {book_ID: item.id})
                         }}>
                             <OneBookCard id={item.id} addButton={0} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
                         </TouchableOpacity>

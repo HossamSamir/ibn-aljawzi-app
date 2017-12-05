@@ -14,6 +14,8 @@ import { Ionicons } from '@expo/vector-icons';
 import Header from '../components/Header';
 import OneBookCard from '../components/OneBookCard';
 
+// API: send this.props.navigation.state.params.searchingFor to the server and it should reply with this.state.result
+
 export default class MyLibrary extends React.Component {
     constructor(props) {
         super(props);
@@ -52,7 +54,7 @@ export default class MyLibrary extends React.Component {
                 renderItem = {({ item }) => (
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                         <TouchableOpacity onPress={ () => {
-                          this.props.navigation.navigate('Book', {})
+                          this.props.navigation.navigate('Book', {book_ID: item.id})
                         }}>
                             <OneBookCard id={item.id} addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
                         </TouchableOpacity>
