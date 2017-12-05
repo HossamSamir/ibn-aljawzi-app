@@ -6,7 +6,6 @@ import {
   View,
   FlatList,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 
 //import Header from '../components/Header';
 
@@ -41,7 +40,7 @@ export default class Categories extends React.Component {
                   <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginVertical: 13, marginHorizontal: 10 }}>
                       <TouchableOpacity onPress={ () => {this.props.navigation.navigate('Category', {})}}
                         style={{ flex: 1, flexDirection: 'row', backgroundColor: '#106234', paddingVertical: 12, paddingHorizontal: 10,  borderRadius: 15, alignItems: 'center', justifyContent: 'center' }}>
-                          <Text style={{ color: 'white', borderRadius: 18, fontSize: 13, fontWeight: 'bold' }}>{item.cat_name.toUpperCase()}</Text>
+                          <Text style={{ color: 'white', backgroundColor:'transparent', fontSize: 13, fontWeight: 'bold' }}>{item.cat_name.toUpperCase()}</Text>
                       </TouchableOpacity>
                   </View>
               )} />
