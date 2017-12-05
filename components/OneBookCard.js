@@ -16,7 +16,7 @@ export default class OneBookCard extends React.Component {
         this.state = {
             added: 0,
             addButtonText: 'Add',
-            addButtonIcon: 'ios-add',
+            addButtonIcon: 'ios-star-outline',
             addButtonBGCol: '#106234'
         }
     }
@@ -40,7 +40,7 @@ export default class OneBookCard extends React.Component {
                     this.setState({
                         added: 0,
                         addButtonText: 'Add',
-                        addButtonIcon: 'ios-add',
+                        addButtonIcon: 'ios-star-outline',
                         addButtonBGCol: '#106234'
                     });
                 }
