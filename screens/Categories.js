@@ -13,10 +13,10 @@ import LoadingIndicator from '../components/LoadingIndicator';
 export default class Categories extends React.Component {
 
     componentDidMount() {
-        this.fetchCategories();
+        this.doTheFetching();
     }
 
-    fetchCategories() {
+    doTheFetching() {
         fetch('https://016709f0.ngrok.io/api/categories').then((res) => res.json()).then((resJson) => {
             this.setState({mainCats: resJson});
         })

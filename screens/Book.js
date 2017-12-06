@@ -27,13 +27,13 @@ export default class BookCard extends React.Component {
         super(props);
         this.state = {
             screenshots: [
-                    {Book_ID: 0, book_photo: require('../assets/images/temp_books/1.jpeg'),  author_name: "Ahmed Hassan", author_ID: 0},
-                    {Book_ID: 1, book_photo: require('../assets/images/temp_books/2.jpeg'),  author_name: "Ahmed Hassan", author_ID: 1},
-                    {Book_ID: 2, book_photo: require('../assets/images/temp_books/3.jpeg'),  author_name: "Ahmed Hassan", author_ID: 2},
-                    {Book_ID: 3, book_photo: require('../assets/images/temp_books/4.jpeg'),  author_name: "Ahmed Hassan", author_ID: 3},
-                    {Book_ID: 4, book_photo: require('../assets/images/temp_books/5.jpeg'),  author_name: "Ahmed Hassan", author_ID: 4},
-                    {Book_ID: 5, book_photo: require('../assets/images/temp_books/6.jpeg'),  author_name: "Ahmed Hassan", author_ID: 5},
-                    {Book_ID: 6, book_photo: require('../assets/images/temp_books/7.jpeg'),  author_name: "Ahmed Hassan", author_ID: 6},
+                    {Book_ID: 0, book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg',  author_name: "Ahmed Hassan", author_ID: 0},
+                    {Book_ID: 1, book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg',  author_name: "Ahmed Hassan", author_ID: 1},
+                    {Book_ID: 2, book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg',  author_name: "Ahmed Hassan", author_ID: 2},
+                    {Book_ID: 3, book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg',  author_name: "Ahmed Hassan", author_ID: 3},
+                    {Book_ID: 4, book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg',  author_name: "Ahmed Hassan", author_ID: 4},
+                    {Book_ID: 5, book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg',  author_name: "Ahmed Hassan", author_ID: 5},
+                    {Book_ID: 6, book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg',  author_name: "Ahmed Hassan", author_ID: 6},
                 ],
             comments: [
                     {comment_ID: 0,  user_ID: 0, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
@@ -55,7 +55,7 @@ _keyExtractor2 = (item, index) => item.comment_ID;
   render() {
     return (
         <ScrollView>
-            <Image blurRadius={10} source={require('../assets/images/temp_books/7.jpeg')} style={{ width: '100%', height: 430, position: 'absolute', }} />
+            <Image blurRadius={10} source={{uri: this.props.navigation.state.params.book_photo}} style={{ width: '100%', height: 430, position: 'absolute', }} />
             <Image source={require('../assets/images/curve.png')} style={{ width: '100%', height: 100, position: 'absolute', top: 370}} />
 
             <FlatList
@@ -68,30 +68,25 @@ _keyExtractor2 = (item, index) => item.comment_ID;
                   <Lightbox
                         renderContent={ () => {
                             return (
-                                <Image source={item.book_photo}
+                                <Image source={{uri: item.book_photo}}
                                 resizeMode='contain'
                                 style={{width: null, resizeMode: 'contain', height: Dimensions.get('window').height, borderRadius: 10,}} />
                             );
                         }}>
-                      <Image source={item.book_photo}
+                      <Image source={{uri: item.book_photo}}
                       resizeMode='contain'
                       style={{width: 140, height: 140, margin: 20, borderRadius: 10,}} />
                   </Lightbox>
               )} />
               <View style={{  flexDirection: 'row', height: 150, margin: 20, }}>
                 <View style={{ flex: .5,  }}>
-                    <Image source={require('../assets/images/temp_books/7.jpeg')} style={{ width: '100%', height: '100%', borderRadius: 10, resizeMode: 'cover' }} />
+                    <Image source={{uri: this.props.navigation.state.params.book_photo}} style={{ width: '100%', height: '100%', borderRadius: 10, resizeMode: 'cover' }} />
                 </View>
                 <View style={{ flex: 1, paddingLeft: 15, }}>
-                    <Text style={{ color: 'white', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 23 }}>{'book name'.toUpperCase()}</Text>
-                    <Text style={{ color: '#676667', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 15 }}>Ropert bally</Text>
-                    <Text style={{ color: 'white', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 16, marginTop: 8, }}>
-                    <Ionicons
-                      name='ios-pricetag-outline'
-                      size={23}
-                      color='white'
-                      style={{backgroundColor: 'transparent',  }}
-                    />{'  Horror'}</Text>
+                    <Text style={{ color: 'white', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 23 }}>
+                        {this.props.navigation.state.params.book_name.toUpperCase()}
+                    </Text>
+                    <Text style={{ color: '#676667', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 15 }}>{this.props.navigation.state.params.author_name}</Text>
                     <TouchableOpacity onPress={ () => {
                         this.props.navigation.navigate('Payment', {})
                     }} style={{ backgroundColor: '#1CAE4D', borderRadius: 10, marginVertical: 25, maxWidth: 130,  }}>
