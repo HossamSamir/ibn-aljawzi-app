@@ -17,7 +17,7 @@ export default class Categories extends React.Component {
     }
 
     doTheFetching() {
-        fetch('https://016709f0.ngrok.io/api/categories').then((res) => res.json()).then((resJson) => {
+        fetch('https://ca235020.ngrok.io/api/categories').then((res) => res.json()).then((resJson) => {
             this.setState({mainCats: resJson});
         })
         .then(() => {
