@@ -19,40 +19,148 @@ import { Ionicons } from '@expo/vector-icons';
 import Lightbox from 'react-native-lightbox';
 
 //import Header from '../components/Header';
+import LoadingIndicator from '../components/LoadingIndicator';
+import OneBookCard from '../components/OneBookCard';
 
 // API: send this.props.navigation.state.params.book_ID to the server
 
 export default class BookCard extends React.Component {
+    componentDidMount() {
+        this.doTheFetching();
+    }
+
+    doTheFetching() {
+        fetch('https://ca235020.ngrok.io/api/screenshots_of_book?book_id='+this.props.navigation.state.params.book_ID).
+            then((res) => res.json()).then((resJson) => {
+                this.setState({screenshots: resJson});
+            })
+            .then(() => {
+              this.setState({doneFetches: (this.state.doneFetches+1)})
+            })
+
+        fetch('https://ca235020.ngrok.io/api/comments_of_book?book_id='+this.props.navigation.state.params.book_ID).
+            then((res) => res.json()).then((resJson) => {
+                this.setState({comments: resJson});
+            })
+            .then(() => {
+              this.setState({doneFetches: (this.state.doneFetches+1)})
+            })
+
+        fetch('https://ca235020.ngrok.io/api/desc_of_book?book_id='+this.props.navigation.state.params.book_ID).
+            then((res) => res.json()).then((resJson) => {
+                this.setState({book_desc:  resJson[0].descc});
+            })
+            .then(() => {
+              //this.setState({doneFetches: (this.state.doneFetches+1)})
+            })
+
+        fetch('https://ca235020.ngrok.io/api/price_of_book?book_id='+this.props.navigation.state.params.book_ID).
+            then((res) => res.json()).then((resJson) => {
+                this.setState({book_price: parseInt(resJson[0].price)});
+            })
+            .then(() => {
+              //this.setState({doneFetches: (this.state.doneFetches+1)})
+            })
+
+        fetch('https://ca235020.ngrok.io/api/dllink_of_book?book_id='+this.props.navigation.state.params.book_ID).
+            then((res) => res.json()).then((resJson) => {
+                this.setState({book_download:  resJson[0].link});
+            })
+            .then(() => {
+              //this.setState({doneFetches: (this.state.doneFetches+1)})
+            })
+    }
+
     constructor(props) {
         super(props);
         this.state = {
+            doneFetches: 0,
+            book_desc: "",
+            book_price: 0,
+            book_download: "",
             screenshots: [
-                    {Book_ID: 0, book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg',  author_name: "Ahmed Hassan", author_ID: 0},
-                    {Book_ID: 1, book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg',  author_name: "Ahmed Hassan", author_ID: 1},
-                    {Book_ID: 2, book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg',  author_name: "Ahmed Hassan", author_ID: 2},
-                    {Book_ID: 3, book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg',  author_name: "Ahmed Hassan", author_ID: 3},
-                    {Book_ID: 4, book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg',  author_name: "Ahmed Hassan", author_ID: 4},
-                    {Book_ID: 5, book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg',  author_name: "Ahmed Hassan", author_ID: 5},
-                    {Book_ID: 6, book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg',  author_name: "Ahmed Hassan", author_ID: 6},
+                    /*{book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg'},
+                    {book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg'},
+                    {book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg'},
+                    {book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg'},
+                    {book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg'},
+                    {book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg'},
+                    {book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg'},*/
                 ],
             comments: [
-                    {comment_ID: 0,  user_ID: 0, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
-                    {comment_ID: 1,  user_ID: 1, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
-                    {comment_ID: 2,  user_ID: 2, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
-                    {comment_ID: 3,  user_ID: 3, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
-                    {comment_ID: 4,  user_ID: 4, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
-                    {comment_ID: 5,  user_ID: 5, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
-                    {comment_ID: 6,  user_ID: 6, username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
+                    /*{username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
+                    {username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
+                    {username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
+                    {username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
+                    {username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
+                    {username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
+                    {username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},*/
                 ],
         }
     }
-_keyExtractor = (item, index) => item.Book_ID;
-_keyExtractor2 = (item, index) => item.comment_ID;
+
+    shouldRenderBookDesc = () => {
+        if(this.state.book_desc == "")
+        {
+            return null;
+        }
+        else
+        {
+            return (
+                <View>
+                    <Text style={{ color: '#0E142A', backgroundColor: '#EEEEEE', fontWeight: 'bold', fontSize: 20, padding: 10}}>Description</Text>
+                    <Text style={{ color: '#737481', backgroundColor: '#fff', fontWeight: 'bold', fontSize: 16, padding: 12, marginTop: 10}}>
+                        {this.state.book_desc}
+                    </Text>
+                </View>
+            );
+        }
+    };
+
+    shouldRenderDownloadButton = () => {
+        if(this.state.book_download == "")
+        {
+            return null;
+        }
+        else
+        {
+            return (
+                <TouchableOpacity style={{margin: 7}} onPress={ () => {
+                    this.props.navigation.navigate('Payment', {})
+                }} style={{ backgroundColor: '#2C7A37', borderRadius: 10, marginVertical: 25, maxWidth: 130,  }}>
+                    <Text style={{ color: 'white', backgroundColor: 'transparent', padding: 10, fontWeight: 'bold', fontSize: 16, textAlign: 'center' }}>Download</Text>
+                </TouchableOpacity>
+            );
+        }
+    };
+
+    shouldRenderBuyButton = () => {
+        if(this.state.book_price == 0)
+        {
+            return null;
+        }
+        else
+        {
+            return (
+                <TouchableOpacity style={{margin: 7}} onPress={ () => {
+                    this.props.navigation.navigate('Payment', {})
+                }} style={{ backgroundColor: '#1CAE4D', borderRadius: 10, marginVertical: 25, maxWidth: 130,  }}>
+                    <Text style={{ color: 'white', backgroundColor: 'transparent', padding: 10, fontWeight: 'bold', fontSize: 16, textAlign: 'center' }}>BUY {this.state.book_price}</Text>
+                </TouchableOpacity>
+            );
+        }
+    };
+
+_keyExtractor = (item, index) => item.id;
+_keyExtractor2 = (item, index) => item.id;
 /*static navigationOptions = {
     header: <Header />
 };*/
 
   render() {
+    if(this.state.doneFetches < 2)
+        return (<LoadingIndicator size="large" color="#B6E3C6" />);
+
     return (
         <ScrollView>
             <Image blurRadius={10} source={{uri: this.props.navigation.state.params.book_photo}} style={{ width: '100%', height: 430, position: 'absolute', }} />
@@ -78,24 +186,25 @@ _keyExtractor2 = (item, index) => item.comment_ID;
                       style={{width: 140, height: 140, margin: 20, borderRadius: 10,}} />
                   </Lightbox>
               )} />
-              <View style={{  flexDirection: 'row', height: 150, margin: 20, }}>
-                <View style={{ flex: .5,  }}>
-                    <Image source={{uri: this.props.navigation.state.params.book_photo}} style={{ width: '100%', height: '100%', borderRadius: 10, resizeMode: 'cover' }} />
-                </View>
-                <View style={{ flex: 1, paddingLeft: 15, }}>
-                    <Text style={{ color: 'white', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 23 }}>
-                        {this.props.navigation.state.params.book_name.toUpperCase()}
-                    </Text>
-                    <Text style={{ color: '#676667', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 15 }}>{this.props.navigation.state.params.author_name}</Text>
-                    <TouchableOpacity onPress={ () => {
-                        this.props.navigation.navigate('Payment', {})
-                    }} style={{ backgroundColor: '#1CAE4D', borderRadius: 10, marginVertical: 25, maxWidth: 130,  }}>
-                        <Text style={{ color: 'white', backgroundColor: 'transparent', padding: 10, fontWeight: 'bold', fontSize: 16, textAlign: 'center' }}>BUY 10.99$</Text>
-                    </TouchableOpacity>
+              <View style={{  flexDirection: 'row', height: 150, margin: 5, }}>
+
+                <View style={{ flex: 1}}>
+                    <View style={{flexDirection:'row', justifyContent: 'space-around', alignItems: 'center'}}>
+                        {this.shouldRenderBuyButton()}
+                        {this.shouldRenderDownloadButton()}
+                    </View>
+
                 </View>
               </View>
-              <Text style={{ color: '#0E142A', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 18, margin: 12, marginTop: 20}}>Description</Text>
-              <Text style={{ color: '#737481', backgroundColor: '#fff', fontWeight: 'bold', fontSize: 16, padding: 12, marginTop: 10}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.</Text>
+              <View style={{paddingTop: 8, backgroundColor: 'white'}}>
+                  <OneBookCard id={this.props.navigation.state.params.book_ID}
+                      addButton={1}
+                      book_name={this.props.navigation.state.params.book_name}
+                      book_photo={this.props.navigation.state.params.book_photo}
+                      author_name={this.props.navigation.state.params.author_name} />
+              </View>
+
+              {this.shouldRenderBookDesc()}
 
               <Text style={{ color: '#0E142A', backgroundColor: '#fff', fontWeight: 'bold', fontSize: 18, padding: 12, }}>Reviews</Text>
 
