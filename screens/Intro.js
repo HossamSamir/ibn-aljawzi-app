@@ -12,10 +12,10 @@ import {
   ActivityIndicator
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
 import Swiper from 'react-native-swiper';
+import { NavigationActions } from 'react-navigation';
 
-import { NavigationActions } from 'react-navigation'
+import LoadingIndicator from '../components/LoadingIndicator';
 
 export default class HomeScreen extends React.Component {
     constructor(props) {
@@ -55,9 +55,7 @@ export default class HomeScreen extends React.Component {
       if(this.state.seenIntro == '1')
       {
           return (
-              <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', padding: 10 }}>
-                  <ActivityIndicator size="large" color="#106234" />
-              </View>
+              <LoadingIndicator size="large" color="#106234" />
           );
       }
       else

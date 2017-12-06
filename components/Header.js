@@ -26,12 +26,13 @@ export default class Header extends React.Component {
   render() {
     return (
         <View style={{ flex: .1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',  backgroundColor: '#106234', paddingTop: Platform.OS == 'ios' ? 20 : 0, paddingVertical: 0, paddingHorizontal: 10, }}>
-            <View style={{ flex: .5, marginLeft: 0, paddingRight: 60}}>
+            <View style={{ flex: .6, marginLeft: 0, paddingRight: 60}}>
             <Image
               style={{
                   resizeMode: 'contain',
                   width: '100%',
                   height: '100%',
+                  borderRadius: 11
               }}
               source={require('../assets/images/logo.png')}
             />
