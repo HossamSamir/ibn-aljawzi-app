@@ -2,8 +2,9 @@ import React from 'react';
 import { StyleSheet, ActivityIndicator, AsyncStorage, TextInput, View, Text, Image } from "react-native";
 import { Button } from "react-native-elements";
 import { Ionicons } from '@expo/vector-icons';
+import { NavigationActions } from 'react-navigation';
 
-import { NavigationActions } from 'react-navigation'
+import LoadingIndicator from '../../components/LoadingIndicator';
 
 export default class Signup extends React.Component {
     setLoginStatus = (value) => {
@@ -51,9 +52,7 @@ export default class Signup extends React.Component {
         if(this.state.login == '1')
         {
             return (
-                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-around', padding: 10 }}>
-                    <ActivityIndicator size="large" color="#106234" />
-                </View>
+                <LoadingIndicator size="large" color="#106234" />
             );
         }
         else
