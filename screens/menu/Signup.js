@@ -62,10 +62,9 @@ export default class Signup extends React.Component {
                 <View style={{ backgroundColor: 'white', height: '100%', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', }}>
                     <Image
                       style={{
-                          resizeMode: 'cover',
+                          resizeMode: 'contain',
                           width: '100%',
-                          height: '40%',
-                          marginBottom: 30
+                          height: '40%'
                       }}
                       source={require('../../assets/images/register_cover.png')}/>
 
