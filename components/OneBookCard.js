@@ -4,7 +4,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-  AsyncStorage
+  AsyncStorage,
+  Alert
 } from 'react-native';
 import { Constants } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
@@ -64,33 +65,71 @@ export default class OneBookCard extends React.Component {
     };
 
     addBookToLibrary = () => {
-        this.isBookInLibrary((status, data) => {
+        AsyncStorage.getItem('login').then(
+            (logged) => {
+                if(logged == '1')
+                {
+                    this.isBookInLibrary((status, data) => {
+                        if(status == 1)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            AsyncStorage.getItem('userid').then(
+                                (userid) => {
 
-            this.setState({
-                added: 1,
-                addButtonText: 'Added',
-                addButtonIcon: 'ios-checkmark-circle-outline',
-                addButtonBGCol: '#68B087'
-            });
+                                    fetch('https://7f01cb95.ngrok.io/api/add-my-library?user_id='+userid+'&book_id='+this.props.id).then((res) => res.json()).then((resJson) => {
+                                        if(resJson.reply == 1)
+                                        {
+                                            this.setState({
+                                                added: 1,
+                                                addButtonText: 'Added',
+                                                addButtonIcon: 'ios-checkmark-circle-outline',
+                                                addButtonBGCol: '#68B087'
+                                            });
 
-            if(status == 0)
-            {
-                var newData = data.concat("," + String(this.props.id));
-                AsyncStorage.setItem('MyLibraryBooksIDs', newData);
+                                            if(status == 0)
+                                            {
+                                                var newData = data.concat("," + String(this.props.id));
+                                                AsyncStorage.setItem('MyLibraryBooksIDs', newData);
+                                            }
+                                            else if(status == -1)
+                                            {
+                                                // empty library, just add it without commas
+                                                AsyncStorage.setItem('MyLibraryBooksIDs', String(this.props.id));
+                                            }
+                                        }
+                                        else
+                                        {
+                                            Alert.alert(
+                                              'Failed to add',
+                                              'Failed to add this book to your library',
+                                              [
+                                                {text: 'Okay'},
+                                              ],
+                                              { cancelable: true }
+                                            )
+                                        }
+                                    });
+                                }
+                            );
+                        }
+                    });
+                }
+                else
+                {
+                    Alert.alert(
+                      'Cannot save book',
+                      'Cannot add books to your library because you are not logged in',
+                      [
+                        {text: 'Okay'},
+                      ],
+                      { cancelable: true }
+                    )
+                }
             }
-            else if(status == -1)
-            {
-                // empty library, just add it without commas
-                AsyncStorage.setItem('MyLibraryBooksIDs', String(this.props.id));
-            }
-            else if(status == 1)
-            {
-                return;
-            }
-
-            //
-            //todo: send to database
-        });
+        );
     };
 
     isBookInLibrary = (callback) => {
@@ -98,26 +137,29 @@ export default class OneBookCard extends React.Component {
             (value) => {
                 if(value !== null && value !== undefined)
                 {
-                    if(!value.includes(","))
+                    if(value.length > 0)
                     {
-                        if(parseInt(value) == this.props.id)
+                        if(!value.includes(","))
                         {
-                            callback(1, value)
+                            if(parseInt(value) == this.props.id)
+                            {
+                                callback(1, value)
+                            }
+                            else
+                            {
+                                callback(0, value);
+                            }
                         }
                         else
                         {
-                            callback(0, value);
+                            var ret = 0;
+                            var booksArr = value.split(",");
+                            booksArr.map((bookID) => {
+                                if(bookID == this.props.id)
+                                    ret = 1;
+                            });
+                            callback(ret, value);
                         }
-                    }
-                    else
-                    {
-                        var ret = 0;
-                        var booksArr = value.split(",");
-                        booksArr.map((bookID) => {
-                            if(bookID == this.props.id)
-                                ret = 1;
-                        });
-                        callback(ret, value);
                     }
                 }
                 else

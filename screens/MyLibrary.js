@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   View,
   FlatList,
-  ScrollView
+  ScrollView,
+  AsyncStorage
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -19,24 +20,37 @@ export default class MyLibrary extends React.Component {
     componentDidMount() {
         this.doTheFetching();
     }
-
-    // just for testing, we will put user_id=1 ... this will be set on SIGN IN later
     doTheFetching() {
-        fetch('https://ca235020.ngrok.io/api/show-my-library?user_id=1').then((res) => res.json()).then((resJson) => {
-            if(resJson.status == 1)
-            {
-                this.setState({books: resJson.books});
-                this.setState({myLibraryStatus: 1 });
+        AsyncStorage.getItem('login').then(
+            (logged) => {
+                if(logged == '1')
+                {
+                    AsyncStorage.getItem('userid').then(
+                        (userid) => {
+
+                            fetch('https://7f01cb95.ngrok.io/api/show-my-library?user_id='+userid).then((res) => res.json()).then((resJson) => {
+                                if(resJson.status == 1)
+                                {
+                                    this.setState({books: resJson.books});
+                                    this.setState({myLibraryStatus: 1 });
+                                }
+                                else
+                                {
+                                    this.setState({myLibraryStatus: 0});
+                                }
+                            })
+                            .then(() => {
+                              this.setState({doneFetching: true})
+                            });
+                        }
+                    );
+                }
+                else
+                    this.setState({myLibraryStatus: 0});
             }
-            else
-            {
-                this.setState({myLibraryStatus: 0});
-            }
-        })
-        .then(() => {
-          this.setState({doneFetching: true})
-        });
+        );
     }
+
 
     constructor(props) {
         super(props);

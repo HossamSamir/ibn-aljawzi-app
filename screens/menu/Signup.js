@@ -57,13 +57,14 @@ export default class Signup extends React.Component {
         }
         this.setState({ errorMsg: '' });
 
-        fetch('https://ca235020.ngrok.io/api/signup?username='+this.state.username+'&password='+this.state.password+'&address='+this.state.address+'&email='+this.state.email).
+        fetch('https://7f01cb95.ngrok.io/api/signup?username='+this.state.username+'&password='+this.state.password+'&address='+this.state.address+'&email='+this.state.email).
         then((res) => res.json()).then((resJson) => {
             if(resJson.response == 0)
                 this.setState({ errorMsg: 'Username already taken' });
             else if(resJson.response > 0)
             {
                 AsyncStorage.setItem('userid', resJson.response);
+                AsyncStorage.setItem('MyLibraryBooksIDs', '');
                 this.setLoginStatus('1');
                 this.props.navigation.dispatch(NavigationActions.reset({
                   index: 0,
