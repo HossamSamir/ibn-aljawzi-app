@@ -19,8 +19,8 @@ import StoresListTab from '../components/StoresListTab';
 export default class Stores extends React.Component {
 
   componentDidMount() {
-    AsyncStorage.getItem("lang").then((value) => {
-      if (value == 'AR') {
+    AsyncStorage.getItem("language").then((value) => {
+      if (value == '1') {
         this.setState({ thingsToTranslate: { maps: 'خرائط', storesList: 'قائمة الفروع' } })
       } else {
         this.setState({ thingsToTranslate: { maps: 'Maps', storesList: 'Stores List' } })

@@ -3,6 +3,42 @@ import { AsyncStorage, FlatList, TouchableOpacity, View, Text, Image } from "rea
 import { Ionicons } from '@expo/vector-icons';
 
 export default class ListAll extends React.Component {
+
+  componentDidMount() {
+    AsyncStorage.getItem("language").then((value) => {
+      if (value == '1') {
+        this.setState({ thingsToTranslate: { orders: 'المشتريات', about: 'من نحن', contact: 'الاتصال بنا', settings: 'الاعدادات', logout: 'تسجيل الخروج' , desc: {
+          orders: 'يمكنك التحكم في طلبات الكتب الخاصه بك من هنا'
+        } } })
+      } else {
+        this.setState({ thingsToTranslate: { orders: 'Orders', about: 'About us', contact: 'Contact us', settings: 'Settings', logout: 'Logout', desc: {
+          orders: 'You can control your orders here.',
+        } } })
+      }
+    });
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      thingsToTranslate: {
+        orders: 'Orders',
+        about: 'About us',
+        contact: 'Contact us',
+        settings: 'Settings',
+        logout: 'Logout',
+        desc: {
+          orders: 'You can control your orders here.',
+          // about: 'You can control your orders here.',
+          // contact: 'You can control your orders here.',
+          // settings: 'You can control your orders here.',
+          // logout: 'You can control your orders here.',
+        }
+      },
+    }
+  }
+
+
     static navigationOptions = {
         title: "More options",
     };
@@ -24,11 +60,11 @@ export default class ListAll extends React.Component {
                   showsHorizontalScrollIndicator={false}
                   style={{  }}
                   data = {[
-                    {key: 'Orders', icon: 'ios-cart-outline', title: 'Orders', description: 'You can control your orders here.'},
-                    {key: 'AboutUs', icon: 'ios-people-outline', title: 'About us', description: 'Who we are, what we\'re looking forward to and more.'},
-                    {key: 'Feedback', icon: 'ios-mail-outline', title: 'Contact us', description: 'Send feedback or report problems. We like to hear from you.'},
-                    {key: 'Settings', icon: 'ios-cog', title: 'Settings', description: 'Adjust font size, currency and more.'},
-                    {key: 'Logout', icon: 'ios-exit-outline', title: 'Logout', description: 'Log out of your account.'},
+                    {key: 'Orders', icon: 'ios-cart-outline', title: this.state.thingsToTranslate.orders, description: this.state.thingsToTranslate.desc.orders},
+                    {key: 'AboutUs', icon: 'ios-people-outline', title: this.state.thingsToTranslate.about, description: 'Who we are, what we\'re looking forward to and more.'},
+                    {key: 'Feedback', icon: 'ios-mail-outline', title: this.state.thingsToTranslate.contact, description: 'Send feedback or report problems. We like to hear from you.'},
+                    {key: 'Settings', icon: 'ios-cog', title: this.state.thingsToTranslate.settings, description: 'Adjust font size, currency and more.'},
+                    {key: 'Logout', icon: 'ios-exit-outline', title: this.state.thingsToTranslate.logout, description: 'Log out of your account.'},
                   ]}
                   renderItem = {({ item }) => (
                       <TouchableOpacity
