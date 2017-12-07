@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ActivityIndicator, AsyncStorage, TextInput, View, Text, Image } from "react-native";
+import { ScrollView, StyleSheet, ActivityIndicator, AsyncStorage, TextInput, View, Text, Image } from "react-native";
 import { Button } from "react-native-elements";
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationActions } from 'react-navigation';
@@ -15,7 +15,13 @@ export default class Signup extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            'login': '1'
+            'login': '1',
+            username: '',
+            password: '',
+            cpassword: '',
+            address: '',
+            email: '',
+            errorMsg: '',
         }
 
         AsyncStorage.getItem('login').then(
@@ -35,6 +41,51 @@ export default class Signup extends React.Component {
         );
     }
 
+    registerUser = () => {
+        if(this.state.username == '' || this.state.password == '' || this.state.cpassword == '' ||
+            this.state.email == '' || this.state.address == '' ||
+            this.state.username.length < 3 || this.state.password.length < 4 || this.state.cpassword.length < 4 ||
+            this.state.address.length < 4 || this.state.email.length < 4)
+        {
+            this.setState({ errorMsg: 'Cannot have very short inputs' });
+            return;
+        }
+        if(this.state.password != this.state.cpassword)
+        {
+            this.setState({ errorMsg: 'Passwords do not match' });
+            return;
+        }
+        this.setState({ errorMsg: '' });
+
+        fetch('https://ca235020.ngrok.io/api/signup?username='+this.state.username+'&password='+this.state.password+'&address='+this.state.address+'&email='+this.state.email).
+        then((res) => res.json()).then((resJson) => {
+            if(resJson.response == 0)
+                this.setState({ errorMsg: 'Username already taken' });
+            else if(resJson.response > 0)
+            {
+                AsyncStorage.setItem('userid', resJson.response);
+                this.setLoginStatus('1');
+                this.props.navigation.dispatch(NavigationActions.reset({
+                  index: 0,
+                  actions: [
+                    NavigationActions.navigate({ routeName: 'Main' })
+                  ]
+                }));
+            }
+        })
+    };
+
+    shouldRenderErrorMessage = () => {
+        if(this.state.errorMsg != '')
+        {
+            return (
+                <View style={{ paddingVertical: 3, flexDirection: 'row', justifyContent: 'center' }}>
+                    <Text style={{ color: 'red' }}>{this.state.errorMsg}</Text>
+                </View>
+            );
+        }
+    };
+
     static navigationOptions = {
         header: null
     };
@@ -49,7 +100,9 @@ export default class Signup extends React.Component {
         else
         {
             return (
-                <View style={{ backgroundColor: 'white', height: '100%', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', }}>
+                <ScrollView
+                    contentContainerStyle={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}
+                    style={{ backgroundColor: 'white', height: '100%', }}>
                     <Image
                       style={{
                           resizeMode: 'contain',
@@ -57,6 +110,9 @@ export default class Signup extends React.Component {
                           height: '40%'
                       }}
                       source={require('../../assets/images/register_cover.png')}/>
+
+
+                    {this.shouldRenderErrorMessage()}
 
                     <View style={styles.inputsContainer}>
                         <View style={styles.singleInputContainer}>
@@ -74,6 +130,8 @@ export default class Signup extends React.Component {
                                   multiline={false}
                                   autoFocus={false}
                                   style={styles.textInput}
+                                  onChangeText={(text) => this.setState({username:text})}
+                                  onSubmitEditing={(event) => this.registerUser() }
                               />
                         </View>
 
@@ -93,6 +151,8 @@ export default class Signup extends React.Component {
                                   autoFocus={false}
                                   secureTextEntry={true}
                                   style={styles.textInput}
+                                  onChangeText={(text) => this.setState({password:text})}
+                                  onSubmitEditing={(event) => this.registerUser() }
                               />
                         </View>
 
@@ -112,19 +172,55 @@ export default class Signup extends React.Component {
                                   autoFocus={false}
                                   secureTextEntry={true}
                                   style={styles.textInput}
+                                  onChangeText={(text) => this.setState({cpassword:text})}
+                                  onSubmitEditing={(event) => this.registerUser() }
+                              />
+                        </View>
+
+                        <View style={styles.singleInputContainer}>
+                            <Ionicons
+                              name={'md-mail'}
+                              size={26}
+                              color='#63BA83'
+                              style={styles.inputIcon}/>
+
+                              <TextInput
+                                  underlineColorAndroid='transparent'
+                                  placeholder='Email'
+                                  placeholderTextColor='#BBBBBB'
+                                  autoGrow={false}
+                                  multiline={false}
+                                  autoFocus={false}
+                                  style={styles.textInput}
+                                  onChangeText={(text) => this.setState({email:text})}
+                                  onSubmitEditing={(event) => this.registerUser() }
+                              />
+                        </View>
+
+                        <View style={styles.singleInputContainer}>
+                            <Ionicons
+                              name={'md-home'}
+                              size={26}
+                              color='#63BA83'
+                              style={styles.inputIcon}/>
+
+                              <TextInput
+                                  underlineColorAndroid='transparent'
+                                  placeholder='Address'
+                                  placeholderTextColor='#BBBBBB'
+                                  autoGrow={false}
+                                  multiline={false}
+                                  autoFocus={false}
+                                  style={styles.textInput}
+                                  onChangeText={(text) => this.setState({address:text})}
+                                  onSubmitEditing={(event) => this.registerUser() }
                               />
                         </View>
 
                         <View style={styles.buttonContainer}>
                             <Button
                                 onPress={() => {
-                                    this.setLoginStatus('1');
-                                    this.props.navigation.dispatch(NavigationActions.reset({
-                                      index: 0,
-                                      actions: [
-                                        NavigationActions.navigate({ routeName: 'Main' })
-                                      ]
-                                    }));
+                                    this.registerUser()
                                 }}
                                 color='white'
                                 backgroundColor='#106234'
@@ -135,7 +231,7 @@ export default class Signup extends React.Component {
                                 title="Sign up" />
                         </View>
                     </View>
-                </View>
+                </ScrollView>
             );
         }
     }

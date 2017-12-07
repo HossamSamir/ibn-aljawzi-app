@@ -35,7 +35,7 @@ export default class MyLibrary extends React.Component {
         })
         .then(() => {
           this.setState({doneFetching: true})
-        })
+        });
     }
 
     constructor(props) {

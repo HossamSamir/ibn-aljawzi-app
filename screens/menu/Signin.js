@@ -15,7 +15,10 @@ export default class Signin extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            'login': '1'
+            'login': '1',
+            username: '',
+            password: '',
+            errorMsg: '',
         }
 
         AsyncStorage.getItem('login').then(
@@ -34,6 +37,44 @@ export default class Signin extends React.Component {
             }
         );
     }
+
+    loginUser = () => {
+        if(this.state.username == '' || this.state.password == '' ||
+            this.state.username.length < 3 || this.state.password.length < 4)
+        {
+            this.setState({ errorMsg: 'Cannot have very short inputs' });
+            return;
+        }
+        this.setState({ errorMsg: '' });
+
+        fetch('https://ca235020.ngrok.io/api/signin?username='+this.state.username+'&password='+this.state.password).
+        then((res) => res.json()).then((resJson) => {
+            if(resJson.response == 0)
+                this.setState({ errorMsg: 'Incorrect username or password' });
+            else if(resJson.response > 0)
+            {
+                AsyncStorage.setItem('userid', resJson.response);
+                this.setLoginStatus('1');
+                this.props.navigation.dispatch(NavigationActions.reset({
+                  index: 0,
+                  actions: [
+                    NavigationActions.navigate({ routeName: 'Main' })
+                  ]
+                }));
+            }
+        })
+    };
+
+    shouldRenderErrorMessage = () => {
+        if(this.state.errorMsg != '')
+        {
+            return (
+                <View style={{ paddingVertical: 3, flexDirection: 'row', justifyContent: 'center' }}>
+                    <Text style={{ color: 'red' }}>{this.state.errorMsg}</Text>
+                </View>
+            );
+        }
+    };
 
     static navigationOptions = {
         header: null
@@ -58,6 +99,8 @@ export default class Signin extends React.Component {
                       }}
                       source={require('../../assets/images/register_cover.png')}/>
 
+                    {this.shouldRenderErrorMessage()}
+
                     <View style={styles.inputsContainer}>
                         <View style={styles.singleInputContainer}>
                             <Ionicons
@@ -74,6 +117,8 @@ export default class Signin extends React.Component {
                                   multiline={false}
                                   autoFocus={false}
                                   style={styles.textInput}
+                                  onChangeText={(text) => this.setState({username:text})}
+                                  onSubmitEditing={(event) => this.loginUser() }
                               />
                         </View>
 
@@ -93,19 +138,15 @@ export default class Signin extends React.Component {
                                   autoFocus={false}
                                   secureTextEntry={true}
                                   style={styles.textInput}
+                                  onChangeText={(text) => this.setState({password:text})}
+                                  onSubmitEditing={(event) => this.loginUser() }
                               />
                         </View>
 
                         <View style={styles.buttonContainer}>
                             <Button
                                 onPress={() => {
-                                    this.setLoginStatus('1');
-                                    this.props.navigation.dispatch(NavigationActions.reset({
-                                      index: 0,
-                                      actions: [
-                                        NavigationActions.navigate({ routeName: 'Main' })
-                                      ]
-                                    }));
+                                    this.loginUser()
                                 }}
                                 color='white'
                                 backgroundColor='#106234'
