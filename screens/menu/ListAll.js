@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, TouchableOpacity, View, Text, Image } from "react-native";
+import { AsyncStorage, FlatList, TouchableOpacity, View, Text, Image } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
 export default class ListAll extends React.Component {
@@ -27,11 +27,20 @@ export default class ListAll extends React.Component {
                     {key: 'Orders', icon: 'ios-cart-outline', title: 'Orders', description: 'You can control your orders here.'},
                     {key: 'AboutUs', icon: 'ios-people-outline', title: 'About us', description: 'Who we are, what we\'re looking forward to and more.'},
                     {key: 'Feedback', icon: 'ios-mail-outline', title: 'Contact us', description: 'Send feedback or report problems. We like to hear from you.'},
-                    {key: 'Settings', icon: 'ios-cog', title: 'Settings', description: 'Adjust font size, currency and more.'}
+                    {key: 'Settings', icon: 'ios-cog', title: 'Settings', description: 'Adjust font size, currency and more.'},
+                    {key: 'Logout', icon: 'ios-exit-outline', title: 'Logout', description: 'Log out of your account.'},
                   ]}
                   renderItem = {({ item }) => (
                       <TouchableOpacity
-                        onPress={ () => this.props.navigation.navigate(item.key, {})}
+                        onPress={ () => {
+                            if(item.key == 'Logout')
+                            {
+                                AsyncStorage.setItem('login', '0');
+                                this.props.navigation.navigate("Signin", {})
+                            }
+                            else
+                                this.props.navigation.navigate(item.key, {})
+                        }}
                         style={{ width:'100%', backgroundColor: 'white', padding: 11 }}
                         >
 
