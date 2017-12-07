@@ -18,6 +18,20 @@ import { NavigationActions } from 'react-navigation';
 import LoadingIndicator from '../components/LoadingIndicator';
 
 export default class HomeScreen extends React.Component {
+    navigateToHomeOrLogin = () => {
+        AsyncStorage.getItem('login').then(
+            (value2) => {
+                var navigateTo = (value2 == '1') ? ('Main') : ('Signin');
+                this.props.navigation.dispatch(NavigationActions.reset({
+                  index: 0,
+                  actions: [
+                    NavigationActions.navigate({ routeName: navigateTo })
+                  ]
+                }));
+            }
+        );
+    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -30,12 +44,7 @@ export default class HomeScreen extends React.Component {
 
                 if(value == '1')
                 {
-                    this.props.navigation.dispatch(NavigationActions.reset({
-                      index: 0,
-                      actions: [
-                        NavigationActions.navigate({ routeName: 'Main' })
-                      ]
-                  }));
+                    this.navigateToHomeOrLogin();
                 }
                 else
                 {
@@ -70,14 +79,7 @@ export default class HomeScreen extends React.Component {
                         <Text style={{ display: 'none' }}></Text>
                 }
                 prevButton={
-                    <TouchableOpacity onPress={ () => {
-                        this.props.navigation.dispatch(NavigationActions.reset({
-                          index: 0,
-                          actions: [
-                            NavigationActions.navigate({ routeName: 'Main' })
-                          ]
-                        }))
-                    }}>
+                    <TouchableOpacity onPress={ this.navigateToHomeOrLogin }>
                         <Text style={{ color: '#0366d6' }}>Skip</Text>
                     </TouchableOpacity>
                 }
@@ -109,14 +111,7 @@ export default class HomeScreen extends React.Component {
                     <Image
                         source={require('../assets/images/5.jpg')}
                         style={{ width: '100%', height: '100%', resizeMode: 'contain' }} />
-                    <TouchableOpacity style={{ position: 'absolute', right: 0, bottom: 10 }} onPress={ () => {
-                        this.props.navigation.dispatch(NavigationActions.reset({
-                          index: 0,
-                          actions: [
-                            NavigationActions.navigate({ routeName: 'Main' })
-                          ]
-                        }))
-                    }}>
+                    <TouchableOpacity style={{ position: 'absolute', right: 0, bottom: 10 }} onPress={ this.navigateToHomeOrLogin }>
                         <Text style={{ backgroundColor: '#106234', color: 'white', padding: 10, marginRight: 10, fontWeight: 'bold', borderRadius: 10 }}>Get Started</Text>
                     </TouchableOpacity>
                 </View>

@@ -18,11 +18,11 @@ import Header from '../components/Header';
 
 const RootStackNavigator = StackNavigator(
   {
-      Signin: { screen: Signin },
-      Signup: { screen: Signup },
       Intro: {
           screen: Intro,
       },
+      Signin: { screen: Signin },
+      Signup: { screen: Signup },
       Main: {
           screen: MainTabNavigator,
       },

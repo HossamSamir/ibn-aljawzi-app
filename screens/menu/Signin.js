@@ -12,36 +12,27 @@ export default class Signin extends React.Component {
         this.setState({ 'login': value });
     }
 
-    navigateToHomeOrIntro = () => {
-        AsyncStorage.getItem('login').then(
-            (value) => {
-                this.setState({ 'login': value })
-
-                if(value == '1')
-                {
-                    AsyncStorage.getItem('seenIntro').then(
-                        (value2) => {
-                            var navigateTo = (value2 == '1') ? ('Main') : ('Intro');
-                            this.props.navigation.dispatch(NavigationActions.reset({
-                              index: 0,
-                              actions: [
-                                NavigationActions.navigate({ routeName: navigateTo })
-                              ]
-                            }));
-                        }
-                    );
-                }
-            }
-        );
-    };
-
     constructor(props) {
         super(props);
         this.state = {
             'login': '1'
         }
 
-        this.navigateToHomeOrIntro();
+        AsyncStorage.getItem('login').then(
+            (value) => {
+                this.setState({ 'login': value })
+
+                if(value == '1')
+                {
+                    this.props.navigation.dispatch(NavigationActions.reset({
+                      index: 0,
+                      actions: [
+                        NavigationActions.navigate({ routeName: 'Main' })
+                      ]
+                    }));
+                }
+            }
+        );
     }
 
     static navigationOptions = {
@@ -109,7 +100,12 @@ export default class Signin extends React.Component {
                             <Button
                                 onPress={() => {
                                     this.setLoginStatus('1');
-                                    this.navigateToHomeOrIntro();
+                                    this.props.navigation.dispatch(NavigationActions.reset({
+                                      index: 0,
+                                      actions: [
+                                        NavigationActions.navigate({ routeName: 'Main' })
+                                      ]
+                                    }));
                                 }}
                                 color='white'
                                 backgroundColor='#106234'
