@@ -33,7 +33,29 @@ export default class ListAll extends React.Component {
                   renderItem = {({ item }) => (
                       <TouchableOpacity
                         onPress={ () => {
-                            if(item.key == 'Logout')
+                            if(item.key == 'Orders')
+                            {
+                                AsyncStorage.getItem('login').then(
+                                    (logged) => {
+                                        if(logged == '1')
+                                        {
+                                            this.props.navigation.navigate('Orders', {})
+                                        }
+                                        else
+                                        {
+                                            Alert.alert(
+                                              'Cannot view orders',
+                                              'Cannot view orders because you are not logged in',
+                                              [
+                                                {text: 'Okay'},
+                                              ],
+                                              { cancelable: true }
+                                            )
+                                        }
+                                    }
+                                );
+                            }
+                            else if(item.key == 'Logout')
                             {
                                 AsyncStorage.setItem('login', '0');
                                 this.props.navigation.navigate("Signin", {})

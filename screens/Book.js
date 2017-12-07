@@ -30,45 +30,60 @@ export default class BookCard extends React.Component {
     }
 
     doTheFetching() {
-        fetch('https://ca235020.ngrok.io/api/screenshots_of_book?book_id='+this.props.navigation.state.params.book_ID).
+        fetch('https://7f01cb95.ngrok.io/api/screenshots_of_book?book_id='+this.props.navigation.state.params.book_ID).
             then((res) => res.json()).then((resJson) => {
                 this.setState({screenshots: resJson});
             })
             .then(() => {
               this.setState({doneFetches: (this.state.doneFetches+1)})
-            })
+            }).catch(error => {
+                console.error(error);
+            Alert.alert('screenshots',JSON.stringify(error),[{text: 'Ask me later'} ])
+          });
 
-        fetch('https://ca235020.ngrok.io/api/comments_of_book?book_id='+this.props.navigation.state.params.book_ID).
+        fetch('https://7f01cb95.ngrok.io/api/comments_of_book?book_id='+this.props.navigation.state.params.book_ID).
             then((res) => res.json()).then((resJson) => {
                 this.setState({comments: resJson});
             })
             .then(() => {
               this.setState({doneFetches: (this.state.doneFetches+1)})
-            })
+            }).catch(error => {
+                console.error(error);
+            Alert.alert('comments',JSON.stringify(error),[{text: 'Ask me later'} ])
+          });
 
-        fetch('https://ca235020.ngrok.io/api/desc_of_book?book_id='+this.props.navigation.state.params.book_ID).
+        fetch('https://7f01cb95.ngrok.io/api/desc_of_book?book_id='+this.props.navigation.state.params.book_ID).
             then((res) => res.json()).then((resJson) => {
                 this.setState({book_desc:  resJson[0]['descc']});
             })
             .then(() => {
               //this.setState({doneFetches: (this.state.doneFetches+1)})
-            })
+            }).catch(error => {
+                console.error(error);
+            Alert.alert('descc',JSON.stringify(error),[{text: 'Ask me later'} ])
+          });
 
-        fetch('https://ca235020.ngrok.io/api/price_of_book?book_id='+this.props.navigation.state.params.book_ID).
+        fetch('https://7f01cb95.ngrok.io/api/price_of_book?book_id='+this.props.navigation.state.params.book_ID).
             then((res) => res.json()).then((resJson) => {
                 this.setState({book_price: parseInt(resJson[0]['price'])});
             })
             .then(() => {
               //this.setState({doneFetches: (this.state.doneFetches+1)})
-            })
+            }).catch(error => {
+                console.error(error);
+            Alert.alert('price',JSON.stringify(error),[{text: 'Ask me later'} ])
+          });
 
-        fetch('https://ca235020.ngrok.io/api/dllink_of_book?book_id='+this.props.navigation.state.params.book_ID).
+        fetch('https://7f01cb95.ngrok.io/api/dllink_of_book?book_id='+this.props.navigation.state.params.book_ID).
             then((res) => res.json()).then((resJson) => {
                 this.setState({book_download:  resJson[0]['link']});
             })
             .then(() => {
               //this.setState({doneFetches: (this.state.doneFetches+1)})
-            })
+            }).catch(error => {
+                console.error(error);
+            Alert.alert('link',JSON.stringify(error),[{text: 'Ask me later'} ])
+          });
     }
 
     constructor(props) {

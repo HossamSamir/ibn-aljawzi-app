@@ -8,7 +8,8 @@ import {
   View,
   FlatList,
   ScrollView,
-  AsyncStorage
+  AsyncStorage,
+  Alert
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -28,10 +29,11 @@ export default class MyLibrary extends React.Component {
                     AsyncStorage.getItem('userid').then(
                         (userid) => {
 
-                            fetch('https://7f01cb95.ngrok.io/api/show-my-library?user_id='+userid).then((res) => res.json()).then((resJson) => {
-                                if(resJson.status == 1)
+                            fetch(`https://7f01cb95.ngrok.io/api/show-my-library?user_id=${userid}`, { headers: { 'Cache-Control': 'no-cache' } }).then((res) => res.json()).then((resJsonThree) => {
+                                Alert.alert('MyLibrary',JSON.stringify(resJsonThree),[{text: 'Ask me later'} ])
+                                if(resJsonThree.status == 1)
                                 {
-                                    this.setState({books: resJson.books});
+                                    this.setState({books: resJsonThree.books});
                                     this.setState({myLibraryStatus: 1 });
                                 }
                                 else

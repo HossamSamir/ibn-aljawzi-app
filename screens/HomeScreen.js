@@ -8,7 +8,9 @@ import {
   View,
   FlatList,
   ScrollView,
-  ImageBackground
+  ImageBackground,
+  Alert,
+  AsyncStorage
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Rating } from 'react-native-elements';
@@ -23,19 +25,23 @@ export default class HomeScreen extends React.Component {
     }
 
     doTheFetching() {
-        fetch('https://ca235020.ngrok.io/api/categories').then((res) => res.json()).then((resJson) => {
+        fetch('https://7f01cb95.ngrok.io/api/categories', { headers: { 'Cache-Control': 'no-cache' } }).then((res) => res.json()).then((resJson) => {
             this.setState({mainCats: resJson});
         })
         .then(() => {
           this.setState({doneFetches: (this.state.doneFetches+1)})
         })
 
-        fetch('https://ca235020.ngrok.io/api/homescreen').then((res) => res.json()).then((resJson) => {
-            this.setState({booksInCats: resJson});
+        fetch('https://7f01cb95.ngrok.io/api/homescreen', { headers: { 'Cache-Control': 'no-cache' } }).then((res) => res.json()).then((resJsontwo) => {
+            Alert.alert('booksInCats',JSON.stringify(resJsontwo),[{text: 'Ask me later'} ])
+            this.setState({booksInCats: resJsontwo});
         })
         .then(() => {
           this.setState({doneFetches: (this.state.doneFetches+1)})
-        })
+      }).catch(error => {
+          console.error(error);
+      Alert.alert('error booksInCats',JSON.stringify(error),[{text: 'Ask me later'} ])
+    });
 
 
     }

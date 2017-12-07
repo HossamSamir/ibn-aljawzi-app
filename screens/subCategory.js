@@ -25,7 +25,7 @@ export default class subCategory extends React.Component {
     }
 
     doTheFetching() {
-        fetch('https://ca235020.ngrok.io/api/books_of_subcat?sub_cat_id='+this.props.navigation.state.params.sub_cat_id).then((res) => res.json()).then((resJson) => {
+        fetch('https://7f01cb95.ngrok.io/api/books_of_subcat?sub_cat_id='+this.props.navigation.state.params.sub_cat_id).then((res) => res.json()).then((resJson) => {
             this.setState({booksOfSubCat: resJson});
         })
         .then(() => {

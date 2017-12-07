@@ -27,7 +27,7 @@ export default class Category extends React.Component {
 
     doTheFetching() {
         // Fetch all sub categories first
-        fetch('https://ca235020.ngrok.io/api/sub_categories?parent_cat_id='+this.props.navigation.state.params.main_cat_id).
+        fetch('https://7f01cb95.ngrok.io/api/sub_categories?parent_cat_id='+this.props.navigation.state.params.main_cat_id).
             then((res) => res.json()).then((resJson) => {
                 this.setState({subCats: resJson});
             })
@@ -36,7 +36,7 @@ export default class Category extends React.Component {
             })
 
         // Fetch all books
-        fetch('https://ca235020.ngrok.io/api/books_of_cat?cat_id='+this.props.navigation.state.params.main_cat_id).
+        fetch('https://7f01cb95.ngrok.io/api/books_of_cat?cat_id='+this.props.navigation.state.params.main_cat_id).
             then((res) => res.json()).then((resJson) => {
                 this.setState({books: resJson});
             })
