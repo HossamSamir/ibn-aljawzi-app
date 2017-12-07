@@ -1,10 +1,24 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View, AsyncStorage } from 'react-native';
 import { AppLoading, Asset, Font } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import RootNavigation from './navigation/RootNavigation';
 
 export default class App extends React.Component {
+
+  componentDidMount() {
+    AsyncStorage.getItem("virgin").then((value) => {
+      if (value == null) {
+        // Defaults on first launch...
+        AsyncStorage.setItem("lang", 'EN')
+        AsyncStorage.setItem("currency", 'USD')
+        AsyncStorage.setItem("fontSize", 'MED')
+        // and now it's a bitch...
+        AsyncStorage.setItem("virgin", 'false')
+      }
+    });
+  }
+
   state = {
     isLoadingComplete: false,
   };
