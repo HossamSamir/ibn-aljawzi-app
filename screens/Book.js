@@ -48,7 +48,7 @@ export default class BookCard extends React.Component {
 
         fetch('https://ca235020.ngrok.io/api/desc_of_book?book_id='+this.props.navigation.state.params.book_ID).
             then((res) => res.json()).then((resJson) => {
-                this.setState({book_desc:  resJson[0].descc});
+                this.setState({book_desc:  resJson[0]['descc']});
             })
             .then(() => {
               //this.setState({doneFetches: (this.state.doneFetches+1)})
@@ -56,7 +56,7 @@ export default class BookCard extends React.Component {
 
         fetch('https://ca235020.ngrok.io/api/price_of_book?book_id='+this.props.navigation.state.params.book_ID).
             then((res) => res.json()).then((resJson) => {
-                this.setState({book_price: parseInt(resJson[0].price)});
+                this.setState({book_price: parseInt(resJson[0]['price'])});
             })
             .then(() => {
               //this.setState({doneFetches: (this.state.doneFetches+1)})
@@ -64,7 +64,7 @@ export default class BookCard extends React.Component {
 
         fetch('https://ca235020.ngrok.io/api/dllink_of_book?book_id='+this.props.navigation.state.params.book_ID).
             then((res) => res.json()).then((resJson) => {
-                this.setState({book_download:  resJson[0].link});
+                this.setState({book_download:  resJson[0]['link']});
             })
             .then(() => {
               //this.setState({doneFetches: (this.state.doneFetches+1)})
