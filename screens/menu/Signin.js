@@ -161,21 +161,31 @@ export default class Signin extends React.Component {
                         <View style={styles.signupButtonContainer}>
                             <Text style={{color: '#106234', marginBottom: 4}}>{"Don't have an account?"}</Text>
 
-                            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom: 7}}>
+                            <View style={{flex: 1, marginBottom: 7, width: '90%'}}>
                                 <Button
                                     onPress={() => {
-                                        this.props.navigation.navigate("Signup")
+                                        AsyncStorage.setItem('login', '0').then(() => {
+                                            AsyncStorage.setItem('MyLibraryBooksIDs', '').then(() => {
+                                                this.props.navigation.dispatch(NavigationActions.reset({
+                                                  index: 0,
+                                                  actions: [
+                                                    NavigationActions.navigate({ routeName: 'Main' })
+                                                  ]
+                                                }));
+                                            });
+                                        });
                                     }}
                                     color='#106234'
                                     backgroundColor='#C7F2DA'
                                     containerViewStyle={{borderRadius:20}}
                                     borderRadius={20}
                                     fontWeight='bold'
-                                    buttonStyle={{width: '100%', padding: 9}}
-                                    title="Skip" />
+                                    buttonStyle={{padding: 9}}
+                                    containerViewStyle={{width: '100%', marginLeft: 0}}
+                                    title="Continue" />
                             </View>
 
-                            <View style={{flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                            <View style={{flex: 1, width: '90%'}}>
                                 <Button
                                     onPress={() => this.props.navigation.navigate("Signup")}
                                     color='white'
@@ -183,7 +193,8 @@ export default class Signin extends React.Component {
                                     containerViewStyle={{borderRadius:20}}
                                     borderRadius={20}
                                     fontWeight='bold'
-                                    buttonStyle={{width: '100%', padding: 9}}
+                                    buttonStyle={{padding: 9}}
+                                    containerViewStyle={{width: '100%', marginLeft: 0}}
                                     title="Create one" />
                             </View>
                         </View>
@@ -218,8 +229,9 @@ const styles = StyleSheet.create({
     signupButtonContainer: {
         flex: 0.5,
         flexDirection: 'column',
+        alignItems: 'center',
         justifyContent: 'center',
-        alignItems: 'center'
+        width: '100%'
     },
     buttonContainer: {
         marginTop: 35,

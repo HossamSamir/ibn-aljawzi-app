@@ -48,7 +48,10 @@ export default class MyLibrary extends React.Component {
                     );
                 }
                 else
+                {
+                    this.setState({doneFetching: true});
                     this.setState({myLibraryStatus: 0});
+                }
             }
         );
     }
