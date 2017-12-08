@@ -15,7 +15,7 @@ import {
   Dimensions,
   AsyncStorage
 } from 'react-native';
-import { BlurView } from 'expo';
+import { BlurView, FileSystem } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import Lightbox from 'react-native-lightbox';
 
@@ -141,6 +141,7 @@ export default class BookCard extends React.Component {
         }
         else
         {
+          this.DownloadBook('http://www.axmag.com/download/pdfurl-guide.pdf', 'FileName.pdf');
             return (
                 <TouchableOpacity style={{margin: 7}} onPress={ () => {
                     this.props.navigation.navigate('Payment', {})
@@ -150,6 +151,20 @@ export default class BookCard extends React.Component {
             );
         }
     };
+
+    DownloadBook = (book_url, book_name) => {
+      FileSystem.downloadAsync(
+        book_url,
+        FileSystem.documentDirectory + book_name
+      )
+        .then(({ uri }) => {
+          return uri;
+          // Alert.alert('Finished downloading to ', uri)
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
 
     shouldRenderBuyButton = () => {
         if(this.state.book_price == 0)
