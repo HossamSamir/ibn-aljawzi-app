@@ -12,27 +12,45 @@ export default class Signin extends React.Component {
         this.setState({ 'login': value });
     }
 
+    navigateToHome = () => {
+        this.props.navigation.dispatch(NavigationActions.reset({
+          index: 0,
+          actions: [
+            NavigationActions.navigate({ routeName: 'Main' })
+          ]
+        }));
+    };
+
     constructor(props) {
         super(props);
         this.state = {
             'login': '1',
+            'SkippedLogin': '1',
             username: '',
             password: '',
             errorMsg: '',
         }
 
-        AsyncStorage.getItem('login').then(
+        AsyncStorage.getItem('SkippedLogin').then(
             (value) => {
-                this.setState({ 'login': value })
+                this.setState({ 'SkippedLogin': value })
 
                 if(value == '1')
                 {
-                    this.props.navigation.dispatch(NavigationActions.reset({
-                      index: 0,
-                      actions: [
-                        NavigationActions.navigate({ routeName: 'Main' })
-                      ]
-                    }));
+                    this.navigateToHome();
+                }
+                else
+                {
+                    AsyncStorage.getItem('login').then(
+                        (logged) => {
+                            this.setState({ 'login': logged })
+
+                            if(logged == '1')
+                            {
+                                this.navigateToHome();
+                            }
+                        }
+                    );
                 }
             }
         );
@@ -82,7 +100,7 @@ export default class Signin extends React.Component {
     };
 
     render() {
-        if(this.state.login == '1')
+        if(this.state.login == '1' || this.state.SkippedLogin == '1')
         {
             return (
                 <LoadingIndicator size="large" color="#106234" />
@@ -166,12 +184,14 @@ export default class Signin extends React.Component {
                                     onPress={() => {
                                         AsyncStorage.setItem('login', '0').then(() => {
                                             AsyncStorage.setItem('MyLibraryBooksIDs', '').then(() => {
-                                                this.props.navigation.dispatch(NavigationActions.reset({
-                                                  index: 0,
-                                                  actions: [
-                                                    NavigationActions.navigate({ routeName: 'Main' })
-                                                  ]
-                                                }));
+                                                AsyncStorage.setItem('SkippedLogin', '1').then(() => {
+                                                    this.props.navigation.dispatch(NavigationActions.reset({
+                                                      index: 0,
+                                                      actions: [
+                                                        NavigationActions.navigate({ routeName: 'Main' })
+                                                      ]
+                                                    }));
+                                                });
                                             });
                                         });
                                     }}

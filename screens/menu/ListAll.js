@@ -129,6 +129,7 @@ export default class ListAll extends React.Component {
                             }
                             else if(item.key == 'Signin')
                             {
+                                AsyncStorage.setItem('SkippedLogin', '0');
                                 AsyncStorage.setItem('login', '0');
                                 this.props.navigation.navigate("Signin", {})
                             }
