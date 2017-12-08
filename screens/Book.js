@@ -141,10 +141,9 @@ export default class BookCard extends React.Component {
         }
         else
         {
-          this.DownloadBook('http://www.axmag.com/download/pdfurl-guide.pdf', 'FileName.pdf');
             return (
                 <TouchableOpacity style={{margin: 7}} onPress={ () => {
-                    this.props.navigation.navigate('Payment', {})
+                    this.props.navigation.navigate('Payment', {uri: this.DownloadBook('http://www.africau.edu/images/default/sample.pdf', 'FileName.pdf')})
                 }} style={{ backgroundColor: '#2C7A37', borderRadius: 10, marginVertical: 25, maxWidth: 130,  }}>
                     <Text style={{ color: 'white', backgroundColor: 'transparent', padding: 10, fontWeight: 'bold', fontSize: 16, textAlign: 'center' }}>Download</Text>
                 </TouchableOpacity>
