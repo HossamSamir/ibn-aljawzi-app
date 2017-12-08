@@ -33,7 +33,7 @@ export default class HomeScreen extends React.Component {
         })
 
         fetch('https://7f01cb95.ngrok.io/api/homescreen', { headers: { 'Cache-Control': 'no-cache' } }).then((res) => res.json()).then((resJsontwo) => {
-            Alert.alert('booksInCats',JSON.stringify(resJsontwo),[{text: 'Ask me later'} ])
+            //Alert.alert('booksInCats',JSON.stringify(resJsontwo),[{text: 'Ask me later'} ])
             this.setState({booksInCats: resJsontwo});
         })
         .then(() => {

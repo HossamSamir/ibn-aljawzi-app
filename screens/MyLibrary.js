@@ -30,7 +30,7 @@ export default class MyLibrary extends React.Component {
                         (userid) => {
 
                             fetch(`https://7f01cb95.ngrok.io/api/show-my-library?user_id=${userid}`, { headers: { 'Cache-Control': 'no-cache' } }).then((res) => res.json()).then((resJsonThree) => {
-                                Alert.alert('MyLibrary',JSON.stringify(resJsonThree),[{text: 'Ask me later'} ])
+                                //Alert.alert('MyLibrary',JSON.stringify(resJsonThree),[{text: 'Ask me later'} ])
                                 if(resJsonThree.status == 1)
                                 {
                                     this.setState({books: resJsonThree.books});

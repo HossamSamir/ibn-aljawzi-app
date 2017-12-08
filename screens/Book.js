@@ -12,7 +12,8 @@ import {
   Alert,
   ListView,
   TextInput,
-  Dimensions
+  Dimensions,
+  AsyncStorage
 } from 'react-native';
 import { BlurView } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
@@ -89,6 +90,7 @@ export default class BookCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            myComment: '',
             doneFetches: 0,
             book_desc: "",
             book_price: 0,
@@ -166,6 +168,44 @@ export default class BookCard extends React.Component {
         }
     };
 
+    addComment = () => {
+        if(this.state.myComment.length > 0)
+        {
+            AsyncStorage.getItem('login').then(
+                (logged) => {
+                    if(logged == '1')
+                    {
+                        AsyncStorage.getItem('userid').then(
+                            (userid) => {
+                                fetch(`https://7f01cb95.ngrok.io/api/add_comment?user_id=${userid}&comment=${this.state.myComment}&book_id=${this.props.navigation.state.params.book_ID}`,
+                                    { headers: { 'Cache-Control': 'no-cache' } }).then((res) => res.json()).then((resJson) => {
+                                    if(resJson.status == 1)
+                                    {
+                                        var arr = this.state.comments;
+                                        arr.unshift({ id: resJson.id, username: resJson.username, comment: this.state.myComment});
+                                        this.setState({ comments: arr });
+                                        this.setState({myComment: ''});
+                                    }
+                                });
+                            }
+                        );
+                    }
+                    else
+                    {
+                        Alert.alert(
+                          'Cannot comment',
+                          'Cannot comment because you are not logged in',
+                          [
+                            {text: 'Okay'},
+                          ],
+                          { cancelable: true }
+                      );
+                    }
+                }
+            );
+        }
+    };
+
 _keyExtractor = (item, index) => item.id;
 _keyExtractor2 = (item, index) => item.id;
 /*static navigationOptions = {
@@ -224,8 +264,16 @@ _keyExtractor2 = (item, index) => item.id;
               <Text style={{ color: '#0E142A', backgroundColor: '#fff', fontWeight: 'bold', fontSize: 18, padding: 12, }}>Reviews</Text>
 
               <View style={{ width: '100%', flexDirection: 'row', padding: 12, backgroundColor: '#fff'}}>
-                <TextInput underlineColorAndroid='transparent' placeholderTextColor='#858788' placeholder='Write a comment here...' style={{ flex: 1 }} />
-                <TouchableOpacity style={{ flex: .5, paddingVertical: 10, paddingHorizontal: 16, marginHorizontal: 30, borderRadius: 5, flexDirection: 'row', backgroundColor: '#E16626', alignItems: 'center', justifyContent: 'center' }}>
+                <TextInput
+                    value={this.state.myComment}
+                    onChangeText={(text) => this.setState({myComment:text})}
+                    onSubmitEditing={(event) => this.addComment() }
+                    underlineColorAndroid='transparent' placeholderTextColor='#858788' placeholder='Write a comment here...' style={{ flex: 1 }} />
+                <TouchableOpacity
+                    onPress={() => {
+                        this.addComment()
+                    }}
+                    style={{ flex: .5, paddingVertical: 10, paddingHorizontal: 16, marginHorizontal: 30, borderRadius: 5, flexDirection: 'row', backgroundColor: '#E16626', alignItems: 'center', justifyContent: 'center' }}>
                     <Ionicons
                       name='ios-chatboxes-outline'
                       size={30}
