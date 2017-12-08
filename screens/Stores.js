@@ -48,18 +48,6 @@ export default class Stores extends React.Component {
           <Tab heading = {
               <TabHeading>
                   <Ionicons
-                    name='ios-map'
-                    size={28}
-                    style={{ color: Platform.OS === 'ios' ? '#106234' : 'white', marginRight: 10 }}
-                  />
-                <Text style={{ color: Platform.OS === 'ios' ? '#106234' : 'white' }}>{this.state.thingsToTranslate.maps}</Text>
-              </TabHeading>
-          }>
-            <MapTab />
-          </Tab>
-          <Tab heading = {
-              <TabHeading>
-                  <Ionicons
                     name='ios-list-outline'
                     size={28}
                     style={{ color: Platform.OS === 'ios' ? '#106234' : 'white', marginRight: 10 }}
@@ -68,6 +56,18 @@ export default class Stores extends React.Component {
               </TabHeading>
           }>
             <StoresListTab />
+          </Tab>
+          <Tab heading = {
+              <TabHeading>
+                  <Ionicons
+                    name='ios-map'
+                    size={28}
+                    style={{ color: Platform.OS === 'ios' ? '#106234' : 'white', marginRight: 10 }}
+                  />
+                <Text style={{ color: Platform.OS === 'ios' ? '#106234' : 'white' }}>{this.state.thingsToTranslate.maps}</Text>
+              </TabHeading>
+          }>
+            <MapTab />
           </Tab>
         </Tabs>
     );
