@@ -12,7 +12,6 @@ export default class App extends React.Component {
         // Defaults on first launch...
         AsyncStorage.setItem("language", '1')
         AsyncStorage.setItem("currency", '0')
-        AsyncStorage.setItem("font", '1')
         // and now it's a bitch...
         AsyncStorage.setItem("virgin", 'false')
       }

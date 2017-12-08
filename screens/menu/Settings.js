@@ -13,7 +13,6 @@ export default class App extends Component {
         super(props);
         this.state = {
             language: 0, // 0 = english, 1 = arabic
-            font: 1, // 0 = small, 1 = medium, 2 = large
             currency: 0 // 0 = dollar, 1 = Saudi riyal
         }
     }
@@ -31,7 +30,7 @@ export default class App extends Component {
     };
 
     loadSettings = () => {
-        var settingsArr = ['language', 'font', 'currency'];
+        var settingsArr = ['language', 'currency'];
         settingsArr.map((setting, index) => {
             this.readSettingFromStorage(setting, (value) => {
                 if(value !== null && value !== undefined)
@@ -42,9 +41,6 @@ export default class App extends Component {
                             this.setState({ 'language': parseInt(value) })
                             break;
                         case 1:
-                            this.setState({ 'font': parseInt(value) })
-                            break;
-                        case 2:
                             this.setState({ 'currency': parseInt(value) })
                             break;
                     }
@@ -63,12 +59,6 @@ export default class App extends Component {
     onCurrencyChange = (newValue) => {
         AsyncStorage.setItem('currency', String(newValue));
         this.setState({currency: newValue});
-
-    };
-
-    onFontChange = (newValue) => {
-        AsyncStorage.setItem('font', String(newValue));
-        this.setState({font: newValue});
 
     };
 
@@ -98,33 +88,6 @@ export default class App extends Component {
                               {value: 1, label: 'العربية'}
                           ]}
                           onSubmitEditing={(itemValue) => this.onLanguageChange(itemValue)}
-                          style={styles.picker}
-                        />
-                    </View>
-                </View>
-
-                <View style={styles.innerContainer}>
-                    <View style={styles.captionContainer}>
-                        <MaterialIcons
-                          name={'format-size'}
-                          size={26}
-                          color='#63BA83'
-                          style={styles.icon}/>
-
-                          <Text style={styles.captionText}>Font size</Text>
-                    </View>
-                    <View style={styles.pickerContainer}>
-                        <SelectInput
-                            buttonsTextColor='#104A25'
-                            buttonsBackgroundColor='#F5FAF7'
-                          value={this.state.font}
-                          submitKeyText='Change'
-                          options={[
-                              {value: 0, label: 'Small'},
-                              {value: 1, label: 'Medium'},
-                              {value: 2, label: 'Large'}
-                          ]}
-                          onSubmitEditing={(itemValue) => this.onFontChange(itemValue)}
                           style={styles.picker}
                         />
                     </View>
