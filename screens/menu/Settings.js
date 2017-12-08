@@ -66,7 +66,7 @@ export default class App extends Component {
                 {
                     AsyncStorage.getItem('userid').then(
                         (userid) => {
-                            fetch('https://7f01cb95.ngrok.io/api/set_currency?user_id='+userid+'&currency='+newValue).then((res) => res.json()).then((resJson) => {
+                            fetch('https://ecd1cd47.ngrok.io/api/set_currency?user_id='+userid+'&currency='+newValue).then((res) => res.json()).then((resJson) => {
                                 
                             });
                         }

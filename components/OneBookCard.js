@@ -49,7 +49,7 @@ export default class OneBookCard extends React.Component {
             });
         }
 
-        fetch('https://7f01cb95.ngrok.io/api/price_of_book?book_id='+this.props.id).
+        fetch('https://ecd1cd47.ngrok.io/api/price_of_book?book_id='+this.props.id).
             then((res) => res.json()).then((resJson) => {
                 this.setState({book_price: parseInt(resJson[0]['price'])});
             })
@@ -90,7 +90,7 @@ export default class OneBookCard extends React.Component {
                             AsyncStorage.getItem('userid').then(
                                 (userid) => {
 
-                                    fetch('https://7f01cb95.ngrok.io/api/add-my-library?user_id='+userid+'&book_id='+this.props.id).then((res) => res.json()).then((resJson) => {
+                                    fetch('https://ecd1cd47.ngrok.io/api/add-my-library?user_id='+userid+'&book_id='+this.props.id).then((res) => res.json()).then((resJson) => {
                                         if(resJson.reply == 1)
                                         {
                                             this.setState({

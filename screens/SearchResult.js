@@ -22,7 +22,7 @@ export default class MyLibrary extends React.Component {
     }
 
     doTheFetching() {
-        fetch('https://7f01cb95.ngrok.io/api/searchfor?query='+this.props.navigation.state.params.searchingFor).then((res) => res.json()).then((resJson) => {
+        fetch('https://ecd1cd47.ngrok.io/api/searchfor?query='+this.props.navigation.state.params.searchingFor).then((res) => res.json()).then((resJson) => {
             if(resJson.status == 1)
             {
                 this.setState({foundResult: 1, result: resJson.result});

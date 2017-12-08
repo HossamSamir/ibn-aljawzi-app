@@ -65,7 +65,7 @@ export default class Signin extends React.Component {
         }
         this.setState({ errorMsg: '' });
 
-        fetch('https://7f01cb95.ngrok.io/api/signin?username='+this.state.username+'&password='+this.state.password).
+        fetch('https://ecd1cd47.ngrok.io/api/signin?username='+this.state.username+'&password='+this.state.password).
         then((res) => res.json()).then((resJson) => {
             if(resJson.response == 0)
                 this.setState({ errorMsg: 'Incorrect username or password' });

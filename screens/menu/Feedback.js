@@ -15,15 +15,6 @@ export default class Feedback extends React.Component {
     }
 
     sendFeedback = () => {
-        if(this.state.feedbackText !== '')
-        {
-            // api: send to database
-
-            this.setState({feedbackSent:1});
-        }
-    };
-
-    sendFeedback = () => {
         if(this.state.feedbackText.length > 0)
         {
             AsyncStorage.getItem('login').then(
@@ -32,7 +23,7 @@ export default class Feedback extends React.Component {
                     {
                         AsyncStorage.getItem('userid').then(
                             (userid) => {
-                                fetch(`https://7f01cb95.ngrok.io/api/send_feedback?user_id=${userid}&message=${this.state.feedbackText}`,
+                                fetch(`https://ecd1cd47.ngrok.io/api/send_feedback?user_id=${userid}&message=${this.state.feedbackText}`,
                                     { headers: { 'Cache-Control': 'no-cache' } }).then((res) => res.json()).then((resJson) => {
                                     if(resJson.status == 1)
                                     {
