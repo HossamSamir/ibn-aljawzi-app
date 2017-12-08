@@ -128,6 +128,8 @@ export default class Orders extends React.Component {
         {
             return(
                 <View style={{ flex:1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                    <MenuBackButton navigation={this.props.navigation} />
+                    
                     <Text style={{color: '#106234', fontSize: 22}}>No orders by you</Text>
                 </View>
             );
