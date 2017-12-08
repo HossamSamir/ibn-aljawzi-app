@@ -3,8 +3,6 @@ import { Platform, Dimensions, AsyncStorage, ScrollView, Text, View, StyleSheet 
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import SelectInput from 'react-native-select-input-ios';
 
-import { NavigationActions } from 'react-navigation';
-
 import MenuBackButton from './MenuBackButton'
 
 // API: load this.state.currency from database
