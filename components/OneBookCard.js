@@ -18,7 +18,8 @@ export default class OneBookCard extends React.Component {
             added: 0,
             addButtonText: 'Add',
             addButtonIcon: 'ios-star-outline',
-            addButtonBGCol: '#106234'
+            addButtonBGCol: '#106234',
+            book_price: 0
         }
     }
 
@@ -47,6 +48,16 @@ export default class OneBookCard extends React.Component {
                 }
             });
         }
+
+        fetch('https://7f01cb95.ngrok.io/api/price_of_book?book_id='+this.props.id).
+            then((res) => res.json()).then((resJson) => {
+                this.setState({book_price: parseInt(resJson[0]['price'])});
+            })
+            .then(() => {
+            }).catch(error => {
+                console.error(error);
+            Alert.alert('price2',JSON.stringify(error),[{text: 'Ask me later'} ])
+          });
     }
 
     asyncAddBookToLibrary = (callback) => {
@@ -175,26 +186,42 @@ export default class OneBookCard extends React.Component {
         if(this.props.addButton == 1)
         {
             return (
-                <View style={{ marginTop:6, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            if(this.state.added == 0)
-                                this.addBookToLibrary();
-                        }}
-                        style={{ flex: 0.7, flexDirection: 'row', backgroundColor: this.state.addButtonBGCol, paddingVertical: 3, paddingHorizontal: 10,  borderRadius: 15, alignItems: 'center', justifyContent: 'center' }}>
-                        <Ionicons
-                          name={this.state.addButtonIcon}
-                          size={18}
-                          color='white'
-                          style={{paddingRight: 4, fontWeight: 'bold', backgroundColor: 'transparent' }}
-                        />
-                        <Text style={{ color: 'white' }}>{ this.state.addButtonText }</Text>
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity
+                    onPress={() => {
+                        if(this.state.added == 0)
+                            this.addBookToLibrary();
+                    }}
+                    style={{ flex: 0.7, flexDirection: 'row', backgroundColor: this.state.addButtonBGCol, paddingVertical: 3, paddingHorizontal: 9,  borderRadius: 15, alignItems: 'center', justifyContent: 'center' }}>
+                    <Ionicons
+                      name={this.state.addButtonIcon}
+                      size={18}
+                      color='white'
+                      style={{paddingRight: 4, fontWeight: 'bold', backgroundColor: 'transparent' }}
+                    />
+                    <Text style={{ color: 'white' }}>{ this.state.addButtonText }</Text>
+                </TouchableOpacity>
             );
         }
         else
             return null;
+    };
+
+    shouldRenderBuyButton = () => {
+        if(this.state.book_price == 0)
+        {
+            return null;
+        }
+        else
+        {
+            return (
+                <TouchableOpacity
+                    onPress={ () => { this.props.navigation.navigate('Payment', {}) }}
+                    style={{ flex: 0.7, flexDirection: 'row', backgroundColor: '#3B73DB', marginLeft: 5, paddingVertical: 3, paddingHorizontal: 9,  borderRadius: 15, alignItems: 'center', justifyContent: 'center' }}>
+
+                    <Text style={{ color: 'white' }}>Buy - { this.state.book_price }</Text>
+                </TouchableOpacity>
+            );
+        }
     };
 
     render() {
@@ -206,9 +233,10 @@ export default class OneBookCard extends React.Component {
                 <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#106234' }}>{this.props.book_name.toUpperCase()}</Text>
                 <Text style={{  }}>{this.props.author_name}</Text>
 
-                {
-                    this.shouldRenderAddButton()
-                }
+                <View style={{ marginTop:6, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                    {this.shouldRenderAddButton()}
+                    {this.shouldRenderBuyButton()}
+                </View>
             </View>
         );
     }
