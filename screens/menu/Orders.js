@@ -27,6 +27,7 @@ export default class Orders extends React.Component {
                 SEND THE LAST 2 COLUMNS AS INTEGERS NOT STRINGS
                 WE WILL CONVERT TO STRING INSIDE THE APP (WITH getMethodAsStr and getStatusAsStr), NOT ON THE SERVER
                 NOTICE 3: DO NOT SEND ORDERS WITH STATUS = 2 (AKA ALREADY RECEIVED BY CUSTOMER)*/
+            doneFetching: false,
             orders: [/*
                 ["Book name",       1,      0],
                 ["Book name",       0,      1],
