@@ -60,6 +60,20 @@ export default class App extends Component {
         AsyncStorage.setItem('currency', String(newValue));
         this.setState({currency: newValue});
 
+        AsyncStorage.getItem('login').then(
+            (logged) => {
+                if(logged == '1')
+                {
+                    AsyncStorage.getItem('userid').then(
+                        (userid) => {
+                            fetch('https://7f01cb95.ngrok.io/api/set_currency?user_id='+userid+'&currency='+newValue).then((res) => res.json()).then((resJson) => {
+                                
+                            });
+                        }
+                    );
+                }
+            }
+        );
     };
 
   render() {

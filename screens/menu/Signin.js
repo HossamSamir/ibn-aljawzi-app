@@ -73,6 +73,7 @@ export default class Signin extends React.Component {
             {
                 AsyncStorage.setItem('userid', resJson.response);
                 AsyncStorage.setItem('MyLibraryBooksIDs', resJson.MyLibraryBooksIDs);
+                AsyncStorage.setItem('currency', resJson.currency);
                 this.setLoginStatus('1');
                 this.props.navigation.dispatch(NavigationActions.reset({
                   index: 0,
