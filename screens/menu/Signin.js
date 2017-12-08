@@ -1,5 +1,5 @@
 import React from 'react';
-import { AsyncStorage, ActivityIndicator, StyleSheet, TextInput, View, Text, Image } from "react-native";
+import { Dimensions, KeyboardAvoidingView, AsyncStorage, ActivityIndicator, StyleSheet, TextInput, View, Text, Image } from "react-native";
 import { Button } from "react-native-elements";
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationActions } from 'react-navigation';
@@ -110,7 +110,13 @@ export default class Signin extends React.Component {
         else
         {
             return (
-                <View style={{ backgroundColor: 'white', height: '100%', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', }}>
+                <View style={{ backgroundColor: 'white', flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', height: Dimensions.get('window').height, width: Dimensions.get('window').width }}>
+                <KeyboardAvoidingView
+                    behavior='position'
+                    keyboardVerticalOffset={0}
+                    style={{ }}
+                    contentContainerStyle= {{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', width: Dimensions.get('window').width }}>
+
                     <Image
                       style={{
                           resizeMode: 'contain',
@@ -220,6 +226,7 @@ export default class Signin extends React.Component {
                             </View>
                         </View>
                     </View>
+                    </KeyboardAvoidingView>
                 </View>
             );
         }

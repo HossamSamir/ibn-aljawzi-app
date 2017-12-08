@@ -20,6 +20,11 @@ import LoadingIndicator from '../components/LoadingIndicator';
 export default class MyLibrary extends React.Component {
     componentDidMount() {
         this.doTheFetching();
+
+        /*setInterval(() => {
+            this.setState({ doneFetching: false, myLibraryStatus: 0 });
+            this.doTheFetching();
+        }, 3000);*/
     }
     doTheFetching() {
         AsyncStorage.getItem('login').then(

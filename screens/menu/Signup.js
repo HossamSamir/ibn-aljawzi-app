@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, StyleSheet, ActivityIndicator, AsyncStorage, TextInput, View, Text, Image } from "react-native";
+import { Dimensions, KeyboardAvoidingView, ScrollView, StyleSheet, ActivityIndicator, AsyncStorage, TextInput, View, Text, Image } from "react-native";
 import { Button } from "react-native-elements";
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationActions } from 'react-navigation';
@@ -104,6 +104,12 @@ export default class Signup extends React.Component {
                 <ScrollView
                     contentContainerStyle={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}
                     style={{ backgroundColor: 'white', height: '100%', }}>
+
+                    <KeyboardAvoidingView
+                        behavior='position'
+                        keyboardVerticalOffset={0}
+                        style={{ }}
+                        contentContainerStyle= {{ flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', width: Dimensions.get('window').width }}>
                     <Image
                       style={{
                           resizeMode: 'contain',
@@ -232,6 +238,7 @@ export default class Signup extends React.Component {
                                 title="Sign up" />
                         </View>
                     </View>
+                    </KeyboardAvoidingView>
                 </ScrollView>
             );
         }

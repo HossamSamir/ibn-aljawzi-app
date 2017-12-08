@@ -25,7 +25,7 @@ export default class Header extends React.Component {
 
   render() {
     return (
-        <View style={{ flex: .1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',  backgroundColor: '#106234', paddingTop: Platform.OS == 'ios' ? 20 : 0, paddingVertical: 0, paddingHorizontal: 10, }}>
+        <View style={{ maxHeight: 60, flex: .1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',  backgroundColor: '#106234', paddingTop: Platform.OS == 'ios' ? 20 : 0, paddingVertical: 0, paddingHorizontal: 10, }}>
             <View style={{ flex: .6, marginLeft: 0, paddingRight: 60}}>
             <Image
               style={{
