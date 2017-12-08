@@ -1,5 +1,5 @@
 import React from 'react';
-import { KeyboardAvoidingView, TextInput, View, Text } from "react-native";
+import { AsyncStorage, KeyboardAvoidingView, TextInput, View, Text } from "react-native";
 import { Button } from "react-native-elements";
 
 import MenuBackButton from './MenuBackButton'
@@ -20,6 +20,60 @@ export default class Feedback extends React.Component {
             // api: send to database
 
             this.setState({feedbackSent:1});
+        }
+    };
+
+    sendFeedback = () => {
+        if(this.state.feedbackText.length > 0)
+        {
+            AsyncStorage.getItem('login').then(
+                (logged) => {
+                    if(logged == '1')
+                    {
+                        AsyncStorage.getItem('userid').then(
+                            (userid) => {
+                                fetch(`https://7f01cb95.ngrok.io/api/send_feedback?user_id=${userid}&message=${this.state.feedbackText}`,
+                                    { headers: { 'Cache-Control': 'no-cache' } }).then((res) => res.json()).then((resJson) => {
+                                    if(resJson.status == 1)
+                                    {
+                                        this.setState({feedbackSent:1});
+                                        Alert.alert(
+                                          'Message delivered',
+                                          'Your message have been delivered successfully',
+                                          [
+                                            {text: 'Okay'},
+                                          ],
+                                          { cancelable: true }
+                                      );
+                                    }
+                                    else
+                                    {
+                                        Alert.alert(
+                                          'Failed to send',
+                                          'Failed to send your message',
+                                          [
+                                            {text: 'Okay'},
+                                          ],
+                                          { cancelable: true }
+                                      );
+                                    }
+                                });
+                            }
+                        );
+                    }
+                    else
+                    {
+                        Alert.alert(
+                          'Cannot send a message',
+                          'Cannot send us a message because you are not logged in',
+                          [
+                            {text: 'Okay'},
+                          ],
+                          { cancelable: true }
+                      );
+                    }
+                }
+            );
         }
     };
 
@@ -46,6 +100,7 @@ export default class Feedback extends React.Component {
                         autoFocus={false}
                         editable={(this.state.feedbackSent == 0) ? true : false}
                         onChangeText={(text) => this.setState({feedbackText:text})}
+                        onSubmitEditing={(event) => this.sendFeedback() }
                         placeholderTextColor='#AAAAAA'
                         style={{ textAlignVertical: 'top', width: '83%', height: '50%', maxHeight: '75%', color: 'black', backgroundColor: 'white', borderRadius: 14, fontSize: 18,
                              paddingTop: 5, paddingBottom: 5, paddingRight: 7, paddingLeft: 7, marginBottom: 16 }}/>
