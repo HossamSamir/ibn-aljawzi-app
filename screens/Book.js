@@ -13,9 +13,10 @@ import {
   ListView,
   TextInput,
   Dimensions,
-  AsyncStorage
+  AsyncStorage,
+  Linking
 } from 'react-native';
-import { BlurView, FileSystem } from 'expo';
+import { BlurView } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import Lightbox from 'react-native-lightbox';
 
@@ -142,28 +143,13 @@ export default class BookCard extends React.Component {
         else
         {
             return (
-                <TouchableOpacity style={{margin: 7}} onPress={ () => {
-                    this.props.navigation.navigate('Payment', {uri: this.DownloadBook('http://www.africau.edu/images/default/sample.pdf', 'FileName.pdf')})
-                }} style={{ backgroundColor: '#2C7A37', borderRadius: 10, marginVertical: 25, maxWidth: 130,  }}>
+                <TouchableOpacity style={{margin: 7}} onPress={ ()=>{ Linking.openURL(this.state.book_download)}}
+                    style={{ backgroundColor: '#2C7A37', borderRadius: 10, marginVertical: 25, maxWidth: 130,  }}>
                     <Text style={{ color: 'white', backgroundColor: 'transparent', padding: 10, fontWeight: 'bold', fontSize: 16, textAlign: 'center' }}>Download</Text>
                 </TouchableOpacity>
             );
         }
     };
-
-    DownloadBook = (book_url, book_name) => {
-      FileSystem.downloadAsync(
-        book_url,
-        FileSystem.documentDirectory + book_name
-      )
-        .then(({ uri }) => {
-          return uri;
-          // Alert.alert('Finished downloading to ', uri)
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    }
 
     shouldRenderBuyButton = () => {
         if(this.state.book_price == 0)
