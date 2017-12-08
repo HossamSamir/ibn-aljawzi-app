@@ -53,7 +53,6 @@ export default class App extends Component {
         AsyncStorage.setItem('language', String(newValue));
         this.setState({language: newValue});
         this.props.navigation.navigate("Signin", {});
-
     };
 
     onCurrencyChange = (newValue) => {
@@ -67,7 +66,7 @@ export default class App extends Component {
                     AsyncStorage.getItem('userid').then(
                         (userid) => {
                             fetch('https://ecd1cd47.ngrok.io/api/set_currency?user_id='+userid+'&currency='+newValue).then((res) => res.json()).then((resJson) => {
-                                
+
                             });
                         }
                     );

@@ -6,42 +6,76 @@ export default class ListAll extends React.Component {
 
   componentDidMount() {
     AsyncStorage.getItem("language").then((value) => {
-      if (value == '1') {
-        this.setState({ thingsToTranslate: { orders: 'المشتريات', about: 'من نحن', contact: 'الاتصال بنا', settings: 'الاعدادات', logout: 'تسجيل الخروج' , signup: 'تسجيل حساب',
-        signin: 'تسجيل الدخول'},
-        desc: {
-          orders: 'يمكنك التحكم في طلبات الكتب الخاصه بك من هنا'
-        } } )
+      if (value == '0') {
+        this.setState({
+          thingsToTranslate: {
+            orders: 'orders',
+            about: 'About us',
+            contact: 'Contact us',
+            settings: 'Settings',
+            logout: 'Log out',
+            signup: 'Sign up',
+            signin: 'Sign in',
+            desc: {
+              orders: 'You can control your orders here.',
+              about: 'Who we are, what we\'re looking forward to and more.',
+              contact: 'Send feedback or report problems. We like to hear from you.',
+              settings: 'Adjust font size, currency and more.',
+              logout: 'Log out of your account.',
+              signin: 'Sign into your account',
+              signup: 'Create a new account',
+            }
+          }
+        });
       } else {
-        this.setState({ thingsToTranslate: { orders: 'Orders', about: 'About us', contact: 'Contact us', settings: 'Settings', logout: 'Log out', signup: 'Sign up',
-        signin: 'Sign in'},
-         desc: {
-          orders: 'You can control your orders here.',
-        } } )
+          this.setState({
+            thingsToTranslate: {
+            orders: 'المشتريات',
+            about: 'من نحن',
+            contact: 'الاتصال بنا',
+            settings: 'الاعدادات',
+            logout: 'تسجيل الخروج' ,
+            signup: 'تسجيل حساب',
+            signin: 'تسجيل الدخول',
+          desc: {
+            orders: 'يمكنك التحكم في طلبات الكتب الخاصه بك من هنا',
+            about: 'من نحن و ما الذي نتطلع لعمله',
+            contact: 'ارسل لنا تعليقات حول التطبيق .. نحن نود ان نسمع منك',
+            settings: 'تحكم في حجم الخط .. العمله و المزيد',
+            logout: 'تسجيل الخروج من حسابك',
+            signin: 'تسجيل الدخول الي حساابك',
+            signup: 'حساب جديد',
+           }
+          }
+          });
       }
-    });
+    }).then(() => {
+      this.prepareListData();
+    })
   }
 
   constructor(props) {
     super(props);
     this.state = {
          listData: '',
-      thingsToTranslate: {
-        orders: 'Orders',
-        about: 'About us',
-        contact: 'Contact us',
-        settings: 'Settings',
-        logout: 'Log out',
-        signup: 'Sign up',
-        signin: 'Sign in',
-        desc: {
-          orders: 'You can control your orders here.',
-          // about: 'You can control your orders here.',
-          // contact: 'You can control your orders here.',
-          // settings: 'You can control your orders here.',
-          // logout: 'You can control your orders here.',
+         thingsToTranslate: {
+         orders: 'المشتريات',
+         about: 'من نحن',
+         contact: 'الاتصال بنا',
+         settings: 'الاعدادات',
+         logout: 'تسجيل الخروج' ,
+         signup: 'تسجيل حساب',
+         signin: 'تسجيل الدخول',
+       desc: {
+         orders: 'يمكنك التحكم في طلبات الكتب الخاصه بك من هنا',
+         about: 'من نحن و ما الذي نتطلع لعمله',
+         contact: 'ارسل لنا تعليقات حول التطبيق .. نحن نود ان نسمع منك',
+         settings: 'تحكم في حجم الخط .. العمله و المزيد',
+         logout: 'تسجيل الخروج من حسابك',
+         signin: 'تسجيل الدخول الي حساابك',
+         signup: 'حساب جديد',
         }
-      },
+       },
     }
 
     this.prepareListData();
@@ -50,21 +84,21 @@ export default class ListAll extends React.Component {
   prepareListData = () => {
       var arr = [
           {key: 'Orders', icon: 'ios-cart-outline', title: this.state.thingsToTranslate.orders, description: this.state.thingsToTranslate.desc.orders},
-          {key: 'AboutUs', icon: 'ios-people-outline', title: this.state.thingsToTranslate.about, description: 'Who we are, what we\'re looking forward to and more.'},
-          {key: 'Feedback', icon: 'ios-mail-outline', title: this.state.thingsToTranslate.contact, description: 'Send feedback or report problems. We like to hear from you.'},
-          {key: 'Settings', icon: 'ios-cog', title: this.state.thingsToTranslate.settings, description: 'Adjust font size, currency and more.'},
+          {key: 'AboutUs', icon: 'ios-people-outline', title: this.state.thingsToTranslate.about, description: this.state.thingsToTranslate.desc.about},
+          {key: 'Feedback', icon: 'ios-mail-outline', title: this.state.thingsToTranslate.contact, description: this.state.thingsToTranslate.desc.contact},
+          {key: 'Settings', icon: 'ios-cog', title: this.state.thingsToTranslate.settings, description: this.state.thingsToTranslate.desc.settings},
       ];
       AsyncStorage.getItem('login').then(
           (logged) => {
               if(logged == '1')
               {
-                  arr.push({key: 'Logout', icon: 'ios-log-out-outline', title: this.state.thingsToTranslate.logout, description: 'Log out of your account.'});
+                  arr.push({key: 'Logout', icon: 'ios-log-out-outline', title: this.state.thingsToTranslate.logout, description: this.state.thingsToTranslate.desc.logout});
                   this.setState({listData: arr});
               }
               else
               {
-                  arr.push({key: 'Signup', icon: 'ios-log-in-outline', title: this.state.thingsToTranslate.signup, description: 'Create a new account.'});
-                  arr.push({key: 'Signin', icon: 'ios-log-in-outline', title: this.state.thingsToTranslate.signin, description: 'Sign into your account.'});
+                  arr.push({key: 'Signup', icon: 'ios-log-in-outline', title: this.state.thingsToTranslate.signup, description: this.state.thingsToTranslate.desc.signup});
+                  arr.push({key: 'Signin', icon: 'ios-log-in-outline', title: this.state.thingsToTranslate.signin, description: this.state.thingsToTranslate.desc.signin});
                   this.setState({listData: arr});
               }
           }
@@ -147,7 +181,7 @@ export default class ListAll extends React.Component {
                               style={{ backgroundColor: 'transparent', marginRight: 9}}/>
                               <Text style={{color: '#111111', fontSize: 18}}>{item.title}</Text>
                         </View>
-                        <Text style={{ color: '#999999', fontSize: 14, marginLeft: 34, paddingBottom: 4, borderBottomColor: '#63BA83', borderBottomWidth: 0.5 }}>
+                        <Text style={{ color: '#999999', fontSize: 14, marginLeft: 34, paddingBottom: 4, borderBottomColor: '#63BA83', borderBottomWidth: 0.5, textAlign: 'left' }}>
                             {item.description}
                         </Text>
                       </TouchableOpacity>
