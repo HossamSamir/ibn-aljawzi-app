@@ -34,8 +34,15 @@ export default class MyLibrary extends React.Component {
 
     listeners = {
         update: DeviceEventEmitter.addListener('ReloadMyLibraryBooks', ({  }) => {
-            this.setState({ doneFetching: false, myLibraryStatus: 0 });
-            this.doTheFetching();
+            AsyncStorage.getItem('justAddedBook').then(
+                (added) => {
+                    if(added != '0')
+                    {
+                        AsyncStorage.setItem('justAddedBook', '0');
+                        this.setState({ doneFetching: false, myLibraryStatus: 0 });
+                        this.doTheFetching();
+                    }
+                });
         })
     }
 

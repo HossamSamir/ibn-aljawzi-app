@@ -95,6 +95,8 @@ export default class OneBookCard extends React.Component {
                                     fetch(Server.dest + '/api/add-my-library?user_id='+userid+'&book_id='+this.props.id).then((res) => res.json()).then((resJson) => {
                                         if(resJson.reply == 1)
                                         {
+                                            AsyncStorage.setItem('justAddedBook', '1');
+
                                             this.setState({
                                                 added: 1,
                                                 addButtonText: 'Added',
