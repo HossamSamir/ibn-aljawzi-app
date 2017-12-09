@@ -16,6 +16,7 @@ import { Ionicons } from '@expo/vector-icons';
 //import Header from '../components/Header';
 import OneBookCard from '../components/OneBookCard';
 import LoadingIndicator from '../components/LoadingIndicator';
+import Server from '../constants/server';
 
 export default class MyLibrary extends React.Component {
     componentDidMount() {
@@ -34,7 +35,7 @@ export default class MyLibrary extends React.Component {
                     AsyncStorage.getItem('userid').then(
                         (userid) => {
 
-                            fetch(`https://ecd1cd47.ngrok.io/api/show-my-library?user_id=${userid}`, { headers: { 'Cache-Control': 'no-cache' } }).then((res) => res.json()).then((resJsonThree) => {
+                            fetch(`${Server.dest}/api/show-my-library?user_id=${userid}`, { headers: { 'Cache-Control': 'no-cache' } }).then((res) => res.json()).then((resJsonThree) => {
                                 //Alert.alert('MyLibrary',JSON.stringify(resJsonThree),[{text: 'Ask me later'} ])
                                 if(resJsonThree.status == 1)
                                 {

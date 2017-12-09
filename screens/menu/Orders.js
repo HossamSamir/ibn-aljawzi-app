@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import MenuBackButton from './MenuBackButton'
 import LoadingIndicator from '../../components/LoadingIndicator';
+import Server from '../../constants/server';
 
 export default class Orders extends React.Component {
     constructor(props) {
@@ -55,7 +56,7 @@ export default class Orders extends React.Component {
                     AsyncStorage.getItem('userid').then(
                         (userid) => {
 
-                            fetch(`https://ecd1cd47.ngrok.io/api/orders?user_id=${userid}`, { headers: { 'Cache-Control': 'no-cache' } }).then((res) => res.json()).then((resJson) => {
+                            fetch(`${Server.dest}/api/orders?user_id=${userid}`, { headers: { 'Cache-Control': 'no-cache' } }).then((res) => res.json()).then((resJson) => {
                                 if(resJson.status == 1)
                                 {
                                     var arr = [];
@@ -129,7 +130,7 @@ export default class Orders extends React.Component {
             return(
                 <View style={{ flex:1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                     <MenuBackButton navigation={this.props.navigation} />
-                    
+
                     <Text style={{color: '#106234', fontSize: 22}}>No orders by you</Text>
                 </View>
             );

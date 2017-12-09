@@ -18,6 +18,7 @@ import { Rating } from 'react-native-elements';
 //import Header from '../components/Header';
 import OneBookCard from '../components/OneBookCard';
 import LoadingIndicator from '../components/LoadingIndicator';
+import Server from '../constants/server';
 
 export default class HomeScreen extends React.Component {
     componentDidMount() {
@@ -25,14 +26,14 @@ export default class HomeScreen extends React.Component {
     }
 
     doTheFetching() {
-        fetch('https://ecd1cd47.ngrok.io/api/categories').then((res) => res.json()).then((resJson) => {
+        fetch(Server.dest + '/api/categories').then((res) => res.json()).then((resJson) => {
             this.setState({mainCats: resJson});
         })
         .then(() => {
           this.setState({doneFetches: (this.state.doneFetches+1)})
         })
 
-        fetch('https://ecd1cd47.ngrok.io/api/homescreen').then((res) => res.json()).then((resJsontwo) => {
+        fetch(Server.dest + '/api/homescreen').then((res) => res.json()).then((resJsontwo) => {
             //Alert.alert('booksInCats',JSON.stringify(resJsontwo),[{text: 'Ask me later'} ])
             this.setState({booksInCats: resJsontwo});
         })

@@ -16,6 +16,7 @@ import { Rating } from 'react-native-elements';
 //import Header from '../components/Header';
 import LoadingIndicator from '../components/LoadingIndicator';
 import OneBookCard from '../components/OneBookCard';
+import Server from '../constants/server';
 
 // API: send this.props.navigation.state.params.main_cat_id to the server, get this.state.subCats and this.state.books of that main category
 
@@ -27,7 +28,7 @@ export default class Category extends React.Component {
 
     doTheFetching() {
         // Fetch all sub categories first
-        fetch('https://ecd1cd47.ngrok.io/api/sub_categories?parent_cat_id='+this.props.navigation.state.params.main_cat_id).
+        fetch(Server.dest + '/api/sub_categories?parent_cat_id='+this.props.navigation.state.params.main_cat_id).
             then((res) => res.json()).then((resJson) => {
                 this.setState({subCats: resJson});
             })
@@ -36,7 +37,7 @@ export default class Category extends React.Component {
             })
 
         // Fetch all books
-        fetch('https://ecd1cd47.ngrok.io/api/books_of_cat?cat_id='+this.props.navigation.state.params.main_cat_id).
+        fetch(Server.dest + '/api/books_of_cat?cat_id='+this.props.navigation.state.params.main_cat_id).
             then((res) => res.json()).then((resJson) => {
                 this.setState({books: resJson});
             })

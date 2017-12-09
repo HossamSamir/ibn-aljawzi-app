@@ -3,6 +3,7 @@ import { AsyncStorage, KeyboardAvoidingView, TextInput, View, Text } from "react
 import { Button } from "react-native-elements";
 
 import MenuBackButton from './MenuBackButton'
+import Server from '../../constants/server';
 
 export default class Feedback extends React.Component {
     constructor(props){
@@ -23,7 +24,7 @@ export default class Feedback extends React.Component {
                     {
                         AsyncStorage.getItem('userid').then(
                             (userid) => {
-                                fetch(`https://ecd1cd47.ngrok.io/api/send_feedback?user_id=${userid}&message=${this.state.feedbackText}`,
+                                fetch(`${Server.dest}/api/send_feedback?user_id=${userid}&message=${this.state.feedbackText}`,
                                     { headers: { 'Cache-Control': 'no-cache' } }).then((res) => res.json()).then((resJson) => {
                                     if(resJson.status == 1)
                                     {

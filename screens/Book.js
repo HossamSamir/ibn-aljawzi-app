@@ -23,6 +23,7 @@ import Lightbox from 'react-native-lightbox';
 //import Header from '../components/Header';
 import LoadingIndicator from '../components/LoadingIndicator';
 import OneBookCard from '../components/OneBookCard';
+import Server from '../constants/server';
 
 // API: send this.props.navigation.state.params.book_ID to the server
 
@@ -32,7 +33,7 @@ export default class BookCard extends React.Component {
     }
 
     doTheFetching() {
-        fetch('https://ecd1cd47.ngrok.io/api/screenshots_of_book?book_id='+this.props.navigation.state.params.book_ID).
+        fetch(Server.dest + '/api/screenshots_of_book?book_id='+this.props.navigation.state.params.book_ID).
             then((res) => res.json()).then((resJson) => {
                 this.setState({screenshots: resJson});
             })
@@ -43,7 +44,7 @@ export default class BookCard extends React.Component {
             Alert.alert('screenshots',JSON.stringify(error),[{text: 'Ask me later'} ])
           });
 
-        fetch('https://ecd1cd47.ngrok.io/api/comments_of_book?book_id='+this.props.navigation.state.params.book_ID).
+        fetch(Server.dest + '/api/comments_of_book?book_id='+this.props.navigation.state.params.book_ID).
             then((res) => res.json()).then((resJson) => {
                 this.setState({comments: resJson});
             })
@@ -54,7 +55,7 @@ export default class BookCard extends React.Component {
             Alert.alert('comments',JSON.stringify(error),[{text: 'Ask me later'} ])
           });
 
-        fetch('https://ecd1cd47.ngrok.io/api/desc_of_book?book_id='+this.props.navigation.state.params.book_ID).
+        fetch(Server.dest + '/api/desc_of_book?book_id='+this.props.navigation.state.params.book_ID).
             then((res) => res.json()).then((resJson) => {
                 this.setState({book_desc:  resJson[0]['descc']});
             })
@@ -65,7 +66,7 @@ export default class BookCard extends React.Component {
             Alert.alert('descc',JSON.stringify(error),[{text: 'Ask me later'} ])
           });
 
-        fetch('https://ecd1cd47.ngrok.io/api/price_of_book?book_id='+this.props.navigation.state.params.book_ID).
+        fetch(Server.dest + '/api/price_of_book?book_id='+this.props.navigation.state.params.book_ID).
             then((res) => res.json()).then((resJson) => {
                 this.setState({book_price: parseInt(resJson[0]['price'])});
             })
@@ -76,7 +77,7 @@ export default class BookCard extends React.Component {
             Alert.alert('price',JSON.stringify(error),[{text: 'Ask me later'} ])
           });
 
-        fetch('https://ecd1cd47.ngrok.io/api/dllink_of_book?book_id='+this.props.navigation.state.params.book_ID).
+        fetch(Server.dest + '/api/dllink_of_book?book_id='+this.props.navigation.state.params.book_ID).
             then((res) => res.json()).then((resJson) => {
                 this.setState({book_download:  resJson[0]['link']});
             })
@@ -177,7 +178,7 @@ export default class BookCard extends React.Component {
                     {
                         AsyncStorage.getItem('userid').then(
                             (userid) => {
-                                fetch(`https://ecd1cd47.ngrok.io/api/add_comment?user_id=${userid}&comment=${this.state.myComment}&book_id=${this.props.navigation.state.params.book_ID}`,
+                                fetch(`${Server.dest}/api/add_comment?user_id=${userid}&comment=${this.state.myComment}&book_id=${this.props.navigation.state.params.book_ID}`,
                                     { headers: { 'Cache-Control': 'no-cache' } }).then((res) => res.json()).then((resJson) => {
                                     if(resJson.status == 1)
                                     {

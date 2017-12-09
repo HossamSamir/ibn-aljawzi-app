@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { NavigationActions } from 'react-navigation';
 
 import LoadingIndicator from '../../components/LoadingIndicator';
+import Server from '../../constants/server';
 
 export default class Signin extends React.Component {
     setLoginStatus = (value) => {
@@ -65,7 +66,7 @@ export default class Signin extends React.Component {
         }
         this.setState({ errorMsg: '' });
 
-        fetch('https://ecd1cd47.ngrok.io/api/signin?username='+this.state.username+'&password='+this.state.password).
+        fetch(Server.dest + '/api/signin?username='+this.state.username+'&password='+this.state.password).
         then((res) => res.json()).then((resJson) => {
             if(resJson.response == 0)
                 this.setState({ errorMsg: 'Incorrect username or password' });

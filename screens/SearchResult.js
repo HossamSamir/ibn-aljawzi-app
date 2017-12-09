@@ -13,6 +13,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 import LoadingIndicator from '../components/LoadingIndicator';
 import OneBookCard from '../components/OneBookCard';
+import Server from '../constants/server';
 
 // API: send this.props.navigation.state.params.searchingFor to the server and it should reply with this.state.result
 
@@ -22,7 +23,7 @@ export default class MyLibrary extends React.Component {
     }
 
     doTheFetching() {
-        fetch('https://ecd1cd47.ngrok.io/api/searchfor?query='+this.props.navigation.state.params.searchingFor).then((res) => res.json()).then((resJson) => {
+        fetch(Server.dest + '/api/searchfor?query='+this.props.navigation.state.params.searchingFor).then((res) => res.json()).then((resJson) => {
             if(resJson.status == 1)
             {
                 this.setState({foundResult: 1, result: resJson.result});

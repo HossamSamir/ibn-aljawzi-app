@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { NavigationActions } from 'react-navigation';
 
 import LoadingIndicator from '../../components/LoadingIndicator';
+import Server from '../../constants/server';
 
 export default class Signup extends React.Component {
     setLoginStatus = (value) => {
@@ -57,7 +58,7 @@ export default class Signup extends React.Component {
         }
         this.setState({ errorMsg: '' });
 
-        fetch('https://ecd1cd47.ngrok.io/api/signup?username='+this.state.username+'&password='+this.state.password+'&address='+this.state.address+'&email='+this.state.email).
+        fetch(Server.dest + '/api/signup?username='+this.state.username+'&password='+this.state.password+'&address='+this.state.address+'&email='+this.state.email).
         then((res) => res.json()).then((resJson) => {
             if(resJson.response == 0)
                 this.setState({ errorMsg: 'Username already taken' });

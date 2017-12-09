@@ -16,6 +16,7 @@ import { Rating } from 'react-native-elements';
 //import Header from '../components/Header';
 import LoadingIndicator from '../components/LoadingIndicator';
 import OneBookCard from '../components/OneBookCard';
+import Server from '../constants/server';
 
 // API: send this.props.navigation.state.params.sub_cat_id to the server, and receive this.state.booksOfSubCat
 
@@ -25,7 +26,7 @@ export default class subCategory extends React.Component {
     }
 
     doTheFetching() {
-        fetch('https://ecd1cd47.ngrok.io/api/books_of_subcat?sub_cat_id='+this.props.navigation.state.params.sub_cat_id).then((res) => res.json()).then((resJson) => {
+        fetch(Server.dest + '/api/books_of_subcat?sub_cat_id='+this.props.navigation.state.params.sub_cat_id).then((res) => res.json()).then((resJson) => {
             this.setState({booksOfSubCat: resJson});
         })
         .then(() => {

@@ -4,6 +4,7 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import SelectInput from 'react-native-select-input-ios';
 
 import MenuBackButton from './MenuBackButton'
+import Server from '../../constants/server';
 
 // API: load this.state.currency from database
 // API: when user changes currency, send the new value to database
@@ -65,7 +66,7 @@ export default class App extends Component {
                 {
                     AsyncStorage.getItem('userid').then(
                         (userid) => {
-                            fetch('https://ecd1cd47.ngrok.io/api/set_currency?user_id='+userid+'&currency='+newValue).then((res) => res.json()).then((resJson) => {
+                            fetch(Server.dest + '/api/set_currency?user_id='+userid+'&currency='+newValue).then((res) => res.json()).then((resJson) => {
 
                             });
                         }

@@ -9,6 +9,7 @@ import {
 
 //import Header from '../components/Header';
 import LoadingIndicator from '../components/LoadingIndicator';
+import Server from '../constants/server';
 
 export default class Categories extends React.Component {
 
@@ -17,7 +18,7 @@ export default class Categories extends React.Component {
     }
 
     doTheFetching() {
-        fetch('https://ecd1cd47.ngrok.io/api/categories').then((res) => res.json()).then((resJson) => {
+        fetch(Server.dest + '/api/categories').then((res) => res.json()).then((resJson) => {
             this.setState({mainCats: resJson});
         })
         .then(() => {

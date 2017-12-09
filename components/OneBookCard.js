@@ -10,6 +10,8 @@ import {
 import { Constants } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 
+import Server from '../constants/server';
+
 export default class OneBookCard extends React.Component {
 
     constructor(props) {
@@ -49,7 +51,7 @@ export default class OneBookCard extends React.Component {
             });
         }
 
-        fetch('https://ecd1cd47.ngrok.io/api/price_of_book?book_id='+this.props.id).
+        fetch(Server.dest + '/api/price_of_book?book_id='+this.props.id).
             then((res) => res.json()).then((resJson) => {
                 this.setState({book_price: parseInt(resJson[0]['price'])});
             })
@@ -90,7 +92,7 @@ export default class OneBookCard extends React.Component {
                             AsyncStorage.getItem('userid').then(
                                 (userid) => {
 
-                                    fetch('https://ecd1cd47.ngrok.io/api/add-my-library?user_id='+userid+'&book_id='+this.props.id).then((res) => res.json()).then((resJson) => {
+                                    fetch(Server.dest + '/api/add-my-library?user_id='+userid+'&book_id='+this.props.id).then((res) => res.json()).then((resJson) => {
                                         if(resJson.reply == 1)
                                         {
                                             this.setState({
