@@ -178,8 +178,8 @@ export default class BookCard extends React.Component {
                     {
                         AsyncStorage.getItem('userid').then(
                             (userid) => {
-                                fetch(`${Server.dest}/api/add_comment?user_id=${userid}&comment=${this.state.myComment}&book_id=${this.props.navigation.state.params.book_ID}`,
-                                    { headers: { 'Cache-Control': 'no-cache' } }).then((res) => res.json()).then((resJson) => {
+                                fetch(`${Server.dest}/api/add_comment?user_id=${userid}&comment=${this.state.myComment}&book_id=${this.props.navigation.state.params.book_ID}`).
+                                    then((res) => res.json()).then((resJson) => {
                                     if(resJson.status == 1)
                                     {
                                         var arr = this.state.comments;

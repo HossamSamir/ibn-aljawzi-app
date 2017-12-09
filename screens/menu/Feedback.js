@@ -24,8 +24,7 @@ export default class Feedback extends React.Component {
                     {
                         AsyncStorage.getItem('userid').then(
                             (userid) => {
-                                fetch(`${Server.dest}/api/send_feedback?user_id=${userid}&message=${this.state.feedbackText}`,
-                                    { headers: { 'Cache-Control': 'no-cache' } }).then((res) => res.json()).then((resJson) => {
+                                fetch(`${Server.dest}/api/send_feedback?user_id=${userid}&message=${this.state.feedbackText}`).then((res) => res.json()).then((resJson) => {
                                     if(resJson.status == 1)
                                     {
                                         this.setState({feedbackSent:1});

@@ -56,7 +56,7 @@ export default class Orders extends React.Component {
                     AsyncStorage.getItem('userid').then(
                         (userid) => {
 
-                            fetch(`${Server.dest}/api/orders?user_id=${userid}`, { headers: { 'Cache-Control': 'no-cache' } }).then((res) => res.json()).then((resJson) => {
+                            fetch(`${Server.dest}/api/orders?user_id=${userid}`).then((res) => res.json()).then((resJson) => {
                                 if(resJson.status == 1)
                                 {
                                     var arr = [];

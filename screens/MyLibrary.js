@@ -58,7 +58,7 @@ export default class MyLibrary extends React.Component {
                     AsyncStorage.getItem('userid').then(
                         (userid) => {
 
-                            fetch(`${Server.dest}/api/show-my-library?user_id=${userid}`, { headers: { 'Cache-Control': 'no-cache' } }).then((res) => res.json()).then((resJsonThree) => {
+                            fetch(`${Server.dest}/api/show-my-library?user_id=${userid}`).then((res) => res.json()).then((resJsonThree) => {
                                 //Alert.alert('MyLibrary',JSON.stringify(resJsonThree),[{text: 'Ask me later'} ])
                                 if(resJsonThree.status == 1)
                                 {
