@@ -52,6 +52,7 @@ export default class App extends Component {
 
     onLanguageChange = (newValue) => {
         AsyncStorage.setItem('language', String(newValue));
+        AsyncStorage.setItem('justAddedBook', '1');
         this.setState({language: newValue});
         this.props.navigation.navigate("Signin", {});
     };
@@ -68,13 +69,17 @@ export default class App extends Component {
                         (userid) => {
                             fetch(Server.dest + '/api/set_currency?user_id='+userid+'&currency='+newValue).then((res) => res.json()).then((resJson) => {
                                 if(resJson.reply == 1)
+                                {
+                                    AsyncStorage.setItem('justAddedBook', '1');
                                     this.props.navigation.navigate("Signin", {});
+                                }
                             });
                         }
                     );
                 }
                 else
                 {
+                    AsyncStorage.setItem('justAddedBook', '1');
                     this.props.navigation.navigate("Signin", {});
                 }
             }
