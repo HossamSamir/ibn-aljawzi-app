@@ -9,7 +9,8 @@ import {
   FlatList,
   ScrollView,
   AsyncStorage,
-  Alert
+  Alert,
+  DeviceEventEmitter
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -19,13 +20,35 @@ import LoadingIndicator from '../components/LoadingIndicator';
 import Server from '../constants/server';
 
 export default class MyLibrary extends React.Component {
-    componentDidMount() {
-        this.doTheFetching();
+    static navigationOptions = ({ navigation }) => {
+        return {
+            tabBarOnPress: ({ previousScene, scene, jumpToIndex }) => {
+                // Inject event
+                DeviceEventEmitter.emit('ReloadMyLibraryBooks', { });
 
-        /*setInterval(() => {
+                // Keep original behaviour
+                jumpToIndex(scene.index);
+            }
+        }
+    }
+
+    listeners = {
+        update: DeviceEventEmitter.addListener('ReloadMyLibraryBooks', ({  }) => {
             this.setState({ doneFetching: false, myLibraryStatus: 0 });
             this.doTheFetching();
-        }, 3000);*/
+        })
+    }
+
+    componentWillUnmount() {
+        // cleaning up listeners
+        // I am using lodash
+        _.each(this.listeners, (listener) => {
+            listener.remove()
+        })
+    }
+
+    componentDidMount() {
+        //this.doTheFetching();
     }
     doTheFetching() {
         AsyncStorage.getItem('login').then(
