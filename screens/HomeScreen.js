@@ -26,7 +26,7 @@ export default class HomeScreen extends React.Component {
     }
 
     doTheFetching() {
-        fetch(Server.dest + '/api/categories').then((res) => res.json()).then((resJson) => {
+        fetch('Server.dest + '/api/categories'').then((res) => res.json()).then((resJson) => {
             this.setState({mainCats: resJson});
         })
         .then(() => {
