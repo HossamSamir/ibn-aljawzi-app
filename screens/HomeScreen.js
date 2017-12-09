@@ -137,10 +137,9 @@ _keyExtractor2 = (item, index) => item.book_ID;
 
     return (
       <ScrollView style={styles.container}>
-      <ImageBackground
-          source={require('../assets/images/bg.png')}
+      <View
           style={{
-              flex: 1
+              flex: 1,
           }}>
 
       <FlatList
@@ -197,7 +196,7 @@ _keyExtractor2 = (item, index) => item.book_ID;
             </View>
           )} />
 
-        </ImageBackground>
+      </View>
       </ScrollView>
     );
   }
