@@ -241,7 +241,39 @@ export default class OneBookCard extends React.Component {
             return (
 
                 <TouchableOpacity
-                    onPress={ () => { this.props.navigation.navigate('Payment', {}) }}
+                    onPress={ () => {
+                        AsyncStorage.getItem('login').then(
+                            (logged) => {
+                                if(logged == '1')
+                                {
+                                    AsyncStorage.getItem('userid').then(
+                                        (userid) => {
+                                            Alert.alert(
+                                                'Delivery type',
+                                                'How do you want to receive this book?',
+                                                [
+                                                    {text: 'Ship it to me', onPress: () => this.props.navigation.navigate('Payment', {book_id: this.props.id, user_id: userid, method: 0})},
+                                                    {text: 'By myself from branch', onPress: () => this.props.navigation.navigate('Payment', {book_id: this.props.id, user_id: userid, method: 1})},
+                                                ],
+                                                { cancelable: true }
+                                            )
+                                        }
+                                    );
+                                }
+                                else
+                                {
+                                    Alert.alert(
+                                      'Cannot buy book',
+                                      'Cannot buy a book because you are not logged in',
+                                      [
+                                        {text: 'Okay'},
+                                      ],
+                                      { cancelable: true }
+                                  );
+                                }
+                            }
+                        );
+                    }}
                     style={{ alignSelf: 'stretch', flex: 1, flexDirection: 'row', backgroundColor: '#3B73DB', marginBottom:2, paddingVertical: 3, paddingHorizontal: 9,  borderRadius: 15, alignItems: 'center', justifyContent: 'center' }}>
 
                     <Text style={{ color: 'white' }}>{this.state.book_price} {this.state.price_text}</Text>
