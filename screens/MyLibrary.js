@@ -36,7 +36,7 @@ export default class MyLibrary extends React.Component {
         update: DeviceEventEmitter.addListener('ReloadMyLibraryBooks', ({  }) => {
             AsyncStorage.getItem('justAddedBook').then(
                 (added) => {
-                    if(added != '0')
+                    if(added == '1')
                     {
                         AsyncStorage.setItem('justAddedBook', '0');
                         this.setState({ doneFetching: false, myLibraryStatus: 0 });

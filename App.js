@@ -7,6 +7,7 @@ import RootNavigation from './navigation/RootNavigation';
 export default class App extends React.Component {
 
   componentDidMount() {
+      AsyncStorage.setItem('justAddedBook', '1');
     AsyncStorage.getItem("virgin").then((value) => {
       if (value == null) {
         // Defaults on first launch...
