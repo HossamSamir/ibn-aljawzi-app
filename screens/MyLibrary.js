@@ -127,15 +127,18 @@ export default class MyLibrary extends React.Component {
               <View style={styles.container}>
                   <FlatList
                     style={{ flexDirection: 'column' }}
-                    numColumns={3}
+                    contentContainerStyle={{ alignItems: 'center' }}
+                    numColumns={2}
                     data = {this.state.books}
                     keyExtractor={this._keyExtractor}
                     renderItem = {({ item }) => (
-                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                            <TouchableOpacity onPress={ () => {
+                        <View style={{  }}>
+                            <TouchableOpacity
+                            style={{}}
+                            onPress={ () => {
                               this.props.navigation.navigate('Book', {book_ID: item.id, book_photo: item.book_photo, book_name: item.book_name, author_name: item.author_name})
                             }}>
-                                <OneBookCard id={item.id} addButton={0} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+                                <OneBookCard navigation={this.props.navigation}  id={item.id} addButton={0} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
                             </TouchableOpacity>
                         </View>
                     )} />

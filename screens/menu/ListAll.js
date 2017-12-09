@@ -9,7 +9,7 @@ export default class ListAll extends React.Component {
       if (value == '0') {
         this.setState({
           thingsToTranslate: {
-            orders: 'orders',
+            orders: 'Orders',
             about: 'About us',
             contact: 'Contact us',
             settings: 'Settings',

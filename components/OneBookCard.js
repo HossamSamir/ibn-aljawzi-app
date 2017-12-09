@@ -21,7 +21,8 @@ export default class OneBookCard extends React.Component {
             addButtonText: 'Add',
             addButtonIcon: 'ios-star-outline',
             addButtonBGCol: '#106234',
-            book_price: 0
+            book_price: 0,
+            price_text: 'ريال سعودى'
         }
     }
 
@@ -51,15 +52,30 @@ export default class OneBookCard extends React.Component {
             });
         }
 
-        fetch(Server.dest + '/api/price_of_book?book_id='+this.props.id).
-            then((res) => res.json()).then((resJson) => {
-                this.setState({book_price: parseInt(resJson[0]['price'])});
-            })
-            .then(() => {
-            }).catch(error => {
-                console.error(error);
-            Alert.alert('price2',JSON.stringify(error),[{text: 'Ask me later'} ])
-          });
+        AsyncStorage.getItem('currency').then(
+            (value) => {
+                var convert = 0;
+                if(value == '0')
+                {
+                    convert = 1;
+                    this.setState({price_text: 'USD'});
+                }
+                else
+                {
+                    this.setState({price_text: 'ريال سعودى'});
+                }
+
+                fetch(Server.dest + '/api/price_of_book?book_id='+this.props.id+'&convert='+convert).
+                    then((res) => res.json()).then((resJson) => {
+                        this.setState({book_price: resJson.price});
+                    })
+                    .then(() => {
+                    }).catch(error => {
+                        console.error(error);
+                    Alert.alert('price2',JSON.stringify(error),[{text: 'Ask me later'} ])
+                  });
+            }
+        );
     }
 
     asyncAddBookToLibrary = (callback) => {
@@ -195,7 +211,7 @@ export default class OneBookCard extends React.Component {
                         if(this.state.added == 0)
                             this.addBookToLibrary();
                     }}
-                    style={{ flex: 0.7, flexDirection: 'row', backgroundColor: this.state.addButtonBGCol, paddingVertical: 3, paddingHorizontal: 9,  borderRadius: 15, alignItems: 'center', justifyContent: 'center' }}>
+                    style={{ alignSelf: 'stretch', flex: 1, flexDirection: 'row', backgroundColor: this.state.addButtonBGCol, marginTop: 3, paddingVertical: 3, paddingHorizontal: 9,  borderRadius: 15, alignItems: 'center', justifyContent: 'center' }}>
                     <Ionicons
                       name={this.state.addButtonIcon}
                       size={18}
@@ -210,19 +226,25 @@ export default class OneBookCard extends React.Component {
             return null;
     };
 
-    shouldRenderBuyButton = () => {
+    renderPrice = () => {
         if(this.state.book_price == 0)
         {
-            return null;
+            return (
+                <View
+                    style={{ alignSelf: 'stretch', flex: 1, flexDirection: 'row', backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center' }}>
+                    <Text style={{ color: '#3B73DB' }}>Free</Text>
+                </View>
+            );
         }
         else
         {
             return (
+
                 <TouchableOpacity
                     onPress={ () => { this.props.navigation.navigate('Payment', {}) }}
-                    style={{ flex: 0.7, flexDirection: 'row', backgroundColor: '#3B73DB', marginLeft: 5, paddingVertical: 3, paddingHorizontal: 9,  borderRadius: 15, alignItems: 'center', justifyContent: 'center' }}>
+                    style={{ alignSelf: 'stretch', flex: 1, flexDirection: 'row', backgroundColor: '#3B73DB', marginBottom:2, paddingVertical: 3, paddingHorizontal: 9,  borderRadius: 15, alignItems: 'center', justifyContent: 'center' }}>
 
-                    <Text style={{ color: 'white' }}>Buy - { this.state.book_price }</Text>
+                    <Text style={{ color: 'white' }}>{this.state.book_price} {this.state.price_text}</Text>
                 </TouchableOpacity>
             );
         }
@@ -237,9 +259,9 @@ export default class OneBookCard extends React.Component {
                 <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#106234' }}>{this.props.book_name.toUpperCase()}</Text>
                 <Text style={{  }}>{this.props.author_name}</Text>
 
-                <View style={{ marginTop:6, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                <View style={{ marginTop:4, flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                    {this.renderPrice()}
                     {this.shouldRenderAddButton()}
-                    {this.shouldRenderBuyButton()}
                 </View>
             </View>
         );

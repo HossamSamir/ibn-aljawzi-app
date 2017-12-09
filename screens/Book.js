@@ -66,17 +66,6 @@ export default class BookCard extends React.Component {
             Alert.alert('descc',JSON.stringify(error),[{text: 'Ask me later'} ])
           });
 
-        fetch(Server.dest + '/api/price_of_book?book_id='+this.props.navigation.state.params.book_ID).
-            then((res) => res.json()).then((resJson) => {
-                this.setState({book_price: parseInt(resJson[0]['price'])});
-            })
-            .then(() => {
-              //this.setState({doneFetches: (this.state.doneFetches+1)})
-            }).catch(error => {
-                console.error(error);
-            Alert.alert('price',JSON.stringify(error),[{text: 'Ask me later'} ])
-          });
-
         fetch(Server.dest + '/api/dllink_of_book?book_id='+this.props.navigation.state.params.book_ID).
             then((res) => res.json()).then((resJson) => {
                 this.setState({book_download:  resJson[0]['link']});
@@ -95,7 +84,6 @@ export default class BookCard extends React.Component {
             myComment: '',
             doneFetches: 0,
             book_desc: "",
-            book_price: 0,
             book_download: "",
             screenshots: [
                     /*{book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg'},
@@ -127,7 +115,7 @@ export default class BookCard extends React.Component {
         {
             return (
                 <View>
-                    <Text style={{ color: '#0E142A', backgroundColor: '#EEEEEE', fontWeight: 'bold', fontSize: 20, padding: 10}}>Description</Text>
+                    <Text style={{ color: '#0E142A', backgroundColor: '#E5E5E5', fontWeight: 'bold', fontSize: 22, padding: 10, paddingTop: 32}}>Description</Text>
                     <Text style={{ color: '#737481', backgroundColor: '#fff', fontWeight: 'bold', fontSize: 16, padding: 12, marginTop: 10}}>
                         {this.state.book_desc}
                     </Text>
@@ -144,26 +132,15 @@ export default class BookCard extends React.Component {
         else
         {
             return (
-                <TouchableOpacity style={{margin: 7}} onPress={ ()=>{ Linking.openURL(this.state.book_download)}}
-                    style={{ backgroundColor: '#2C7A37', borderRadius: 10, marginVertical: 25, maxWidth: 130,  }}>
+                <TouchableOpacity onPress={ ()=>{ Linking.openURL(this.state.book_download)}}
+                    style={{ flex:1, flexDirection:'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#2C7A37', borderRadius: 10, margin: 9, padding: 6}}>
+                    <Ionicons
+                      name='md-download'
+                      size={25}
+                      color='white'
+                      style={{backgroundColor: 'transparent', marginRight: 8 }}
+                    />
                     <Text style={{ color: 'white', backgroundColor: 'transparent', padding: 10, fontWeight: 'bold', fontSize: 16, textAlign: 'center' }}>Download</Text>
-                </TouchableOpacity>
-            );
-        }
-    };
-
-    shouldRenderBuyButton = () => {
-        if(this.state.book_price == 0)
-        {
-            return null;
-        }
-        else
-        {
-            return (
-                <TouchableOpacity style={{margin: 7}} onPress={ () => {
-                    this.props.navigation.navigate('Payment', {})
-                }} style={{ backgroundColor: '#1CAE4D', borderRadius: 10, marginVertical: 25, maxWidth: 130,  }}>
-                    <Text style={{ color: 'white', backgroundColor: 'transparent', padding: 10, fontWeight: 'bold', fontSize: 16, textAlign: 'center' }}>BUY {this.state.book_price}</Text>
                 </TouchableOpacity>
             );
         }
@@ -218,9 +195,8 @@ _keyExtractor2 = (item, index) => item.id;
         return (<LoadingIndicator size="large" color="#B6E3C6" />);
 
     return (
-        <ScrollView>
-            <Image blurRadius={10} source={{uri: this.props.navigation.state.params.book_photo}} style={{ width: '100%', height: 430, position: 'absolute', }} />
-            <Image source={require('../assets/images/curve.png')} style={{ width: '100%', height: 100, position: 'absolute', top: 370}} />
+        <ScrollView style={{backgroundColor: '#E5E5E5'}}>
+            <Image blurRadius={10} source={{uri: this.props.navigation.state.params.book_photo}} style={{ width: '100%', height: 430, position: 'absolute' }} />
 
             <FlatList
               horizontal={true}
@@ -239,30 +215,26 @@ _keyExtractor2 = (item, index) => item.id;
                         }}>
                       <Image source={{uri: item.book_photo}}
                       resizeMode='contain'
-                      style={{width: 140, height: 140, margin: 20, borderRadius: 10,}} />
+                      style={{width: 140, height: 140, margin: 20, borderRadius: 10 }} />
                   </Lightbox>
               )} />
-              <View style={{  flexDirection: 'row', height: 150, margin: 5, }}>
 
-                <View style={{ flex: 1}}>
-                    <View style={{flexDirection:'row', justifyContent: 'space-around', alignItems: 'center'}}>
-                        {this.shouldRenderBuyButton()}
-                        {this.shouldRenderDownloadButton()}
-                    </View>
+              <Image source={require('../assets/images/curve.png')} style={{ width: '100%', height: 100, marginTop: 15}} />
 
-                </View>
-              </View>
-              <View style={{paddingTop: 8, backgroundColor: 'white'}}>
-                  <OneBookCard id={this.props.navigation.state.params.book_ID}
-                      addButton={1}
-                      book_name={this.props.navigation.state.params.book_name}
-                      book_photo={this.props.navigation.state.params.book_photo}
-                      author_name={this.props.navigation.state.params.author_name} />
+              <View style={{backgroundColor: 'white'}}>
+                <OneBookCard
+                    navigation={this.props.navigation}
+                    id={this.props.navigation.state.params.book_ID}
+                    addButton={1}
+                    book_name={this.props.navigation.state.params.book_name}
+                    book_photo={this.props.navigation.state.params.book_photo}
+                    author_name={this.props.navigation.state.params.author_name} />
+
+                {this.shouldRenderDownloadButton()}
               </View>
 
               {this.shouldRenderBookDesc()}
-
-              <Text style={{ color: '#0E142A', backgroundColor: '#fff', fontWeight: 'bold', fontSize: 18, padding: 12, }}>Reviews</Text>
+              <Text style={{ color: '#0E142A', backgroundColor: '#E5E5E5', fontWeight: 'bold', fontSize: 22, marginTop:0, padding: 10, paddingTop: 32}}>Comments</Text>
 
               <View style={{ width: '100%', flexDirection: 'row', padding: 12, backgroundColor: '#fff'}}>
                 <TextInput
