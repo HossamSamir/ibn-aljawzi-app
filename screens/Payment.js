@@ -13,9 +13,9 @@ export default class Payment extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <WebView
-          bounces={false}
+          bounces={false}                              
           scrollEnabled={true}
-          source={{ uri: Server.dest + '/buy-first?user_id='+this.props.user_id+'&book_id='+this.props.book_id+'&method='+this.props.method }} />
+          source={{ uri: Server.dest + '/buy-first?user_id='+this.props.navigation.state.params.user_id+'&book_id='+this.props.navigation.state.params.book_id+'&method='+this.props.navigation.state.params.method }} />
       </View>
     );
   }
