@@ -66,7 +66,7 @@ export default class Signin extends React.Component {
         }
         this.setState({ errorMsg: '' });
 
-        fetch(Server.dest + '/api/signin?username='+this.state.username+'&password='+this.state.password).
+        fetch(Server.dest + '/api/signin?username='+this.state.username+'&password='+this.state.password, {headers: {'Cache-Control': 'no-cache'}}).
         then((res) => res.json()).then((resJson) => {
             if(resJson.response == 0)
                 this.setState({ errorMsg: 'Incorrect username or password' });

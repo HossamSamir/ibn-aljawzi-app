@@ -58,7 +58,8 @@ export default class Signup extends React.Component {
         }
         this.setState({ errorMsg: '' });
 
-        fetch(Server.dest + '/api/signup?username='+this.state.username+'&password='+this.state.password+'&address='+this.state.address+'&email='+this.state.email).
+        fetch(Server.dest + '/api/signup?username='+this.state.username+'&password='+this.state.password+'&address='+this.state.address+'&email='+this.state.email,
+        {headers: {'Cache-Control': 'no-cache'}}).
         then((res) => res.json()).then((resJson) => {
             if(resJson.response == 0)
                 this.setState({ errorMsg: 'Username already taken' });

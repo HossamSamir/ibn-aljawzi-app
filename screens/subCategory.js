@@ -26,7 +26,7 @@ export default class subCategory extends React.Component {
     }
 
     doTheFetching() {
-        fetch(Server.dest + '/api/books_of_subcat?sub_cat_id='+this.props.navigation.state.params.sub_cat_id).then((res) => res.json()).then((resJson) => {
+        fetch(Server.dest + '/api/books_of_subcat?sub_cat_id='+this.props.navigation.state.params.sub_cat_id, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json()).then((resJson) => {
             this.setState({booksOfSubCat: resJson});
         })
         .then(() => {

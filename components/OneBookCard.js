@@ -65,7 +65,7 @@ export default class OneBookCard extends React.Component {
                     this.setState({price_text: 'ريال سعودى'});
                 }
 
-                fetch(Server.dest + '/api/price_of_book?book_id='+this.props.id+'&convert='+convert).
+                fetch(Server.dest + '/api/price_of_book?book_id='+this.props.id+'&convert='+convert, {headers: {'Cache-Control': 'no-cache'}}).
                     then((res) => res.json()).then((resJson) => {
                         this.setState({book_price: resJson.price});
                     })
@@ -108,7 +108,7 @@ export default class OneBookCard extends React.Component {
                             AsyncStorage.getItem('userid').then(
                                 (userid) => {
 
-                                    fetch(Server.dest + '/api/add-my-library?user_id='+userid+'&book_id='+this.props.id).then((res) => res.json()).then((resJson) => {
+                                    fetch(Server.dest + '/api/add-my-library?user_id='+userid+'&book_id='+this.props.id, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json()).then((resJson) => {
                                         if(resJson.reply == 1)
                                         {
                                             AsyncStorage.setItem('justAddedBook', '1');

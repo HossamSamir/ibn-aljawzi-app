@@ -23,7 +23,7 @@ export default class MyLibrary extends React.Component {
     }
 
     doTheFetching() {
-        fetch(Server.dest + '/api/searchfor?query='+this.props.navigation.state.params.searchingFor).then((res) => res.json()).then((resJson) => {
+        fetch(Server.dest + '/api/searchfor?query='+this.props.navigation.state.params.searchingFor, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json()).then((resJson) => {
             if(resJson.status == 1)
             {
                 this.setState({foundResult: 1, result: resJson.result});

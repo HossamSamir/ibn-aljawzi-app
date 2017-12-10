@@ -28,7 +28,7 @@ export default class Category extends React.Component {
 
     doTheFetching() {
         // Fetch all sub categories first
-        fetch(Server.dest + '/api/sub_categories?parent_cat_id='+this.props.navigation.state.params.main_cat_id).
+        fetch(Server.dest + '/api/sub_categories?parent_cat_id='+this.props.navigation.state.params.main_cat_id, {headers: {'Cache-Control': 'no-cache'}}).
             then((res) => res.json()).then((resJson) => {
                 this.setState({subCats: resJson});
             })
@@ -37,7 +37,7 @@ export default class Category extends React.Component {
             })
 
         // Fetch all books
-        fetch(Server.dest + '/api/books_of_cat?cat_id='+this.props.navigation.state.params.main_cat_id).
+        fetch(Server.dest + '/api/books_of_cat?cat_id='+this.props.navigation.state.params.main_cat_id, {headers: {'Cache-Control': 'no-cache'}}).
             then((res) => res.json()).then((resJson) => {
                 this.setState({books: resJson});
             })
