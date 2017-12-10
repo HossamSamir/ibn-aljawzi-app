@@ -24,7 +24,7 @@ export default class MyLibrary extends React.Component {
         return {
             tabBarOnPress: ({ previousScene, scene, jumpToIndex }) => {
                 // Inject event
-                DeviceEventEmitter.emit('ReloadMyLibraryBooks', { });
+                DeviceEventEmitter.emit('ReloadMyLibraryBooks', { empty: 0 });
 
                 // Keep original behaviour
                 jumpToIndex(scene.index);
@@ -33,7 +33,7 @@ export default class MyLibrary extends React.Component {
     }
 
     listeners = {
-        update: DeviceEventEmitter.addListener('ReloadMyLibraryBooks', ({  }) => {
+        update: DeviceEventEmitter.addListener('ReloadMyLibraryBooks', ({ empty }) => {
             AsyncStorage.getItem('justAddedBook').then(
                 (added) => {
                     if(added == '1')
