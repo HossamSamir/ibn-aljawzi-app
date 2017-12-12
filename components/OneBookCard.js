@@ -319,7 +319,7 @@ export default class OneBookCard extends React.Component {
                 <Image source={{uri: this.props.book_photo}}
                    style={{width: 100, height: 140, borderRadius: 10, marginBottom: 9}} />
 
-                <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#106234' }}>{this.props.book_name.toUpperCase()}</Text>
+                 <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#106234', }}>{this.props.book_name.toUpperCase()}</Text>
                 <Text style={{  }}>{this.props.author_name}</Text>
 
                 <View style={{ marginTop:4, flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
