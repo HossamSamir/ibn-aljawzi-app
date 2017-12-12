@@ -193,7 +193,7 @@ _keyExtractor2 = (item, index) => item.book_ID;
                                         <TouchableOpacity onPress={ () => {
                                           this.props.navigation.navigate('Book', {book_ID: item.book_ID, book_photo: item.book_photo, book_name: item.book_name, author_name: item.author_name})
                                         }}>
-                                          <OneBookCard navigation={this.props.navigation}  id={item.book_ID} addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+                                          <OneBookCard navigation={this.props.navigation}  id={item.book_ID} horizontal={0} addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
                                         </TouchableOpacity>
                                 )} />
                             </View>

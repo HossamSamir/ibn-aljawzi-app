@@ -35,7 +35,9 @@ export default class BookCard extends React.Component {
     doTheFetching() {
         fetch(Server.dest + '/api/screenshots_of_book?book_id='+this.props.navigation.state.params.book_ID, {headers: {'Cache-Control': 'no-cache'}}).
             then((res) => res.json()).then((resJson) => {
-                this.setState({screenshots: resJson});
+                var arr = resJson;
+                arr.unshift({ id: -1, book_photo: this.props.navigation.state.params.book_photo });
+                this.setState({ screenshots: arr });
             })
             .then(() => {
               this.setState({doneFetches: (this.state.doneFetches+1)})
@@ -114,11 +116,16 @@ export default class BookCard extends React.Component {
         else
         {
             return (
-                <View>
-                    <Text style={{ color: '#0E142A', backgroundColor: '#E5E5E5', fontWeight: 'bold', fontSize: 22, padding: 10, paddingTop: 32}}>Description</Text>
-                    <Text style={{ color: '#737481', backgroundColor: '#fff', fontWeight: 'bold', fontSize: 16, padding: 12, marginTop: 10}}>
-                        {this.state.book_desc}
-                    </Text>
+                <View style={{backgroundColor:'white'}}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                        <Text style={{ color: '#0E142A', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 22, padding: 10, paddingTop: 14,
+                            alignSelf: 'center'}}>Description</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                        <Text style={{ color: '#737481', backgroundColor: '#fff', fontWeight: 'bold', fontSize: 16, padding: 12}}>
+                            {this.state.book_desc}
+                        </Text>
+                    </View>
                 </View>
             );
         }
@@ -159,9 +166,9 @@ export default class BookCard extends React.Component {
                                     then((res) => res.json()).then((resJson) => {
                                     if(resJson.status == 1)
                                     {
-                                        var arr = this.state.comments;
-                                        arr.unshift({ id: resJson.id, username: resJson.username, comment: this.state.myComment});
-                                        this.setState({ comments: arr });
+                                            var arr = this.state.comments;
+                                            arr.unshift({ id: resJson.id, username: resJson.username, comment: this.state.myComment});
+                                            this.setState({ comments: arr });
                                         this.setState({myComment: ''});
                                     }
                                 });
@@ -195,46 +202,49 @@ _keyExtractor2 = (item, index) => item.id;
         return (<LoadingIndicator size="large" color="#B6E3C6" />);
 
     return (
-        <ScrollView style={{backgroundColor: '#E5E5E5'}}>
-            <Image blurRadius={10} source={{uri: this.props.navigation.state.params.book_photo}} style={{ width: '100%', height: 430, position: 'absolute' }} />
+        <ScrollView style={{backgroundColor: 'white'}}>
+            <Image blurRadius={8} source={{uri: this.props.navigation.state.params.book_photo}} style={{ width: '100%', height: 555, position: 'absolute' }} />
 
-            <FlatList
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-              style={{ maxHeight: 200, }}
-              data = {this.state.screenshots}
-              keyExtractor={this._keyExtractor}
-              renderItem = {({ item }) => (
-                  <Lightbox
-                        renderContent={ () => {
-                            return (
-                                <Image source={{uri: item.book_photo}}
-                                resizeMode='contain'
-                                style={{width: null, resizeMode: 'contain', height: Dimensions.get('window').height, borderRadius: 10,}} />
-                            );
-                        }}>
-                      <Image source={{uri: item.book_photo}}
-                      resizeMode='contain'
-                      style={{width: 140, height: 140, margin: 20, borderRadius: 10 }} />
-                  </Lightbox>
-              )} />
-
-              <Image source={require('../assets/images/curve.png')} style={{ width: '100%', height: 100, marginTop: 15}} />
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+              <View style={{flex: 0.95, flexDirection: 'row', justifyContent: 'center', marginTop:5, backgroundColor: 'rgba(255,255,255,0.5)', borderRadius: 13 }}>
+                  <OneBookCard
+                      navigation={this.props.navigation}
+                      id={this.props.navigation.state.params.book_ID}
+                      addButton={1}
+                      horizontal={1}
+                      book_name={this.props.navigation.state.params.book_name}
+                      book_photo={this.props.navigation.state.params.book_photo}
+                      author_name={this.props.navigation.state.params.author_name} />
+              </View>
+            </View>
+              <FlatList
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                style={{ maxHeight: 200, }}
+                data = {this.state.screenshots}
+                keyExtractor={this._keyExtractor}
+                renderItem = {({ item }) => (
+                    <Lightbox
+                          renderContent={ () => {
+                              return (
+                                  <Image source={{uri: item.book_photo}}
+                                  resizeMode='contain'
+                                  style={{width: null, resizeMode: 'contain', height: Dimensions.get('window').height, borderRadius: 10,}} />
+                              );
+                          }}>
+                        <Image source={{uri: item.book_photo}}
+                        resizeMode='contain'
+                        style={{width: 140, height: 140, margin: 20, borderRadius: 10 }} />
+                    </Lightbox>
+                )} />
 
               <View style={{backgroundColor: 'white'}}>
-                <OneBookCard
-                    navigation={this.props.navigation}
-                    id={this.props.navigation.state.params.book_ID}
-                    addButton={1}
-                    book_name={this.props.navigation.state.params.book_name}
-                    book_photo={this.props.navigation.state.params.book_photo}
-                    author_name={this.props.navigation.state.params.author_name} />
-
                 {this.shouldRenderDownloadButton()}
               </View>
 
               {this.shouldRenderBookDesc()}
-              <Text style={{ color: '#0E142A', backgroundColor: '#E5E5E5', fontWeight: 'bold', fontSize: 22, marginTop:0, padding: 10, paddingTop: 32}}>Comments</Text>
+              <Text style={{ color: '#0E142A', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 22, marginTop:0, padding: 10, paddingTop: 32,
+                    alignSelf: 'center'}}>Comments</Text>
 
               <View style={{ width: '100%', flexDirection: 'row', padding: 12, backgroundColor: '#fff'}}>
                 <TextInput
