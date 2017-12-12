@@ -35,7 +35,9 @@ export default class BookCard extends React.Component {
     doTheFetching() {
         fetch(Server.dest + '/api/screenshots_of_book?book_id='+this.props.navigation.state.params.book_ID, {headers: {'Cache-Control': 'no-cache'}}).
             then((res) => res.json()).then((resJson) => {
-                this.setState({screenshots: resJson});
+                var arr = resJson;
+                arr.unshift({ id: -1, book_photo: this.props.navigation.state.params.book_photo });
+                this.setState({ screenshots: arr });
             })
             .then(() => {
               this.setState({doneFetches: (this.state.doneFetches+1)})
@@ -159,9 +161,9 @@ export default class BookCard extends React.Component {
                                     then((res) => res.json()).then((resJson) => {
                                     if(resJson.status == 1)
                                     {
-                                        var arr = this.state.comments;
-                                        arr.unshift({ id: resJson.id, username: resJson.username, comment: this.state.myComment});
-                                        this.setState({ comments: arr });
+                                            var arr = this.state.comments;
+                                            arr.unshift({ id: resJson.id, username: resJson.username, comment: this.state.myComment});
+                                            this.setState({ comments: arr });
                                         this.setState({myComment: ''});
                                     }
                                 });
