@@ -167,13 +167,13 @@ _keyExtractor2 = (item, index) => item.book_ID;
                     return (
                         <View style={{marginBottom:22}}>
                             <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={ () => {
+                                  this.props.navigation.navigate('Category', {main_cat_id: item.cat_ID, cat_name: item.cat_name})
+                                }}>
                                 <Text style={{ marginLeft: 20, fontWeight: 'bold', color: '#555555', fontSize: 20 }}>
                                     {item.cat_name.toUpperCase()}
                                 </Text>
 
-                                <TouchableOpacity onPress={ () => {
-                                  this.props.navigation.navigate('Category', {main_cat_id: item.cat_ID, cat_name: item.cat_name})
-                                }}>
                                     <Ionicons
                                       name='ios-arrow-dropright-circle-outline'
                                       size={24}
