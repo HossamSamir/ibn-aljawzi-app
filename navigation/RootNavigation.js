@@ -42,7 +42,7 @@ const RootStackNavigator = StackNavigator(
   },
   {
     navigationOptions: ({ navigation }) => ({
-        header: <Header nav={navigation} />,
+        header: <Header nav={navigation} currentRoute={navigation.state.routeName} />,
       headerTitleStyle: {
         fontWeight: 'normal',
       },
