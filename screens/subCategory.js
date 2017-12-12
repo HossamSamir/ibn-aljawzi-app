@@ -26,7 +26,7 @@ export default class subCategory extends React.Component {
     }
 
     doTheFetching() {
-        fetch(Server.dest + '/api/books_of_subcat?sub_cat_id='+this.props.navigation.state.params.sub_cat_id).then((res) => res.json()).then((resJson) => {
+        fetch(Server.dest + '/api/books_of_subcat?sub_cat_id='+this.props.navigation.state.params.sub_cat_id, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json()).then((resJson) => {
             this.setState({booksOfSubCat: resJson});
         })
         .then(() => {
@@ -57,17 +57,18 @@ _keyExtractor = (item, index) => item.id;
 
     return (
         <View style={styles.container}>
-            <Text style={{ marginLeft: 12, marginTop: 4, fontWeight: 'bold', color: '#555555', fontSize: 20 }}>
+            <Text style={{ marginHorizontal: 12, marginTop: 4, fontWeight: 'bold', color: '#555555', fontSize: 20 }}>
                 {this.props.navigation.state.params.sub_cat_name.toUpperCase()}
             </Text>
 
             <FlatList
               style={{ flexDirection: 'column' }}
-              numColumns={3}
+              contentContainerStyle={{ alignItems: 'center' }}
+              numColumns={2}
               data = {this.state.booksOfSubCat}
               keyExtractor={this._keyExtractor}
               renderItem = {({ item }) => (
-                  <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                  <View style={{  }}>
                       <TouchableOpacity onPress={ () => {
                         this.props.navigation.navigate('Book', {book_ID: item.id, book_photo: item.book_photo, book_name: item.book_name, author_name: item.author_name})
                       }}>

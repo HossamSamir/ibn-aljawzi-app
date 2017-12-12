@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   View,
   AsyncStorage,
-  Alert
+  Alert,
+  StyleSheet
 } from 'react-native';
 import { Constants } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
@@ -22,7 +23,8 @@ export default class OneBookCard extends React.Component {
             addButtonIcon: 'ios-star-outline',
             addButtonBGCol: '#106234',
             book_price: 0,
-            price_text: 'ريال سعودى'
+            book_discount: 0,
+            price_text: 'ر.س'
         }
     }
 
@@ -61,13 +63,11 @@ export default class OneBookCard extends React.Component {
                     this.setState({price_text: 'USD'});
                 }
                 else
-                {
                     this.setState({price_text: 'ريال سعودى'});
-                }
 
-                fetch(Server.dest + '/api/price_of_book?book_id='+this.props.id+'&convert='+convert).
+                fetch(Server.dest + '/api/price_of_book?book_id='+this.props.id+'&convert='+convert, {headers: {'Cache-Control': 'no-cache'}}).
                     then((res) => res.json()).then((resJson) => {
-                        this.setState({book_price: resJson.price});
+                        this.setState({book_price: resJson.price, book_discount: resJson.discount});
                     })
                     .then(() => {
                     }).catch(error => {
@@ -108,7 +108,7 @@ export default class OneBookCard extends React.Component {
                             AsyncStorage.getItem('userid').then(
                                 (userid) => {
 
-                                    fetch(Server.dest + '/api/add-my-library?user_id='+userid+'&book_id='+this.props.id).then((res) => res.json()).then((resJson) => {
+                                    fetch(Server.dest + '/api/add-my-library?user_id='+userid+'&book_id='+this.props.id, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json()).then((resJson) => {
                                         if(resJson.reply == 1)
                                         {
                                             AsyncStorage.setItem('justAddedBook', '1');
@@ -226,27 +226,90 @@ export default class OneBookCard extends React.Component {
             return null;
     };
 
+    onClickBuyButton = () => {
+        AsyncStorage.getItem('login').then(
+            (logged) => {
+                if(logged == '1')
+                {
+                    AsyncStorage.getItem('userid').then(
+                        (userid) => {
+                            Alert.alert(
+                                'Delivery type',
+                                'How do you want to receive this book?',
+                                [
+                                    {text: 'Ship it to me', onPress: () => this.props.navigation.navigate('Payment', {book_id: this.props.id, user_id: userid, method: 0})},
+                                    {text: 'By myself from branch', onPress: () => this.props.navigation.navigate('Payment', {book_id: this.props.id, user_id: userid, method: 1})},
+                                ],
+                                { cancelable: true }
+                            )
+                        }
+                    );
+                }
+                else
+                {
+                    Alert.alert(
+                      'Cannot buy book',
+                      'Cannot buy a book because you are not logged in',
+                      [
+                        {text: 'Okay'},
+                      ],
+                      { cancelable: true }
+                  );
+                }
+            }
+        );
+    };
+
     renderPrice = () => {
         if(this.state.book_price == 0)
         {
-            return (
-                <View
-                    style={{ alignSelf: 'stretch', flex: 1, flexDirection: 'row', backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={{ color: '#3B73DB' }}>Free</Text>
-                </View>
-            );
+            if(this.state.book_discount == 0)
+            {
+                return (
+                    <View
+                        style={{ alignSelf: 'stretch', flex: 1, flexDirection: 'row', backgroundColor: 'transparent', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ color: '#3B73DB' }}>Free</Text>
+                    </View>
+                );
+            }
+            else
+            {
+                return (
+                    <TouchableOpacity
+                        onPress={this.onClickBuyButton}
+                        style={styles.buyButton}>
+
+                        <Text style={{ color: 'white', textDecorationLine: 'line-through', marginRight: 4 }}>Free</Text>
+                        <Text style={{ color: 'white' }}>{this.state.book_discount} {this.state.price_text}</Text>
+                    </TouchableOpacity>
+                );
+            }
         }
         else
         {
-            return (
+            if(this.state.book_discount == 0)
+            {
+                return (
+                    <TouchableOpacity
+                        onPress={this.onClickBuyButton}
+                        style={styles.buyButton}>
 
-                <TouchableOpacity
-                    onPress={ () => { this.props.navigation.navigate('Payment', {}) }}
-                    style={{ alignSelf: 'stretch', flex: 1, flexDirection: 'row', backgroundColor: '#3B73DB', marginBottom:2, paddingVertical: 3, paddingHorizontal: 9,  borderRadius: 15, alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ color: 'white' }}>{this.state.book_price} {this.state.price_text}</Text>
+                    </TouchableOpacity>
+                );
+            }
+            else
+            {
+                return (
+                    <TouchableOpacity
+                        onPress={this.onClickBuyButton}
+                        style={styles.buyButton}>
 
-                    <Text style={{ color: 'white' }}>{this.state.book_price} {this.state.price_text}</Text>
-                </TouchableOpacity>
-            );
+                        <Text style={{ color: 'white', textDecorationLine: 'line-through', marginRight: 4 }}>{this.state.book_price}</Text>
+                        <Text style={{ color: 'white' }}>{this.state.book_discount} {this.state.price_text}</Text>
+                    </TouchableOpacity>
+                );
+            }
         }
     };
 
@@ -267,3 +330,9 @@ export default class OneBookCard extends React.Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+  buyButton: {
+    alignSelf: 'stretch', flex: 1, flexDirection: 'row', backgroundColor: '#3B73DB', marginBottom:2, paddingVertical: 3, paddingHorizontal: 9,  borderRadius: 15, alignItems: 'center', justifyContent: 'center'
+  }
+});

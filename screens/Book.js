@@ -33,7 +33,7 @@ export default class BookCard extends React.Component {
     }
 
     doTheFetching() {
-        fetch(Server.dest + '/api/screenshots_of_book?book_id='+this.props.navigation.state.params.book_ID).
+        fetch(Server.dest + '/api/screenshots_of_book?book_id='+this.props.navigation.state.params.book_ID, {headers: {'Cache-Control': 'no-cache'}}).
             then((res) => res.json()).then((resJson) => {
                 this.setState({screenshots: resJson});
             })
@@ -44,7 +44,7 @@ export default class BookCard extends React.Component {
             Alert.alert('screenshots',JSON.stringify(error),[{text: 'Ask me later'} ])
           });
 
-        fetch(Server.dest + '/api/comments_of_book?book_id='+this.props.navigation.state.params.book_ID).
+        fetch(Server.dest + '/api/comments_of_book?book_id='+this.props.navigation.state.params.book_ID, {headers: {'Cache-Control': 'no-cache'}}).
             then((res) => res.json()).then((resJson) => {
                 this.setState({comments: resJson});
             })
@@ -55,7 +55,7 @@ export default class BookCard extends React.Component {
             Alert.alert('comments',JSON.stringify(error),[{text: 'Ask me later'} ])
           });
 
-        fetch(Server.dest + '/api/desc_of_book?book_id='+this.props.navigation.state.params.book_ID).
+        fetch(Server.dest + '/api/desc_of_book?book_id='+this.props.navigation.state.params.book_ID, {headers: {'Cache-Control': 'no-cache'}}).
             then((res) => res.json()).then((resJson) => {
                 this.setState({book_desc:  resJson[0]['descc']});
             })
@@ -66,7 +66,7 @@ export default class BookCard extends React.Component {
             Alert.alert('descc',JSON.stringify(error),[{text: 'Ask me later'} ])
           });
 
-        fetch(Server.dest + '/api/dllink_of_book?book_id='+this.props.navigation.state.params.book_ID).
+        fetch(Server.dest + '/api/dllink_of_book?book_id='+this.props.navigation.state.params.book_ID, {headers: {'Cache-Control': 'no-cache'}}).
             then((res) => res.json()).then((resJson) => {
                 this.setState({book_download:  resJson[0]['link']});
             })

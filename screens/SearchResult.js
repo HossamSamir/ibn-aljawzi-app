@@ -23,7 +23,7 @@ export default class MyLibrary extends React.Component {
     }
 
     doTheFetching() {
-        fetch(Server.dest + '/api/searchfor?query='+this.props.navigation.state.params.searchingFor).then((res) => res.json()).then((resJson) => {
+        fetch(Server.dest + '/api/searchfor?query='+this.props.navigation.state.params.searchingFor, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json()).then((resJson) => {
             if(resJson.status == 1)
             {
                 this.setState({foundResult: 1, result: resJson.result});
@@ -83,11 +83,12 @@ export default class MyLibrary extends React.Component {
 
                     <FlatList
                         style={{ flexDirection: 'column' }}
-                        numColumns={3}
+                        contentContainerStyle={{ alignItems: 'center' }}
+                        numColumns={2}
                         data = {this.state.result}
                         keyExtractor={this._keyExtractor}
                         renderItem = {({ item }) => (
-                            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                            <View style={{  }}>
                                 <TouchableOpacity onPress={ () => {
                                   this.props.navigation.navigate('Book', {book_ID: item.id, book_photo: item.book_photo, book_name: item.book_name, author_name: item.author_name})
                                 }}>

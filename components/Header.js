@@ -4,9 +4,11 @@ import {
   Platform,
   Text,
   View,
-  TextInput
+  TextInput,
+  TouchableOpacity
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { NavigationActions } from 'react-navigation';
 
 export default class Header extends React.Component {
     constructor(props){
@@ -25,18 +27,35 @@ export default class Header extends React.Component {
 
   render() {
     return (
-        <View style={{ maxHeight: 60, flex: .1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',  backgroundColor: '#106234', paddingTop: Platform.OS == 'ios' ? 20 : 0, paddingVertical: 0, paddingHorizontal: 10, }}>
-            <View style={{ flex: .6, marginLeft: 0, paddingRight: 60}}>
-            <Image
-              style={{
-                  resizeMode: 'contain',
-                  width: '100%',
-                  height: '70%',
-                  borderRadius: 11,
-              }}
-              source={require('../assets/images/logo2.png')}
-            />
-            </View>
+        <View
+            style={{ maxHeight: 60, flex: .1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center',  backgroundColor: '#106234', paddingTop: Platform.OS == 'ios' ? 20 : 0, paddingVertical: 0, paddingHorizontal: 10, }}>
+            <TouchableOpacity
+                onPress={ () => {
+                    if(this.props.currentRoute !== "Main")
+                    {
+                        this.props.nav.dispatch(NavigationActions.reset({
+                          index: 0,
+                          actions: [
+                            NavigationActions.navigate({ routeName: 'Main' })
+                          ]
+                        }));
+                    }
+                    else
+                    {
+                        this.props.nav.goBack()
+                    }
+                }}
+                style={{ flex: .6, marginLeft: 0, paddingRight: 60}}>
+                <Image
+                  style={{
+                      resizeMode: 'contain',
+                      width: '100%',
+                      height: '70%',
+                      borderRadius: 11,
+                  }}
+                  source={require('../assets/images/logo2.png')}
+                />
+            </TouchableOpacity>
 
             <View style={{ flex: 3, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginRight: 15 }}>
                 <TextInput

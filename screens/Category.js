@@ -28,7 +28,7 @@ export default class Category extends React.Component {
 
     doTheFetching() {
         // Fetch all sub categories first
-        fetch(Server.dest + '/api/sub_categories?parent_cat_id='+this.props.navigation.state.params.main_cat_id).
+        fetch(Server.dest + '/api/sub_categories?parent_cat_id='+this.props.navigation.state.params.main_cat_id, {headers: {'Cache-Control': 'no-cache'}}).
             then((res) => res.json()).then((resJson) => {
                 this.setState({subCats: resJson});
             })
@@ -37,7 +37,7 @@ export default class Category extends React.Component {
             })
 
         // Fetch all books
-        fetch(Server.dest + '/api/books_of_cat?cat_id='+this.props.navigation.state.params.main_cat_id).
+        fetch(Server.dest + '/api/books_of_cat?cat_id='+this.props.navigation.state.params.main_cat_id, {headers: {'Cache-Control': 'no-cache'}}).
             then((res) => res.json()).then((resJson) => {
                 this.setState({books: resJson});
             })
@@ -91,17 +91,18 @@ _keyExtractor = (item, index) => item.id;
             </TouchableOpacity>
         )} />
 
-        <Text style={{ marginLeft: 12, fontWeight: 'bold', color: '#555555', fontSize: 20 }}>
+        <Text style={{ marginHorizontal: 12, fontWeight: 'bold', color: '#555555', fontSize: 20 }}>
             {this.props.navigation.state.params.cat_name.toUpperCase()}
         </Text>
 
         <FlatList
           style={{ flexDirection: 'column' }}
-          numColumns={3}
+          contentContainerStyle={{ alignItems: 'center' }}
+          numColumns={2}
           data = {this.state.books}
           keyExtractor={this._keyExtractor}
           renderItem = {({ item }) => (
-              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+              <View style={{  }}>
                   <TouchableOpacity onPress={ () => {
                     this.props.navigation.navigate('Book', {book_ID: item.id, book_photo: item.book_photo, book_name: item.book_name, author_name: item.author_name})
                   }}>
