@@ -91,7 +91,7 @@ _keyExtractor = (item, index) => item.id;
             </TouchableOpacity>
         )} />
 
-        <Text style={{ marginHorizontal: 12, fontWeight: 'bold', color: '#555555', fontSize: 20 }}>
+      <Text style={{ marginHorizontal: 20, fontWeight: 'bold', color: '#555555', fontSize: 20, borderBottomWidth: 1, borderColor: 'grey', paddingBottom: 10 }}>
             {this.props.navigation.state.params.cat_name.toUpperCase()}
         </Text>
 

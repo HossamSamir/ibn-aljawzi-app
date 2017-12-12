@@ -57,7 +57,7 @@ _keyExtractor = (item, index) => item.id;
 
     return (
         <View style={styles.container}>
-            <Text style={{ marginHorizontal: 12, marginTop: 4, fontWeight: 'bold', color: '#555555', fontSize: 20 }}>
+            <Text style={{ marginHorizontal: 20, marginTop: 4, fontWeight: 'bold', color: '#555555', fontSize: 20, borderBottomWidth: 1, borderColor: 'grey', paddingBottom: 10, }}>
                 {this.props.navigation.state.params.sub_cat_name.toUpperCase()}
             </Text>
 
