@@ -8,6 +8,24 @@ import LoadingIndicator from '../../components/LoadingIndicator';
 import Server from '../../constants/server';
 
 export default class Orders extends React.Component {
+  componentDidMount() {
+    AsyncStorage.getItem("language").then((value) => {
+      if (value == '0') {
+        this.setState({
+          thingsToTranslate: {
+            noOrders: "No orders found!"
+          }
+        });
+      } else {
+          this.setState({
+            thingsToTranslate: {
+              noOrders: 'لم يتم العثور علي أي مشتريات'
+          }
+          });
+      }
+    })
+  }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -41,6 +59,9 @@ export default class Orders extends React.Component {
                 ["Book name",       1,      0],
                 ["Book name",       1,      1],*/
             ],
+            thingsToTranslate: {
+              noOrders: 'لم يتم العثور علي أي مشتريات'
+            }
         }
     }
 
@@ -131,7 +152,7 @@ export default class Orders extends React.Component {
                 <View style={{ flex:1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
                     <MenuBackButton navigation={this.props.navigation} />
 
-                    <Text style={{color: '#106234', fontSize: 22}}>No orders by you</Text>
+                    <Text style={{color: '#106234', fontSize: 22}}>{this.state.thingsToTranslate.noOrders}</Text>
                 </View>
             );
         }
