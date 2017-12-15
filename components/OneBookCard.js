@@ -316,7 +316,7 @@ export default class OneBookCard extends React.Component {
     };
 
     _TrimName = (name) => {
-        return (name.length > 17) ? (name.substring(0, 14) + "...") : name;
+        return (name.length > 45) ? (name.substring(0, 42) + "...") : name;
     }
 
     render() {
@@ -327,9 +327,9 @@ export default class OneBookCard extends React.Component {
                     <Image source={{uri: this.props.book_photo}}
                        style={{width: 100, height: 140, borderRadius: 10, marginBottom: 9}} />
 
-                    <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ maxWidth: 120, fontSize: 15, fontWeight: 'bold', color: '#106234' }}>
-                            {this._TrimName(this.props.book_name.toUpperCase())}
+                    <View style={{ minHeight: '27%', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ maxWidth: 120, fontSize: 15, fontWeight: 'bold', color: '#106234', textAlign: 'center' }}>
+                            {this.props.book_name.toUpperCase()}
                         </Text>
                         <Text style={{  }}>{this.props.author_name}</Text>
                     </View>
