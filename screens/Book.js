@@ -14,7 +14,8 @@ import {
   TextInput,
   Dimensions,
   AsyncStorage,
-  Linking
+  Linking,
+  ImageBackground
 } from 'react-native';
 import { BlurView } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
@@ -57,9 +58,14 @@ export default class BookCard extends React.Component {
             Alert.alert('comments',JSON.stringify(error),[{text: 'Ask me later'} ])
           });
 
-        fetch(Server.dest + '/api/desc_of_book?book_id='+this.props.navigation.state.params.book_ID, {headers: {'Cache-Control': 'no-cache'}}).
+        fetch(Server.dest + '/api/info_of_book?book_id='+this.props.navigation.state.params.book_ID, {headers: {'Cache-Control': 'no-cache'}}).
             then((res) => res.json()).then((resJson) => {
-                this.setState({book_desc:  resJson[0]['descc']});
+                this.setState({book_desc:  resJson[0]['descc'],
+                    book_height: resJson[0]['height'],
+                    book_width: resJson[0]['width'],
+                    book_pagesnum: resJson[0]['pagesnum'],
+                    book_binding: resJson[0]['binding'],
+                });
             })
             .then(() => {
               //this.setState({doneFetches: (this.state.doneFetches+1)})
@@ -86,6 +92,10 @@ export default class BookCard extends React.Component {
             myComment: '',
             doneFetches: 0,
             book_desc: "",
+            book_height: 0,
+            book_width: 0,
+            book_pagesnum: 0,
+            book_binding: "",
             book_download: "",
             screenshots: [
                     /*{book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg'},
@@ -95,15 +105,6 @@ export default class BookCard extends React.Component {
                     {book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg'},
                     {book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg'},
                     {book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg'},*/
-                ],
-            comments: [
-                    /*{username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
-                    {username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
-                    {username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
-                    {username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
-                    {username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
-                    {username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},
-                    {username: 'Hossam Samir', comment: 'Great book I highly recomend reading it....'},*/
                 ],
         }
     }
@@ -153,44 +154,6 @@ export default class BookCard extends React.Component {
         }
     };
 
-    addComment = () => {
-        if(this.state.myComment.length > 0)
-        {
-            AsyncStorage.getItem('login').then(
-                (logged) => {
-                    if(logged == '1')
-                    {
-                        AsyncStorage.getItem('userid').then(
-                            (userid) => {
-                                fetch(`${Server.dest}/api/add_comment?user_id=${userid}&comment=${this.state.myComment}&book_id=${this.props.navigation.state.params.book_ID}`).
-                                    then((res) => res.json()).then((resJson) => {
-                                    if(resJson.status == 1)
-                                    {
-                                            var arr = this.state.comments;
-                                            arr.unshift({ id: resJson.id, username: resJson.username, comment: this.state.myComment});
-                                            this.setState({ comments: arr });
-                                        this.setState({myComment: ''});
-                                    }
-                                });
-                            }
-                        );
-                    }
-                    else
-                    {
-                        Alert.alert(
-                          'Cannot comment',
-                          'Cannot comment because you are not logged in',
-                          [
-                            {text: 'Okay'},
-                          ],
-                          { cancelable: true }
-                      );
-                    }
-                }
-            );
-        }
-    };
-
 _keyExtractor = (item, index) => item.id;
 _keyExtractor2 = (item, index) => item.id;
 /*static navigationOptions = {
@@ -203,7 +166,9 @@ _keyExtractor2 = (item, index) => item.id;
 
     return (
         <ScrollView style={{backgroundColor: 'white'}}>
-            <Image blurRadius={8} source={{uri: this.props.navigation.state.params.book_photo}} style={{ width: '100%', height: 555, position: 'absolute' }} />
+        <View style={{ flexDirection: 'column' }}>
+            <ImageBackground blurRadius={8} source={{uri: this.props.navigation.state.params.book_photo}} style={{ flex: 1, height: (Dimensions.get('window').height*0.65)}}>
+
 
             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
               <View style={{flex: 0.95, flexDirection: 'row', justifyContent: 'center', marginTop:5, backgroundColor: 'rgba(255,255,255,0.5)', borderRadius: 13 }}>
@@ -220,7 +185,7 @@ _keyExtractor2 = (item, index) => item.id;
               <FlatList
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
-                style={{ maxHeight: 200, }}
+                style={{flex: 1}}
                 data = {this.state.screenshots}
                 keyExtractor={this._keyExtractor}
                 renderItem = {({ item }) => (
@@ -238,48 +203,23 @@ _keyExtractor2 = (item, index) => item.id;
                     </Lightbox>
                 )} />
 
-              <View style={{backgroundColor: 'white'}}>
+                </ImageBackground>
+
+
+
+              <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', padding: 9 }}>
+                  <Text style={{ color: '#737481', backgroundColor: '#fff', fontWeight: 'bold', fontSize: 16}}>Book height: {this.state.book_height}</Text>
+                  <Text style={{ color: '#737481', backgroundColor: '#fff', fontWeight: 'bold', fontSize: 16}}>Book width: {this.state.book_width}</Text>
+                  <Text style={{ color: '#737481', backgroundColor: '#fff', fontWeight: 'bold', fontSize: 16}}>Book binding: {this.state.book_binding}</Text>
+                  <Text style={{ color: '#737481', backgroundColor: '#fff', fontWeight: 'bold', fontSize: 16}}>Number of pages: {this.state.book_pagesnum}</Text>
+              </View>
+
+              <View style={{flex: 1, backgroundColor: 'white'}}>
                 {this.shouldRenderDownloadButton()}
               </View>
 
               {this.shouldRenderBookDesc()}
-              <Text style={{ color: '#0E142A', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 22, marginTop:0, padding: 10, paddingTop: 32,
-                    alignSelf: 'center'}}>Comments</Text>
-
-              <View style={{ width: '100%', flexDirection: 'row', padding: 12, backgroundColor: '#fff'}}>
-                <TextInput
-                    value={this.state.myComment}
-                    onChangeText={(text) => this.setState({myComment:text})}
-                    onSubmitEditing={(event) => this.addComment() }
-                    underlineColorAndroid='transparent' placeholderTextColor='#858788' placeholder='Write a comment here...' style={{ flex: 1 }} />
-                <TouchableOpacity
-                    onPress={() => {
-                        this.addComment()
-                    }}
-                    style={{ flex: .5, paddingVertical: 10, paddingHorizontal: 16, marginHorizontal: 30, borderRadius: 5, flexDirection: 'row', backgroundColor: '#E16626', alignItems: 'center', justifyContent: 'center' }}>
-                    <Ionicons
-                      name='ios-chatboxes-outline'
-                      size={30}
-                      color='white'
-                      style={{backgroundColor: 'transparent', marginRight: 8 }}
-                    />
-                    <Text style={{ color: 'white' }}>Comment</Text>
-                </TouchableOpacity>
-              </View>
-
-              <FlatList
-                style={{ backgroundColor: '#fff' }}
-                data = {this.state.comments}
-                keyExtractor={this._keyExtractor2}
-                renderItem = {({ item }) => (
-                    <View style={{ marginVertical: 18}}>
-                        <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center' }}>
-                        <Text style={{ backgroundColor: 'transparent', marginHorizontal: 12, fontWeight: 'bold', fontSize: 14, flex: .4 }}>{item.username}</Text>
-                        </View>
-                        <Text style={{ marginHorizontal: 12, paddingBottom: 12 }}>{ item.comment }</Text>
-                    </View>
-                )} />
-
+            </View>
         </ScrollView>
     );
   }
