@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Image,
   Platform,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -127,6 +126,24 @@ _keyExtractor0 = (item, index) => item.id;
 _keyExtractor = (item, index) => item.cat_ID;
 _keyExtractor2 = (item, index) => item.book_ID;
 
+    renderHeader = () => {
+        return (
+            <FlatList
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              style={{ maxHeight: 80, }}
+              data = {this.state.mainCats}
+              keyExtractor={this._keyExtractor0}
+              renderItem = {({ item }) => (
+                  <TouchableOpacity onPress={ () => {
+                    this.props.navigation.navigate('Category', {main_cat_id: item.id, cat_name: item.name})
+                  }}>
+                      <Text style={{ color: 'white', backgroundColor: '#106234', paddingVertical: 10, paddingHorizontal: 40, margin: 20, borderRadius: 18, fontSize: 12, fontWeight: 'bold' }}>{item.name.toUpperCase()}</Text>
+                  </TouchableOpacity>
+              )} />
+        );
+    }
+
   /*static navigationOptions = {
       header: <Header />
   };*/
@@ -137,30 +154,13 @@ _keyExtractor2 = (item, index) => item.book_ID;
           return (<LoadingIndicator size="large" color="#B6E3C6" />);
 
     return (
-      <ScrollView style={styles.container}>
-      <View
-          style={{
-              flex: 1,
-          }}>
 
-      <FlatList
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        style={{ maxHeight: 80, }}
-        data = {this.state.mainCats}
-        keyExtractor={this._keyExtractor0}
-        renderItem = {({ item }) => (
-            <TouchableOpacity onPress={ () => {
-              this.props.navigation.navigate('Category', {main_cat_id: item.id, cat_name: item.name})
-            }}>
-                <Text style={{ color: 'white', backgroundColor: '#106234', paddingVertical: 10, paddingHorizontal: 40, margin: 20, borderRadius: 18, fontSize: 12, fontWeight: 'bold' }}>{item.name.toUpperCase()}</Text>
-            </TouchableOpacity>
-        )} />
 
         <FlatList
             style={{ flexDirection: 'column' }}
             data = {this.state.booksInCats}
             keyExtractor={this._keyExtractor}
+            ListHeaderComponent={() => this.renderHeader()}
             renderItem = {({ item }) => {
                 if(item.cat_books.length > 0)
                 {
@@ -201,16 +201,6 @@ _keyExtractor2 = (item, index) => item.book_ID;
                     );
                 }
           }} />
-
-      </View>
-      </ScrollView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
