@@ -157,7 +157,7 @@ _keyExtractor2 = (item, index) => item.book_ID;
 
 
         <FlatList
-            style={{ flexDirection: 'column' }}
+            style={{ flexDirection: 'column', backgroundColor: 'white' }}
             data = {this.state.booksInCats}
             keyExtractor={this._keyExtractor}
             ListHeaderComponent={() => this.renderHeader()}
