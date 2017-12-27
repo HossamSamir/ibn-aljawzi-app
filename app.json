@@ -5,7 +5,7 @@
     "slug": "ibn-aljawzi-app",
     "privacy": "public",
     "sdkVersion": "23.0.0",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "orientation": "portrait",
     "primaryColor": "#cccccc",
     "icon": "./assets/images/icon.png",
@@ -15,7 +15,13 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
+      "bundleIdentifier": "com.ibn-aljawzi.GarashSoftwareHouse",
       "supportsTablet": true
-    }
+    },
+    "android": {
+      "package": "com.ibn-aljawzi.GarashSoftwareHouse",
+      "permissions": [ "MANAGE_DOCUMENTS", "READ_EXTERNAL_STORAGE", "READ_INTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE" ],
+      "versionCode": 0.1
+    },
   }
 }

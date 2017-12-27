@@ -210,7 +210,7 @@ export default class Signin extends React.Component {
                                     fontWeight='bold'
                                     buttonStyle={{padding: 9}}
                                     containerViewStyle={{width: '100%', marginLeft: 0}}
-                                    title="Continue" />
+                                    title="skip" />
                             </View>
 
                             <View style={{flex: 1, width: '90%'}}>
@@ -223,7 +223,7 @@ export default class Signin extends React.Component {
                                     fontWeight='bold'
                                     buttonStyle={{padding: 9}}
                                     containerViewStyle={{width: '100%', marginLeft: 0}}
-                                    title="Create one" />
+                                    title="Create account" />
                             </View>
                         </View>
                     </View>
