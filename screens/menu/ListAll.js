@@ -119,7 +119,7 @@ export default class ListAll extends React.Component {
                       height: '40%',
                       marginBottom: 11
                   }}
-                  source={require('../../assets/images/menu-bg.jpg')}/>
+                  source={require('../../assets/images/menu_bg.jpg')}/>
 
                 <FlatList
                   horizontal={false}

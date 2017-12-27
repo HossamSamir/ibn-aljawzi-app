@@ -47,6 +47,10 @@ export default class App extends React.Component {
     return Promise.all([
       Asset.loadAsync([
         require('./assets/images/logo2.png'),
+        require('./assets/images/1.jpg'),
+        require('./assets/images/3.jpg'),
+        require('./assets/images/menu_bg.jpg'),
+        require('./assets/images/register_cover.png'),
       ]),
       // Font.loadAsync({
         // 'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),

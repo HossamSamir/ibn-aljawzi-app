@@ -15,13 +15,13 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "bundleIdentifier": "com.ibn-aljawzi.GarashSoftwareHouse",
+      "bundleIdentifier": "com.IbnAljawzi.GarashSoftwareHouse",
       "supportsTablet": true
     },
     "android": {
-      "package": "com.ibn-aljawzi.GarashSoftwareHouse",
+      "package": "com.IbnAljawzi.GarashSoftwareHouse",
       "permissions": [ "MANAGE_DOCUMENTS", "READ_EXTERNAL_STORAGE", "READ_INTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE" ],
-      "versionCode": 0.1
+      "versionCode": 0
     },
   }
 }
