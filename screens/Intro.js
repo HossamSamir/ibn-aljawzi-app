@@ -92,12 +92,6 @@ export default class HomeScreen extends React.Component {
                 </View>
                 <View style={styles.slide}>
                     <Image
-                        source={require('../assets/images/2.jpg')}
-                        style={{ width: '100%', height: '100%', resizeMode: 'contain' }}
-                    />
-                </View>
-                <View style={styles.slide}>
-                    <Image
                         source={require('../assets/images/3.jpg')}
                         style={{ width: '100%', height: '100%', resizeMode: 'contain' }}
                     />
