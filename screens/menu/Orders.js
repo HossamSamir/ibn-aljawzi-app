@@ -1,7 +1,6 @@
 import React from 'react';
 import { AsyncStorage, Text, StyleSheet, View } from "react-native";
 import { Table, Row, Rows} from 'react-native-table-component';
-import { Ionicons } from '@expo/vector-icons';
 
 import MenuBackButton from './MenuBackButton'
 import LoadingIndicator from '../../components/LoadingIndicator';

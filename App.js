@@ -48,10 +48,10 @@ export default class App extends React.Component {
       Asset.loadAsync([
         require('./assets/images/logo2.png'),
       ]),
-      Font.loadAsync({
+      // Font.loadAsync({
         // 'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
         // 'Arial': require('./assets/fonts/arial.ttf'),
-      }),
+      // }),
     ]);
   };
 

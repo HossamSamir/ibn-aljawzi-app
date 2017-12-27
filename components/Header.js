@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Image,
   Platform,
-  Text,
   View,
   TextInput,
   TouchableOpacity

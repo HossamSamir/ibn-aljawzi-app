@@ -1,19 +1,14 @@
 import React from 'react';
 import {
   Image,
-  Platform,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
   FlatList,
-  Button,
   Alert,
-  ListView,
-  TextInput,
   Dimensions,
-  AsyncStorage,
   Linking,
   ImageBackground
 } from 'react-native';

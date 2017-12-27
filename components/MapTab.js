@@ -1,19 +1,5 @@
 import React from 'react';
-import {
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Button,
-  Alert,
-  ListView,
-  TextInput
-} from 'react-native';
 import { MapView } from 'expo';
-import { Ionicons } from '@expo/vector-icons';
 
 export default class MapTab extends React.Component {
   render() {

@@ -1,13 +1,8 @@
 import React from 'react';
 import {
-  Image,
   Platform,
   StyleSheet,
   Text,
-  TouchableOpacity,
-  View,
-  FlatList,
-  ScrollView,
   AsyncStorage
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';

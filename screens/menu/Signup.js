@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, KeyboardAvoidingView, ScrollView, StyleSheet, ActivityIndicator, AsyncStorage, TextInput, View, Text, Image } from "react-native";
+import { Dimensions, KeyboardAvoidingView, ScrollView, StyleSheet, AsyncStorage, TextInput, View, Text, Image } from "react-native";
 import { Button } from "react-native-elements";
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationActions } from 'react-navigation';

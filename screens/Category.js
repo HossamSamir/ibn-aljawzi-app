@@ -1,14 +1,11 @@
 import React from 'react';
 import {
-  Image,
-  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
   FlatList,
   ScrollView,
-  ImageBackground
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Rating } from 'react-native-elements';

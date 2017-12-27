@@ -1,13 +1,10 @@
 import React from 'react';
 import {
-  Image,
-  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
   FlatList,
-  ScrollView,
   AsyncStorage,
   Alert,
   DeviceEventEmitter
