@@ -48,12 +48,12 @@ export default class Signup extends React.Component {
             this.state.username.length < 3 || this.state.password.length < 4 || this.state.cpassword.length < 4 ||
             this.state.address.length < 4 || this.state.email.length < 4)
         {
-            this.setState({ errorMsg: 'Cannot have very short inputs' });
+            this.setState({ errorMsg: 'كلمه المرور قصيره جدا' });
             return;
         }
         if(this.state.password != this.state.cpassword)
         {
-            this.setState({ errorMsg: 'Passwords do not match' });
+            this.setState({ errorMsg: 'كلمه المرور غير متطابقه' });
             return;
         }
         this.setState({ errorMsg: '' });
@@ -62,7 +62,7 @@ export default class Signup extends React.Component {
         {headers: {'Cache-Control': 'no-cache'}}).
         then((res) => res.json()).then((resJson) => {
             if(resJson.response == 0)
-                this.setState({ errorMsg: 'Username already taken' });
+                this.setState({ errorMsg: 'اسم المستخدم غير متاح' });
             else if(resJson.response > 0)
             {
                 AsyncStorage.setItem('userid', resJson.response);
@@ -133,7 +133,7 @@ export default class Signup extends React.Component {
 
                               <TextInput
                                   underlineColorAndroid='transparent'
-                                  placeholder='Username'
+                                  placeholder='اسم المستخدم'
                                   placeholderTextColor='#BBBBBB'
                                   autoGrow={false}
                                   multiline={false}
@@ -153,7 +153,7 @@ export default class Signup extends React.Component {
 
                               <TextInput
                                   underlineColorAndroid='transparent'
-                                  placeholder='Password'
+                                  placeholder='كلمه المرور'
                                   placeholderTextColor='#BBBBBB'
                                   autoGrow={false}
                                   multiline={false}
@@ -174,7 +174,7 @@ export default class Signup extends React.Component {
 
                               <TextInput
                                   underlineColorAndroid='transparent'
-                                  placeholder='Confirm password'
+                                  placeholder='تأكيد كلمه المرور'
                                   placeholderTextColor='#BBBBBB'
                                   autoGrow={false}
                                   multiline={false}
@@ -195,7 +195,7 @@ export default class Signup extends React.Component {
 
                               <TextInput
                                   underlineColorAndroid='transparent'
-                                  placeholder='Email'
+                                  placeholder='البريد الالكتروني'
                                   placeholderTextColor='#BBBBBB'
                                   autoGrow={false}
                                   multiline={false}
@@ -215,7 +215,7 @@ export default class Signup extends React.Component {
 
                               <TextInput
                                   underlineColorAndroid='transparent'
-                                  placeholder='Address'
+                                  placeholder='العنوان'
                                   placeholderTextColor='#BBBBBB'
                                   autoGrow={false}
                                   multiline={false}
@@ -237,7 +237,7 @@ export default class Signup extends React.Component {
                                 borderRadius={20}
                                 fontWeight='bold'
                                 buttonStyle={{width: '100%', padding: 9}}
-                                title="Sign up" />
+                                title="تسجيل" />
                         </View>
                     </View>
                     </KeyboardAvoidingView>
@@ -250,7 +250,8 @@ export default class Signup extends React.Component {
 const styles = StyleSheet.create({
     textInput: {
         flex: 1,
-        color: '#106234'
+        color: '#106234',
+        textAlign: 'left'
     },
     inputIcon: {
         backgroundColor: 'transparent',

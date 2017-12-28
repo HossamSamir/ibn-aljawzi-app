@@ -61,7 +61,7 @@ export default class Signin extends React.Component {
         if(this.state.username == '' || this.state.password == '' ||
             this.state.username.length < 3 || this.state.password.length < 4)
         {
-            this.setState({ errorMsg: 'Cannot have very short inputs' });
+            this.setState({ errorMsg: 'كلمه المرور قصيره جدا' });
             return;
         }
         this.setState({ errorMsg: '' });
@@ -69,7 +69,7 @@ export default class Signin extends React.Component {
         fetch(Server.dest + '/api/signin?username='+this.state.username+'&password='+this.state.password, {headers: {'Cache-Control': 'no-cache'}}).
         then((res) => res.json()).then((resJson) => {
             if(resJson.response == 0)
-                this.setState({ errorMsg: 'Incorrect username or password' });
+                this.setState({ errorMsg: 'اسم المستخدم و كلمه المرور غير متطبقان' });
             else if(resJson.response > 0)
             {
                 AsyncStorage.setItem('userid', resJson.response);
@@ -138,7 +138,7 @@ export default class Signin extends React.Component {
 
                               <TextInput
                                   underlineColorAndroid='transparent'
-                                  placeholder='Username'
+                                  placeholder='اسم المستخدم'
                                   placeholderTextColor='#BBBBBB'
                                   autoGrow={false}
                                   multiline={false}
@@ -158,7 +158,7 @@ export default class Signin extends React.Component {
 
                               <TextInput
                                   underlineColorAndroid='transparent'
-                                  placeholder='Password'
+                                  placeholder='كلمه المرور'
                                   placeholderTextColor='#BBBBBB'
                                   autoGrow={false}
                                   multiline={false}
@@ -181,11 +181,11 @@ export default class Signin extends React.Component {
                                 borderRadius={20}
                                 fontWeight='bold'
                                 buttonStyle={{width: '100%', padding: 9}}
-                                title="Sign in" />
+                                title="تسجيل دخول" />
                         </View>
 
                         <View style={styles.signupButtonContainer}>
-                            <Text style={{color: '#106234', marginBottom: 4}}>{"Don't have an account?"}</Text>
+                            <Text style={{color: '#106234', marginBottom: 4}}>{"ليس لديك حساب؟"}</Text>
 
                             <View style={{flex: 1, marginBottom: 7, width: '90%'}}>
                                 <Button
@@ -210,7 +210,7 @@ export default class Signin extends React.Component {
                                     fontWeight='bold'
                                     buttonStyle={{padding: 9}}
                                     containerViewStyle={{width: '100%', marginLeft: 0}}
-                                    title="skip" />
+                                    title="تخطي" />
                             </View>
 
                             <View style={{flex: 1, width: '90%'}}>
@@ -223,7 +223,7 @@ export default class Signin extends React.Component {
                                     fontWeight='bold'
                                     buttonStyle={{padding: 9}}
                                     containerViewStyle={{width: '100%', marginLeft: 0}}
-                                    title="Create account" />
+                                    title="تسجيل حساب جديد" />
                             </View>
                         </View>
                     </View>
@@ -237,7 +237,8 @@ export default class Signin extends React.Component {
 const styles = StyleSheet.create({
     textInput: {
         flex: 1,
-        color: '#106234'
+        color: '#106234',
+        textAlign: 'left'
     },
     inputIcon: {
         backgroundColor: 'transparent',
