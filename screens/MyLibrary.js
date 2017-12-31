@@ -24,7 +24,7 @@ export default class MyLibrary extends React.Component {
                 DeviceEventEmitter.emit('ReloadMyLibraryBooks', { empty: 0 });
 
                 // Keep original behaviour
-                jumpToIndex(scene.index);
+                // jumpToIndex(scene.index);
             }
         }
     }
