@@ -28,14 +28,13 @@ export default class HomeScreen extends React.Component {
         })
 
         fetch(Server.dest + '/api/homescreen', {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json()).then((resJsontwo) => {
-            //Alert.alert('booksInCats',JSON.stringify(resJsontwo),[{text: 'Ask me later'} ])
             this.setState({booksInCats: resJsontwo});
         })
         .then(() => {
           this.setState({doneFetches: (this.state.doneFetches+1)})
       }).catch(error => {
           console.error(error);
-      Alert.alert('error booksInCats',JSON.stringify(error),[{text: 'Ask me later'} ])
+      Alert.alert('Connection failure', "Please check your connection",[{text: 'Okay'} ])
     });
 
 

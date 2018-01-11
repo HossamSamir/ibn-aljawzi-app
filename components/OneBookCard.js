@@ -19,7 +19,7 @@ export default class OneBookCard extends React.Component {
         super(props);
         this.state = {
             added: 0,
-            addButtonText: 'Add',
+            addButtonText: 'مُفضل',
             addButtonIcon: 'ios-star-outline',
             addButtonBGCol: '#106234',
             book_price: 0,
@@ -37,7 +37,7 @@ export default class OneBookCard extends React.Component {
                 {
                     this.setState({
                         added: 1,
-                        addButtonText: 'Added',
+                        addButtonText: 'مُفضل',
                         addButtonIcon: 'ios-checkmark-circle-outline',
                         addButtonBGCol: '#68B087'
                     });
@@ -46,7 +46,7 @@ export default class OneBookCard extends React.Component {
                 {
                     this.setState({
                         added: 0,
-                        addButtonText: 'Add',
+                        addButtonText: 'مُفضل',
                         addButtonIcon: 'ios-star-outline',
                         addButtonBGCol: '#106234'
                     });
@@ -68,12 +68,7 @@ export default class OneBookCard extends React.Component {
                 fetch(Server.dest + '/api/price_of_book?book_id='+this.props.id+'&convert='+convert, {headers: {'Cache-Control': 'no-cache'}}).
                     then((res) => res.json()).then((resJson) => {
                         this.setState({book_price: resJson.price, book_discount: resJson.discount});
-                    })
-                    .then(() => {
-                    }).catch(error => {
-                        console.error(error);
-                    Alert.alert('price2',JSON.stringify(error),[{text: 'Ask me later'} ])
-                  });
+                    });
             }
         );
     }
@@ -115,7 +110,7 @@ export default class OneBookCard extends React.Component {
 
                                             this.setState({
                                                 added: 1,
-                                                addButtonText: 'Added',
+                                                addButtonText: 'مُفضل',
                                                 addButtonIcon: 'ios-checkmark-circle-outline',
                                                 addButtonBGCol: '#68B087'
                                             });
@@ -236,11 +231,11 @@ export default class OneBookCard extends React.Component {
                     AsyncStorage.getItem('userid').then(
                         (userid) => {
                             Alert.alert(
-                                'Delivery type',
-                                'How do you want to receive this book?',
+                                'نوع التوصيل',
+                                'كيف تريد ان يصل  لك هذا الكتاب',
                                 [
-                                    {text: 'Ship it to me', onPress: () => this.props.navigation.navigate('Payment', {book_id: this.props.id, user_id: userid, method: 0})},
-                                    {text: 'By myself from branch', onPress: () => this.props.navigation.navigate('Payment', {book_id: this.props.id, user_id: userid, method: 1})},
+                                    {text: 'وصله الى مكاني', onPress: () => this.props.navigation.navigate('Payment', {book_id: this.props.id, user_id: userid, method: 0})},
+                                    {text: 'اخذه بنفسي من الفرع', onPress: () => this.props.navigation.navigate('Payment', {book_id: this.props.id, user_id: userid, method: 1})},
                                 ],
                                 { cancelable: true }
                             )

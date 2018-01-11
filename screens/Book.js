@@ -37,10 +37,7 @@ export default class BookCard extends React.Component {
             })
             .then(() => {
               this.setState({doneFetches: (this.state.doneFetches+1)})
-            }).catch(error => {
-                console.error(error);
-            Alert.alert('screenshots',JSON.stringify(error),[{text: 'Ask me later'} ])
-          });
+            });
 
         fetch(Server.dest + '/api/comments_of_book?book_id='+this.props.navigation.state.params.book_ID, {headers: {'Cache-Control': 'no-cache'}}).
             then((res) => res.json()).then((resJson) => {
@@ -48,10 +45,7 @@ export default class BookCard extends React.Component {
             })
             .then(() => {
               this.setState({doneFetches: (this.state.doneFetches+1)})
-            }).catch(error => {
-                console.error(error);
-            Alert.alert('comments',JSON.stringify(error),[{text: 'Ask me later'} ])
-          });
+            });
 
         fetch(Server.dest + '/api/info_of_book?book_id='+this.props.navigation.state.params.book_ID, {headers: {'Cache-Control': 'no-cache'}}).
             then((res) => res.json()).then((resJson) => {
@@ -64,10 +58,7 @@ export default class BookCard extends React.Component {
             })
             .then(() => {
               //this.setState({doneFetches: (this.state.doneFetches+1)})
-            }).catch(error => {
-                console.error(error);
-            Alert.alert('descc',JSON.stringify(error),[{text: 'Ask me later'} ])
-          });
+            });
 
         fetch(Server.dest + '/api/dllink_of_book?book_id='+this.props.navigation.state.params.book_ID, {headers: {'Cache-Control': 'no-cache'}}).
             then((res) => res.json()).then((resJson) => {
@@ -75,10 +66,7 @@ export default class BookCard extends React.Component {
             })
             .then(() => {
               //this.setState({doneFetches: (this.state.doneFetches+1)})
-            }).catch(error => {
-                console.error(error);
-            Alert.alert('link',JSON.stringify(error),[{text: 'Ask me later'} ])
-          });
+            });
     }
 
     constructor(props) {
