@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, KeyboardAvoidingView, ScrollView, StyleSheet, AsyncStorage, TextInput, View, Text, Image } from "react-native";
+import { Linking, Dimensions, KeyboardAvoidingView, ScrollView, StyleSheet, AsyncStorage, TextInput, View, Text, Image } from "react-native";
 import { Button } from "react-native-elements";
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationActions } from 'react-navigation';
@@ -239,6 +239,11 @@ export default class Signup extends React.Component {
                                 buttonStyle={{width: '100%', padding: 9}}
                                 title="تسجيل" />
                         </View>
+
+                        <Text style={{flex:0.4, textDecorationLine:'underline', color: '#63BA83', textAlign: 'center', paddingBottom: 5}}
+                              onPress={() => Linking.openURL('http://178.62.17.251/terms-and-condition-and-policy')}>
+                          عندما اضغط "تسجيل" اقر اني قرأت و اوافق على الشروط و الاحكام و سياسة تطبيق دار ابن الجوزي
+                        </Text>
                     </View>
                     </KeyboardAvoidingView>
                 </ScrollView>
