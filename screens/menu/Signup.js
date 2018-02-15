@@ -56,6 +56,14 @@ export default class Signup extends React.Component {
             this.setState({ errorMsg: 'كلمه المرور غير متطابقه' });
             return;
         }
+        var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        var isValidEmail = emailRegex.test(this.state.email);
+        if(!isValidEmail)
+        {
+            this.setState({ errorMsg: 'بريد الكتروني غير صالح'});
+            return;
+        }
+
         this.setState({ errorMsg: '' });
 
         fetch(Server.dest + '/api/signup?username='+this.state.username+'&password='+this.state.password+'&address='+this.state.address+'&email='+this.state.email,
