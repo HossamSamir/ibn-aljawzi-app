@@ -319,9 +319,9 @@ export default class OneBookCard extends React.Component {
 
                     <View style={{ minHeight: '27%', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                         <Text style={{ maxWidth: 120, fontSize: 15, fontWeight: 'bold', color: '#106234', textAlign: 'center' }}>
-                            {this.props.book_name.toUpperCase()}
+                            {this._TrimName(this.props.book_name.toUpperCase())}
                         </Text>
-                        <Text style={{  }}>{this.props.author_name}</Text>
+                        <Text style={{ maxWidth: 120, textAlign: 'center' }}>{this._TrimName(this.props.author_name)}</Text>
                     </View>
 
                     <View style={{ marginTop:4, flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
