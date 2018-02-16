@@ -51,9 +51,6 @@ export default class MyLibrary extends React.Component {
         })
     }
 
-    componentDidMount() {
-        //this.doTheFetching();
-    }
     doTheFetching() {
         AsyncStorage.getItem('login').then(
             (logged) => {
@@ -81,8 +78,30 @@ export default class MyLibrary extends React.Component {
                 }
                 else
                 {
-                    this.setState({doneFetching: true});
-                    this.setState({myLibraryStatus: 0});
+                    AsyncStorage.getItem('MyLibraryBooksIDs').then(
+                        (books) => {
+                            if(books)
+                            {
+                                fetch(`${Server.dest}/api/show-my-library-local?ids=${books}`, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json()).then((resJsonThree) => {
+                                    if(resJsonThree.status == 1)
+                                    {
+                                        this.setState({books: resJsonThree.books});
+                                        this.setState({myLibraryStatus: 1 });
+                                    }
+                                    else
+                                    {
+                                        this.setState({myLibraryStatus: 0});
+                                    }
+                                })
+                                .then(() => {
+                                  this.setState({doneFetching: true})
+                                });
+                            }
+                            else {
+                                this.setState({myLibraryStatus: 0, doneFetching: true});
+                            }
+                        }
+                    );
                 }
             }
         );

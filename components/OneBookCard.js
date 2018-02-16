@@ -88,17 +88,39 @@ export default class OneBookCard extends React.Component {
         );
     };
 
+    addBook_AsyncStorage = (status, data) => {
+        AsyncStorage.setItem('justAddedBook', '1');
+
+        this.setState({
+            added: 1,
+            addButtonText: 'مُفضل',
+            addButtonIcon: 'ios-checkmark-circle-outline',
+            addButtonBGCol: '#68B087'
+        });
+
+        if(status == 0)
+        {
+            var newData = data.concat("," + String(this.props.id));
+            AsyncStorage.setItem('MyLibraryBooksIDs', newData);
+        }
+        else if(status == -1)
+        {
+            // empty library, just add it without commas
+            AsyncStorage.setItem('MyLibraryBooksIDs', String(this.props.id));
+        }
+    }
+
     addBookToLibrary = () => {
         AsyncStorage.getItem('login').then(
             (logged) => {
-                if(logged == '1')
-                {
-                    this.isBookInLibrary((status, data) => {
-                        if(status == 1)
-                        {
-                            return;
-                        }
-                        else
+                this.isBookInLibrary((status, data) => {
+                    if(status == 1)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        if(logged == '1')
                         {
                             AsyncStorage.getItem('userid').then(
                                 (userid) => {
@@ -106,30 +128,12 @@ export default class OneBookCard extends React.Component {
                                     fetch(Server.dest + '/api/add-my-library?user_id='+userid+'&book_id='+this.props.id, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json()).then((resJson) => {
                                         if(resJson.reply == 1)
                                         {
-                                            AsyncStorage.setItem('justAddedBook', '1');
-
-                                            this.setState({
-                                                added: 1,
-                                                addButtonText: 'مُفضل',
-                                                addButtonIcon: 'ios-checkmark-circle-outline',
-                                                addButtonBGCol: '#68B087'
-                                            });
-
-                                            if(status == 0)
-                                            {
-                                                var newData = data.concat("," + String(this.props.id));
-                                                AsyncStorage.setItem('MyLibraryBooksIDs', newData);
-                                            }
-                                            else if(status == -1)
-                                            {
-                                                // empty library, just add it without commas
-                                                AsyncStorage.setItem('MyLibraryBooksIDs', String(this.props.id));
-                                            }
+                                            this.addBook_AsyncStorage(status, data);
                                         }
                                         else
                                         {
                                             Alert.alert(
-                                              'Failed to add',
+                                              'Network failure',
                                               'Failed to add this book to your library',
                                               [
                                                 {text: 'Okay'},
@@ -141,19 +145,10 @@ export default class OneBookCard extends React.Component {
                                 }
                             );
                         }
-                    });
-                }
-                else
-                {
-                    Alert.alert(
-                      'Cannot save book',
-                      'Cannot add books to your library because you are not logged in',
-                      [
-                        {text: 'Okay'},
-                      ],
-                      { cancelable: true }
-                    )
-                }
+                        else
+                            this.addBook_AsyncStorage(status, data);
+                    }
+                });
             }
         );
     };
