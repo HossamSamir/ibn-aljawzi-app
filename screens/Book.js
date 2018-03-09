@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -13,15 +12,11 @@ import {
   Platform,
   Clipboard
 } from 'react-native';
-import { BlurView } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 
-//import Header from '../components/Header';
 import LoadingIndicator from '../components/LoadingIndicator';
 import OneBookCard from '../components/OneBookCard';
 import Server from '../constants/server';
-
-// API: send this.props.navigation.state.params.book_ID to the server
 
 export default class BookCard extends React.Component {
     componentDidMount() {
@@ -29,14 +24,16 @@ export default class BookCard extends React.Component {
     }
 
     doTheFetching() {
-        fetch(Server.dest + '/api/similar_books?book_id='+this.props.navigation.state.params.book_ID, {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json()).then((resJson) => {
-            if(resJson.status == 1)
-            {
-                this.setState({similar_books: resJson.result});
-            }
+        fetch(Server.dest + '/api/similar_books?book_id='+this.props.navigation.state.params.book_ID,
+        {headers: {'Cache-Control': 'no-cache'}})
+        .then((res) => res.json())
+        .then((resJson) => {
+            if(resJson.status == 1) this.setState({similar_books: resJson.result});
+            else this.setState({similar_books: null});
         })
 
-        fetch(Server.dest + '/api/info_of_book?book_id='+this.props.navigation.state.params.book_ID, {headers: {'Cache-Control': 'no-cache'}}).
+        fetch(Server.dest + '/api/info_of_book?book_id='+this.props.navigation.state.params.book_ID,
+        {headers: {'Cache-Control': 'no-cache'}}).
             then((res) => res.json()).then((resJson) => {
                 this.setState({book_desc:  resJson[0]['descc'],
                     book_height: resJson[0]['height'],
@@ -68,11 +65,7 @@ export default class BookCard extends React.Component {
             book_pagesnum: 0,
             book_binding: "",
             book_download: "",
-            similar_books: [
-                // {key: 1, book_name: 'Book name', book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg',  author_name: "Ahmed Hassan"},
-                // {key: 2, book_name: 'Book name', book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg',  author_name: "Ahmed Hassan"},
-                // {key: 3, book_name: 'Book name', book_photo: 'https://orig00.deviantart.net/9da8/f/2010/332/8/5/islamic_book_cover_by_sherif_designer-d33s4kd.jpg',  author_name: "Ahmed Hassan"},
-            ]
+            similar_books: []
         }
     }
 
@@ -82,7 +75,7 @@ export default class BookCard extends React.Component {
         )
     }
 
-    _keyExtractor = (item, index) => item.key;
+    _keyExtractor = (item, index) => item.id;
 
   render() {
     // if(this.state.doneFetches < 1)
@@ -207,9 +200,9 @@ export default class BookCard extends React.Component {
 
             <View style={{ flex:1, backgroundColor:'#F2F2F2', paddingVertical:8, paddingHorizontal:5 }}>
                 <View style={{ backgroundColor:'white', borderRadius:4, borderWidth:0.4, borderColor:'#EEEEEE' }}>
-                <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-                    <Text style={{ color: '#0E142A', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 22, padding: 10, paddingTop: 14 }}>كتب مشابهة</Text>
-                </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+                        <Text style={{ color: '#0E142A', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 22, padding: 10, paddingTop: 14 }}>كتب مشابهة</Text>
+                    </View>
 
                     <FlatList
                         horizontal={true}
@@ -220,14 +213,14 @@ export default class BookCard extends React.Component {
                         renderItem = {({ item }) => (
                             <TouchableOpacity onPress={ () => {
                               this.props.navigation.navigate('Book', {
-                                  book_ID: item.key,
+                                  book_ID: item.id,
                                   book_photo: item.book_photo,
                                   book_name: item.book_name,
                                   author_name: item.author_name,
                                   cat_name: item.cat_name
                               })
                             }}>
-                              <OneBookCard navigation={this.props.navigation} id={item.key} horizontal={0} addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+                              <OneBookCard navigation={this.props.navigation} id={item.id} horizontal={0} addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
                             </TouchableOpacity>
                     )} />
                 </View>
