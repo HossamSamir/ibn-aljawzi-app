@@ -6,12 +6,14 @@ import {
   View,
   AsyncStorage,
   Alert,
-  StyleSheet
+  StyleSheet,
+  Dimensions
 } from 'react-native';
 import { Constants } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 
 import Server from '../constants/server';
+import Lightbox from 'react-native-lightbox';
 
 export default class OneBookCard extends React.Component {
 
@@ -39,7 +41,7 @@ export default class OneBookCard extends React.Component {
                         added: 1,
                         addButtonText: 'مُفضل',
                         addButtonIcon: 'ios-checkmark-circle-outline',
-                        addButtonBGCol: '#68B087'
+                        addButtonBGCol: '#cccccc'
                     });
                 }
                 else
@@ -95,7 +97,7 @@ export default class OneBookCard extends React.Component {
             added: 1,
             addButtonText: 'مُفضل',
             addButtonIcon: 'ios-checkmark-circle-outline',
-            addButtonBGCol: '#68B087'
+            addButtonBGCol: '#cccccc'
         });
 
         if(status == 0)
@@ -192,7 +194,7 @@ export default class OneBookCard extends React.Component {
         );
     };
 
-    shouldRenderAddButton = () => {
+    renderAddButton = () => {
         if(this.props.addButton == 1)
         {
             return (
@@ -211,6 +213,33 @@ export default class OneBookCard extends React.Component {
                       style={{paddingRight: 4, fontWeight: 'bold', backgroundColor: 'transparent' }}
                     />
                     <Text style={{ color: 'white' }}>{ this.state.addButtonText }</Text>
+                </TouchableOpacity>
+            );
+        }
+        else
+            return null;
+    };
+
+    renderAddButton_BookScreen = () => {
+        if(this.props.addButton == 1)
+        {
+            return (
+                <TouchableOpacity
+                    onPress={() => {
+                        if(this.state.added == 0)
+                            this.addBookToLibrary();
+                    }}
+                    style={{ flex: 1, flexDirection: 'row', backgroundColor: 'white', margin: 3,
+                        paddingVertical: 10, paddingHorizontal: 1, borderRadius: 15,
+                        alignItems: 'center', justifyContent: 'center',
+                        borderWidth:1, borderColor:'#106234' }}>
+                    <Ionicons
+                      name={this.state.addButtonIcon}
+                      size={18}
+                      color='#106234'
+                      style={{paddingRight: 4, fontWeight: 'bold', backgroundColor: 'transparent' }}
+                    />
+                    <Text style={{ color: '#106234' }}>{ this.state.addButtonText }</Text>
                 </TouchableOpacity>
             );
         }
@@ -252,7 +281,7 @@ export default class OneBookCard extends React.Component {
         );
     };
 
-    renderPrice = () => {
+    renderPriceButton = () => {
         if(this.state.book_price == 0)
         {
             if(this.state.book_discount == 0)
@@ -305,6 +334,61 @@ export default class OneBookCard extends React.Component {
         }
     };
 
+    renderPriceButton_BookScreen = () => {
+        if(this.state.book_price == 0)
+        {
+            if(this.state.book_discount == 0)
+            {
+                return (
+                    <TouchableOpacity
+                        onPress={this.onClickBuyButton}
+                        style={ styles.buyButton_BookScreen }>
+
+                        <Text style={{ color: 'white', textDecorationLine: 'line-through', marginRight: 4 }}>مجاني</Text>
+                        <Text style={{ color: 'white' }}>{this.state.book_discount} {this.state.price_text}</Text>
+                    </TouchableOpacity>
+                );
+            }
+            else
+            {
+                return (
+                    <TouchableOpacity
+                        onPress={this.onClickBuyButton}
+                        style={ styles.buyButton_BookScreen }>
+
+                        <Text style={{ color: 'white' }}>مجاني</Text>
+                    </TouchableOpacity>
+                );
+            }
+        }
+        else
+        {
+            if(this.state.book_discount == 0)
+            {
+                return (
+                    <TouchableOpacity
+                        onPress={this.onClickBuyButton}
+                        style={ styles.buyButton_BookScreen }>
+
+                        <Text style={{ color: 'white' }}>{this.state.book_price} {this.state.price_text}</Text>
+                    </TouchableOpacity>
+                );
+            }
+            else
+            {
+                return (
+                    <TouchableOpacity
+                        onPress={this.onClickBuyButton}
+                        style={ styles.buyButton_BookScreen }>
+
+                        <Text style={{ color: 'white', textDecorationLine: 'line-through', marginRight: 4 }}>{this.state.book_price}</Text>
+                        <Text style={{ color: 'white' }}>{this.state.book_discount} {this.state.price_text}</Text>
+                    </TouchableOpacity>
+                );
+            }
+        }
+    };
+
     _TrimName = (name) => {
         return (name.length > 45) ? (name.substring(0, 42) + "...") : name;
     }
@@ -315,7 +399,7 @@ export default class OneBookCard extends React.Component {
             return (
                 <View style={{ margin: 20, flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <Image source={{uri: this.props.book_photo}}
-                       style={{width: 100, height: 140, borderRadius: 10, marginBottom: 9}} />
+                       style={{width: 99, height: 140, borderRadius: 1, marginBottom: 9}} />
 
                     <View style={{ minHeight: '27%', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                         <Text style={{ maxWidth: 120, fontSize: 15, fontWeight: 'bold', color: '#106234', textAlign: 'center' }}>
@@ -325,8 +409,8 @@ export default class OneBookCard extends React.Component {
                     </View>
 
                     <View style={{ marginTop:4, flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                        {this.renderPrice()}
-                        {this.shouldRenderAddButton()}
+                        {this.renderPriceButton()}
+                        {this.renderAddButton()}
                     </View>
                 </View>
             );
@@ -334,20 +418,35 @@ export default class OneBookCard extends React.Component {
         else
         {
             return (
-                <View style={{ flexDirection: 'row', margin: 20, flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                    <Image source={{uri: this.props.book_photo}}
-                       style={{width: 100, height: 140, borderRadius: 10, marginBottom: 9}} />
+                <View style={{ flexDirection:'column', justifyContent:'center', alignItems:'center' }}>
+                    <View style={{ width:'100%', flexDirection: 'row', margin: 10, flex: 1, alignItems: 'center', justifyContent: 'space-between' }}>
+                        <Lightbox
+                              renderContent={ () => {
+                                  return (
+                                      <Image source={{uri: this.props.book_photo}}
+                                        resizeMode='contain'
+                                        style={{width: null, resizeMode: 'contain', height: Dimensions.get('window').height, borderRadius: 3 }} />
+                                  );
+                              }}>
+                              <Image source={{uri: this.props.book_photo}}
+                                style={{ width: 100, height: 140, borderRadius: 3 }} />
+                        </Lightbox>
 
-                    <View style={{ marginLeft: 10, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                        <View style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#106234' }}>{this.props.book_name.toUpperCase()}</Text>
+                        <View style={{
+                            flex:1,
+                            flexDirection: 'column',
+                            alignItems: 'flex-end',
+                            justifyContent: 'flex-start',
+                            paddingTop:4,
+                            paddingLeft:9 }}>
+                            <Text style={{ fontSize: 20, maxWidth:'100%', fontWeight: 'bold', color: '#106234' }}>{this.props.book_name.toUpperCase()}</Text>
                             <Text style={{  }}>{this.props.author_name}</Text>
                         </View>
+                    </View>
 
-                        <View style={{ marginTop:4, flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                            {this.renderPrice()}
-                            {this.shouldRenderAddButton()}
-                        </View>
+                    <View style={{ paddingVertical:10, flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                        {this.renderAddButton_BookScreen()}
+                        {this.renderPriceButton_BookScreen()}
                     </View>
                 </View>
             );
@@ -367,5 +466,16 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center'
-  }
+},
+buyButton_BookScreen: {
+  flex: 1,
+  flexDirection: 'row',
+  backgroundColor: '#106234',
+  margin:3,
+  paddingVertical: 10,
+  paddingHorizontal: 1,
+  borderRadius: 13,
+  alignItems: 'center',
+  justifyContent: 'center'
+}
 });

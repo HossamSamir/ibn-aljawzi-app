@@ -151,9 +151,15 @@ export default class MyLibrary extends React.Component {
                             <TouchableOpacity
                             style={{}}
                             onPress={ () => {
-                              this.props.navigation.navigate('Book', {book_ID: item.id, book_photo: item.book_photo, book_name: item.book_name, author_name: item.author_name})
+                              this.props.navigation.navigate('Book', {
+                                  book_ID: item.id,
+                                  book_photo: item.book_photo,
+                                  book_name: item.book_name,
+                                  author_name: item.author_name,
+                                  cat_name: item.cat_name
+                              })
                             }}>
-                                <OneBookCard navigation={this.props.navigation}  id={item.id} horizontal={0} addButton={0} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+                                <OneBookCard navigation={this.props.navigation}   id={item.id} horizontal={0} addButton={0} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
                             </TouchableOpacity>
                         </View>
                     )} />

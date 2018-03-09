@@ -158,6 +158,7 @@ _keyExtractor2 = (item, index) => item.book_ID;
             renderItem = {({ item }) => {
                 if(item.cat_books.length > 0)
                 {
+                    let category_name = item.cat_name;
                     return (
                         <View style={{marginBottom:22}}>
                             <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -185,9 +186,15 @@ _keyExtractor2 = (item, index) => item.book_ID;
                                     keyExtractor={this._keyExtractor2}
                                     renderItem = {({ item }) => (
                                         <TouchableOpacity onPress={ () => {
-                                          this.props.navigation.navigate('Book', {book_ID: item.book_ID, book_photo: item.book_photo, book_name: item.book_name, author_name: item.author_name})
+                                          this.props.navigation.navigate('Book', {
+                                              book_ID: item.book_ID,
+                                              book_photo: item.book_photo,
+                                              book_name: item.book_name,
+                                              author_name: item.author_name,
+                                              cat_name: category_name
+                                          })
                                         }}>
-                                          <OneBookCard navigation={this.props.navigation}  id={item.book_ID} horizontal={0} addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
+                                          <OneBookCard navigation={this.props.navigation}   id={item.book_ID} horizontal={0} addButton={1} book_name={item.book_name} book_photo={item.book_photo} author_name={item.author_name} />
                                         </TouchableOpacity>
                                 )} />
                             </View>
