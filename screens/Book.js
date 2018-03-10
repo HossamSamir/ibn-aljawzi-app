@@ -28,7 +28,7 @@ export default class BookCard extends React.Component {
         {headers: {'Cache-Control': 'no-cache'}})
         .then((res) => res.json())
         .then((resJson) => {
-            if(resJson.status == 1) this.setState({similar_books: resJson.result});
+            if(resJson.status == 1) this.setState({similar_books: resJson.result });
             else this.setState({similar_books: null});
         })
 
@@ -65,7 +65,8 @@ export default class BookCard extends React.Component {
             book_pagesnum: 0,
             book_binding: "",
             book_download: "",
-            similar_books: []
+            similar_books: [],
+            //similarity_type: 0
         }
     }
 
@@ -201,7 +202,9 @@ export default class BookCard extends React.Component {
             <View style={{ flex:1, backgroundColor:'#F2F2F2', paddingVertical:8, paddingHorizontal:5 }}>
                 <View style={{ backgroundColor:'white', borderRadius:4, borderWidth:0.4, borderColor:'#EEEEEE' }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-                        <Text style={{ color: '#0E142A', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 22, padding: 10, paddingTop: 14 }}>كتب مشابهة</Text>
+                        <Text style={{ color: '#0E142A', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 22, padding: 10, paddingTop: 14 }}>
+                        كتب ذات صلة
+                        </Text>
                     </View>
 
                     <FlatList
