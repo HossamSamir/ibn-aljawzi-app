@@ -1,5 +1,5 @@
 import React from 'react';
-import { AsyncStorage, Text, StyleSheet, View } from "react-native";
+import { AsyncStorage, Text, StyleSheet, View , Alert} from "react-native";
 import { Table, Row, Rows} from 'react-native-table-component';
 
 import MenuBackButton from './MenuBackButton'
@@ -7,28 +7,16 @@ import LoadingIndicator from '../../components/LoadingIndicator';
 import Server from '../../constants/server';
 
 export default class Orders extends React.Component {
-  componentDidMount() {
-    AsyncStorage.getItem("language").then((value) => {
-      if (value == '0') {
-        this.setState({
-          thingsToTranslate: {
-            noOrders: "No orders found!"
-          }
-        });
-      } else {
-          this.setState({
-            thingsToTranslate: {
-              noOrders: 'لم يتم العثور علي أي مشتريات'
-          }
-          });
-      }
-    })
-  }
+
+
 
     constructor(props) {
         super(props);
         this.state = {
             /*
+
+
+
                 method
                     0: shipping
                     1: get from branch
@@ -59,13 +47,21 @@ export default class Orders extends React.Component {
                 ["Book name",       1,      1],*/
             ],
             thingsToTranslate: {
-              noOrders: 'لم يتم العثور علي أي مشتريات'
+              noOrders: 'No orders found!'
             }
         }
     }
 
     componentDidMount() {
         this.doTheFetching();
+
+        AsyncStorage.getItem("language").then((value) => {
+          if (value == '1') {
+            this.setState({ thingsToTranslate: {  noOrders: 'لم يتم العثور علي أي مشتريات' } })
+          } else {
+            this.setState({ thingsToTranslate: { noOrders: "No orders found!" } })
+          }
+        });
     }
 
     doTheFetching() {

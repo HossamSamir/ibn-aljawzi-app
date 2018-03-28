@@ -1,5 +1,5 @@
 import React from 'react';
-import { AsyncStorage, FlatList, TouchableOpacity, View, Text, Image } from "react-native";
+import { AsyncStorage, FlatList, TouchableOpacity, View, Text, Image , Alert} from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
 export default class ListAll extends React.Component {

@@ -95,7 +95,7 @@ _keyExtractor = (item, index) => item.id;
         <FlatList
           style={{ flexDirection: 'column' }}
           contentContainerStyle={{ alignItems: 'center' }}
-          numColumns={2}
+          numColumns={1}
           data = {this.state.books}
           keyExtractor={this._keyExtractor}
           renderItem = {({ item }) => (

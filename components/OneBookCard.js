@@ -21,17 +21,29 @@ export default class OneBookCard extends React.Component {
         super(props);
         this.state = {
             added: 0,
-            addButtonText: 'مُفضل',
+            //addButtonText: 'مُفضل',
             addButtonIcon: 'ios-star-outline',
             addButtonBGCol: '#106234',
             book_price: 0,
             book_discount: 0,
-            price_text: 'ر.س'
+            price_text: 'ر.س',
+            thingsToTranslate: {
+            favourite:'Favourite'}
         }
     }
 
     componentDidMount ()
     {
+
+        AsyncStorage.getItem("language").then((value) => {
+          if (value == '1') {
+            this.setState({ thingsToTranslate: {  favourite:'مُفضل' } })
+          } else {
+            this.setState({ thingsToTranslate: {  favourite:'Favourite' } })
+          }
+        });
+
+
         if(this.props.addButton == 1)
         {
             this.isBookInLibrary((result) => {
@@ -39,7 +51,7 @@ export default class OneBookCard extends React.Component {
                 {
                     this.setState({
                         added: 1,
-                        addButtonText: 'مُفضل',
+                        //addButtonText: 'مُفضل',
                         addButtonIcon: 'ios-checkmark-circle-outline',
                         addButtonBGCol: '#cccccc'
                     });
@@ -48,7 +60,7 @@ export default class OneBookCard extends React.Component {
                 {
                     this.setState({
                         added: 0,
-                        addButtonText: 'مُفضل',
+                    //    addButtonText: 'مُفضل',
                         addButtonIcon: 'ios-star-outline',
                         addButtonBGCol: '#106234'
                     });
@@ -95,7 +107,7 @@ export default class OneBookCard extends React.Component {
 
         this.setState({
             added: 1,
-            addButtonText: 'مُفضل',
+            //addButtonText: 'مُفضل',
             addButtonIcon: 'ios-checkmark-circle-outline',
             addButtonBGCol: '#cccccc'
         });
@@ -212,7 +224,7 @@ export default class OneBookCard extends React.Component {
                       color='white'
                       style={{paddingRight: 4, fontWeight: 'bold', backgroundColor: 'transparent' }}
                     />
-                    <Text style={{ color: 'white' }}>{ this.state.addButtonText }</Text>
+                    <Text style={{ color: 'white' }}>{ this.state.thingsToTranslate.favourite }</Text>
                 </TouchableOpacity>
             );
         }
@@ -239,7 +251,7 @@ export default class OneBookCard extends React.Component {
                       color='#106234'
                       style={{paddingRight: 4, fontWeight: 'bold', backgroundColor: 'transparent' }}
                     />
-                    <Text style={{ color: '#106234' }}>{ this.state.addButtonText }</Text>
+                    <Text style={{ color: '#106234' }}>{this.state.thingsToTranslate.favourite}</Text>
                 </TouchableOpacity>
             );
         }
@@ -254,15 +266,36 @@ export default class OneBookCard extends React.Component {
                 {
                     AsyncStorage.getItem('userid').then(
                         (userid) => {
-                            Alert.alert(
-                                'نوع التوصيل',
-                                'كيف تريد ان يصل  لك هذا الكتاب',
-                                [
-                                    {text: 'وصله الى مكاني', onPress: () => this.props.navigation.navigate('Payment', {book_id: this.props.id, user_id: userid, method: 0})},
-                                    {text: 'اخذه بنفسي من الفرع', onPress: () => this.props.navigation.navigate('Payment', {book_id: this.props.id, user_id: userid, method: 1})},
+
+                        /*    Alert.alert(
+
+
                                 ],
-                                { cancelable: true }
-                            )
+                                { cancelable: true } */
+
+
+                                AsyncStorage.getItem("language").then((value) => {
+                                  if (value == '1') {
+                                Alert.alert(
+                                    'نوع التوصيل',
+                                    'كيف تريد ان يصل  لك هذا الكتاب',
+                                      [
+                                          {text: 'وصله الى مكاني', onPress: () => this.props.navigation.navigate('Payment', {book_id: this.props.id, user_id: userid, method: 0})},
+                                          {text: 'اخذه بنفسي من الفرع', onPress: () => this.props.navigation.navigate('Payment', {book_id: this.props.id, user_id: userid, method: 1})},
+                                      ],
+                                      { cancelable: true })
+
+                                  } else {
+                            Alert.alert(
+                                     'Delivery method',
+                                    'How would you like this book to be delivered to you ?',
+                                    [
+                                        {text: 'Deliver to my place', onPress: () => this.props.navigation.navigate('Payment', {book_id: this.props.id, user_id: userid, method: 0})},
+                                        {text: 'Pick it from branch', onPress: () => this.props.navigation.navigate('Payment', {book_id: this.props.id, user_id: userid, method: 1})},
+                                    ],
+                                    {cancelable:true}
+                                )}
+                                });
                         }
                     );
                 }

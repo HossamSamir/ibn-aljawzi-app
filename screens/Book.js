@@ -10,7 +10,8 @@ import {
   Dimensions,
   Linking,
   Platform,
-  Clipboard
+  Clipboard,
+  AsyncStorage
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -66,6 +67,18 @@ export default class BookCard extends React.Component {
             book_binding: "",
             book_download: "",
             similar_books: [],
+            thingsToTranslate: {
+              download: 'Download',
+              links: 'Copy Link',
+              favourite:'Favourite',
+              falied:'Falied download',
+              packing:'Packing',
+              nopage:'Number of pages',
+              width:'Width',
+              length:'Length',
+              related:'Related books',
+              describtion:'Describtion'
+            },
             //similarity_type: 0
         }
     }
@@ -101,14 +114,29 @@ export default class BookCard extends React.Component {
                     <TouchableOpacity onPress={ ()=>{
                             if(this.state.book_download) Linking.openURL(this.state.book_download)
                             else {
+
+                                    AsyncStorage.getItem("language").then((value) => {
+                                      if (value == '1') {
+                                    Alert.alert(
+                                            'فشل فى التحميل',
+                                        'هذا الكتاب غير متاح للتحميل',
+                                          [
+                                            {text: 'تم'},
+                                          ],
+                                          { cancelable: true })
+
+                                      } else {
                                 Alert.alert(
-                                  'فشل فى التحميل',
-                                  'رابط تحميل هذا الكتاب غير متوفر',
-                                  [
-                                    {text: 'تم'},
-                                  ],
-                                  { cancelable: true }
-                                )
+                                         'Failed download',
+                                        'This book not avalible to download ',
+                                        [
+                                            {text:'Done'},
+                                        ],
+                                        {cancelable:true}
+                                    )}
+                                    });
+
+
                             }
 
                         }}
@@ -120,20 +148,33 @@ export default class BookCard extends React.Component {
                           style={{backgroundColor: 'transparent' }}
                         />
                         <Text style={{ color: (this.state.book_download) ? 'black' : '#CCCCCC',
-                            backgroundColor: 'transparent', fontSize: 16, textAlign: 'center' }}>تحميل</Text>
+                            backgroundColor: 'transparent', fontSize: 16, textAlign: 'center' }}>{this.state.thingsToTranslate.download}</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={ ()=>{
                             if(this.state.book_download) Clipboard.setString(this.state.book_download);
                             else {
-                                Alert.alert(
+
+                              AsyncStorage.getItem("language").then((value) => {
+                                if (value == '1') {
+                              Alert.alert(
                                   'فشل فى النسخ',
-                                  'رابط تحميل هذا الكتاب غير متوفر',
+                                  'هذا الكتاب غير متاح للتحميل',
                                   [
                                     {text: 'تم'},
                                   ],
                                   { cancelable: true }
-                                )
+
+                        )    } else {
+                          Alert.alert(
+                                   'Failed copy',
+                                  'This book not avalible to download',
+                                  [
+                                      {text:'Done'},
+                                  ],
+                                  {cancelable:true}
+                              )}
+                              });
                             }
 
                         }}
@@ -145,7 +186,7 @@ export default class BookCard extends React.Component {
                           style={{backgroundColor: 'transparent' }}
                         />
                         <Text style={{ color: (this.state.book_download) ? 'black' : '#CCCCCC',
-                            backgroundColor: 'transparent', fontSize: 16, textAlign: 'center' }}>نسخ الرابط</Text>
+                            backgroundColor: 'transparent', fontSize: 16, textAlign: 'center' }}>{this.state.thingsToTranslate.links}</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -170,28 +211,28 @@ export default class BookCard extends React.Component {
 
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems:'center', paddingVertical:15 }}>
                     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems:'center' }}>
-                        <Text style={{ color: 'black', fontSize: 16}}>الطول</Text>
+                        <Text style={{ color: 'black', fontSize: 16}}>{this.state.thingsToTranslate.length}</Text>
                         <Text style={{ color: '#AAAAAA', fontSize: 16}}>
                             {this.state.book_height}
                         </Text>
                     </View>
 
                     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems:'center' }}>
-                        <Text style={{ color: 'black', fontSize: 16, textAlign:'center' }}>العرض</Text>
+                        <Text style={{ color: 'black', fontSize: 16, textAlign:'center' }}>{this.state.thingsToTranslate.width}</Text>
                         <Text style={{ color: '#AAAAAA', fontSize: 16, textAlign:'center' }}>
                             {this.state.book_width}
                         </Text>
                     </View>
 
                     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems:'center' }}>
-                        <Text style={{ color: 'black', fontSize: 16, textAlign:'center' }}>عدد الصفحات</Text>
+                        <Text style={{ color: 'black', fontSize: 16, textAlign:'center' }}>{this.state.thingsToTranslate.nopage}</Text>
                         <Text style={{ color: '#AAAAAA', fontSize: 16, textAlign:'center' }}>
                             {this.state.book_pagesnum}
                         </Text>
                     </View>
 
                     <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems:'center' }}>
-                        <Text style={{ color: 'black', fontSize: 16, textAlign:'center' }}>التغليف</Text>
+                        <Text style={{ color: 'black', fontSize: 16, textAlign:'center' }}>{this.state.thingsToTranslate.packing}</Text>
                         <Text style={{ color: '#AAAAAA', fontSize: 16, textAlign:'center' }}>
                             {this.state.book_binding}
                         </Text>
@@ -203,7 +244,7 @@ export default class BookCard extends React.Component {
                 <View style={{ backgroundColor:'white', borderRadius:4, borderWidth:0.4, borderColor:'#EEEEEE' }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
                         <Text style={{ color: '#0E142A', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 22, padding: 10, paddingTop: 14 }}>
-                        كتب ذات صلة
+                        {this.state.thingsToTranslate.related}
                         </Text>
                     </View>
 
@@ -231,7 +272,7 @@ export default class BookCard extends React.Component {
 
             <View style={{ flex:1, backgroundColor:'white'}}>
                 <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-                    <Text style={{ color: '#0E142A', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 22, padding: 10, paddingTop: 14 }}>الوصف</Text>
+                    <Text style={{ color: '#0E142A', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 22, padding: 10, paddingTop: 14 }}>{this.state.thingsToTranslate.describtion}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                     <Text style={{ color: '#737481', backgroundColor: '#fff', fontWeight: 'bold', fontSize: 16, padding: 12, textAlign: 'right'}}>

@@ -4,17 +4,34 @@ import {
   Platform,
   View,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  AsyncStorage
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationActions } from 'react-navigation';
 
 export default class Header extends React.Component {
+
+
+    componentDidMount() {
+
+        //this.doTheFetching();
+
+        AsyncStorage.getItem("language").then((value) => {
+          if (value == '1') {
+            this.setState({ thingsToTranslate: { search : 'بحث'  } })
+          } else {
+            this.setState({ thingsToTranslate: { search : 'Search' } })
+          }
+        });
+    }
     constructor(props){
         super(props)
 
         this.state = {
-          searchText: ''
+          searchText: '',
+         thingsToTranslate: {
+          search : 'Search' },
         }
     }
 
@@ -59,7 +76,7 @@ export default class Header extends React.Component {
             <View style={{ flex: 3, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginRight: 15 }}>
                 <TextInput
                     underlineColorAndroid='transparent'
-                    placeholder='بحث'
+                    placeholder ={this.state.thingsToTranslate.search}
                     placeholderTextColor='rgba(16, 98, 52, 0.5803921568627451)'
                     returnKeyType={"search"}
                     style={{ flex: 1, backgroundColor: 'white', borderRadius: 13, fontSize: 18, color: '#106234', padding: 1,  paddingLeft: 17, paddingRight: 35 }}
