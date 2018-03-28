@@ -139,14 +139,26 @@ export default class ListAll extends React.Component {
                                         }
                                         else
                                         {
+                                            AsyncStorage.getItem("language").then((value) => {
+                                              if (value == '1') {
                                             Alert.alert(
-                                              'Cannot view orders',
-                                              'Cannot view orders because you are not logged in',
-                                              [
-                                                {text: 'Okay'},
-                                              ],
-                                              { cancelable: true }
-                                            )
+                                            'لا يمكن عرض المشتريات',
+                                                'لا يمكن عرض المشتريات لانك لم تقوم بتسجيل الدخول',
+                                                  [
+                                                      {text: 'تم'}
+                                                  ],
+                                                  { cancelable: true })
+
+                                              } else {
+                                              Alert.alert(
+                                                    'Cannot view orders',
+                                                    'Cannot view orders because you are not logged in',
+                                                    [
+                                                      {text: 'Okay'},
+                                                    ],
+                                                    { cancelable: true }
+                                                )}
+                                            });
                                         }
                                     }
                                 );

@@ -22,6 +22,13 @@ import Server from '../constants/server';
 export default class BookCard extends React.Component {
     componentDidMount() {
         this.doTheFetching();
+        AsyncStorage.getItem("language").then((value) => {
+          if (value == '1') {
+            this.setState({ thingsToTranslate: { download: 'تحميل', links: 'نسخ الرابط' , favourite:'مُفضل' , falied:'فشل فى التحميل' , packing:'التغليف' , nopage:'عدد الصفحات' , width:'العرض', length:'الطول' , related:'كتب ذات صلة' , describtion:'الوصف'  } })
+          } else {
+            this.setState({ thingsToTranslate: { download: 'Download', links: 'Copy Link' , favourite:'Favourite' , falied:'Falied download' , packing:'Packing' , nopage:'Number of pages' , width:'Width' , length:'Length' , related:'Related books' ,  describtion:'Describtion' } })
+          }
+        });
     }
 
     doTheFetching() {
@@ -114,29 +121,14 @@ export default class BookCard extends React.Component {
                     <TouchableOpacity onPress={ ()=>{
                             if(this.state.book_download) Linking.openURL(this.state.book_download)
                             else {
-
-                                    AsyncStorage.getItem("language").then((value) => {
-                                      if (value == '1') {
-                                    Alert.alert(
-                                            'فشل فى التحميل',
-                                        'هذا الكتاب غير متاح للتحميل',
-                                          [
-                                            {text: 'تم'},
-                                          ],
-                                          { cancelable: true })
-
-                                      } else {
                                 Alert.alert(
-                                         'Failed download',
-                                        'This book not avalible to download ',
-                                        [
-                                            {text:'Done'},
-                                        ],
-                                        {cancelable:true}
-                                    )}
-                                    });
-
-
+                                  'فشل فى التحميل',
+                                  'رابط تحميل هذا الكتاب غير متوفر',
+                                  [
+                                    {text: 'تم'},
+                                  ],
+                                  { cancelable: true }
+                                )
                             }
 
                         }}
@@ -154,27 +146,14 @@ export default class BookCard extends React.Component {
                     <TouchableOpacity onPress={ ()=>{
                             if(this.state.book_download) Clipboard.setString(this.state.book_download);
                             else {
-
-                              AsyncStorage.getItem("language").then((value) => {
-                                if (value == '1') {
-                              Alert.alert(
+                                Alert.alert(
                                   'فشل فى النسخ',
-                                  'هذا الكتاب غير متاح للتحميل',
+                                  'رابط تحميل هذا الكتاب غير متوفر',
                                   [
                                     {text: 'تم'},
                                   ],
                                   { cancelable: true }
-
-                        )    } else {
-                          Alert.alert(
-                                   'Failed copy',
-                                  'This book not avalible to download',
-                                  [
-                                      {text:'Done'},
-                                  ],
-                                  {cancelable:true}
-                              )}
-                              });
+                                )
                             }
 
                         }}
