@@ -1,9 +1,12 @@
 import React from 'react';
 import {
-  Platform,
-  StyleSheet,
-  Text,
-  AsyncStorage
+    TouchableOpacity,
+    Linking,
+    View,
+    Platform,
+    StyleSheet,
+    Text,
+    AsyncStorage
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Container, Header, Content, Tab, Tabs, TabHeading } from 'native-base';
@@ -16,9 +19,9 @@ export default class Stores extends React.Component {
   componentDidMount() {
     AsyncStorage.getItem("language").then((value) => {
       if (value == '1') {
-        this.setState({ thingsToTranslate: { maps: 'خرائط', storesList: 'قائمة الفروع' } })
+        this.setState({ thingsToTranslate: { maps: 'خرائط', storesList: 'قائمة الفروع',buttonmaps:'افتح من خرائط جوجل' } })
       } else {
-        this.setState({ thingsToTranslate: { maps: 'Maps', storesList: 'Stores List' } })
+        this.setState({ thingsToTranslate: { maps: 'Maps', storesList: 'Stores List',buttonmaps:' Open in Google Maps' } })
       }
     });
   }
@@ -28,7 +31,8 @@ export default class Stores extends React.Component {
     this.state = {
       thingsToTranslate: {
         maps: 'Maps',
-        storesList: 'Stores List'
+        storesList: 'Stores List',
+        buttonmaps: 'Button Maps'
       },
     }
   }
@@ -60,10 +64,17 @@ export default class Stores extends React.Component {
                     style={{ color: Platform.OS === 'ios' ? '#106234' : 'white', marginRight: 10 }}
                   />
                 <Text style={{ color: Platform.OS === 'ios' ? '#106234' : 'white' }}>{this.state.thingsToTranslate.maps}</Text>
+
               </TabHeading>
           }>
             <MapTab />
+
+                <TouchableOpacity style = {{justifyContent: 'center', alignItems: 'center',paddingVertical:11}}
+                    onPress={() => Linking.openURL('maps://app?saddr=24.845844,46.616029&markers&daddr=24.824744,46.615029&markers')}>
+                   <Text style={{color:'#106234',fontWeight:'bold'}}>{this.state.thingsToTranslate.buttonmaps}</Text>
+                </TouchableOpacity>
           </Tab>
+
         </Tabs>
     );
   }
