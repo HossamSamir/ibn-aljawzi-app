@@ -301,14 +301,26 @@ export default class OneBookCard extends React.Component {
                 }
                 else
                 {
+                    AsyncStorage.getItem("language").then((value) => {
+                      if (value == '1') {
                     Alert.alert(
-                      'Cannot buy book',
-                      'Cannot buy a book because you are not logged in',
-                      [
-                        {text: 'Okay'},
-                      ],
-                      { cancelable: true }
-                  );
+                        'لا يمكن شراء الكتاب',
+                        'لا يمكن شراء الكتاب لانك لم تقوم بتسجيل الدخول',
+                          [
+                              {text: 'تم'}
+                          ],
+                          { cancelable: true })
+
+                      } else {
+                Alert.alert(
+                         'Cannot buy book',
+                        'Cannot buy a book because you are not logged in',
+                        [
+                            {text: 'Okay'}
+                        ],
+                        {cancelable:true}
+                    )}
+                    });
                 }
             }
         );

@@ -14,13 +14,26 @@ export default class App extends Component {
         super(props);
         this.state = {
             language: 0, // 0 = english, 1 = arabic
-            currency: 0 // 0 = dollar, 1 = Saudi riyal
+            currency: 0, // 0 = dollar, 1 = Saudi riyal
+            thingsToTranslate: {
+             lang:'Language' ,
+              currency:'Currency'}
         }
     }
 
     componentDidMount() {
         this.loadSettings();
-    }
+
+        AsyncStorage.getItem("language").then((value) => {
+          if (value == '1') {
+            this.setState({ thingsToTranslate: { lang : 'اللغة', currency:'العُملة' }})
+          } else {
+            this.setState({ thingsToTranslate: { lang:'Language' , currency:'Currency'  }})
+        }
+        });
+
+}
+
 
     readSettingFromStorage = (setting, callback) => {
         AsyncStorage.getItem(setting).then(
@@ -99,7 +112,7 @@ export default class App extends Component {
                           color='#63BA83'
                           style={styles.icon}/>
 
-                          <Text style={styles.captionText}>Language</Text>
+                          <Text style={styles.captionText}>{this.state.thingsToTranslate.lang}</Text>
                     </View>
                     <View style={styles.pickerContainer}>
                         <SelectInput
@@ -125,7 +138,7 @@ export default class App extends Component {
                           color='#63BA83'
                           style={styles.icon}/>
 
-                          <Text style={styles.captionText}>Currency</Text>
+                          <Text style={styles.captionText}>{this.state.thingsToTranslate.currency}</Text>
                     </View>
                     <View style={styles.pickerContainer}>
                         <SelectInput
