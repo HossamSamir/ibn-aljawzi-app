@@ -1,11 +1,13 @@
 import React from 'react';
 import {
+  Image,
   Text,
   TouchableOpacity,
   View,
   FlatList,
   Alert,
 } from 'react-native';
+import Carousel from 'react-native-carousel-view';
 import { Ionicons } from '@expo/vector-icons';
 import { Rating } from 'react-native-elements';
 
@@ -113,6 +115,11 @@ export default class HomeScreen extends React.Component {
                     ]
                 },*/
             ],
+            AdsText:{
+            AdText1:'هذه المساحة من الصفحة خاصة بإعلان صادر من إدارة التطبيق',
+            AdText2:'هذه المساحة من الصفحة خاصة بإعلان صادر من إدارة التطبيق',
+            AdText3:'هذه المساحة من الصفحة خاصة بإعلان صادر من إدارة التطبيق',
+        },
         }
     }
 
@@ -122,10 +129,23 @@ _keyExtractor2 = (item, index) => item.book_ID;
 
     renderHeader = () => {
         return (
+
+            <View style ={{flex:1,flexDirection:'column',alignItems:'center'}}>
+            <Carousel width={280} height={150} delay={3500} indicatorSize={10} indicatorColor='#106234' >
+                <View style={{flex:1,width:280,height:40}}>
+                    <Text>{this.state.AdsText.AdText1}</Text>
+                </View>
+                <View style={{flex:1,width:280,height:40}}>
+                    <Text>{this.state.AdsText.AdText2}</Text>
+                </View>
+                <View style={{flex:1,width:280,height:40}}>
+                    <Text>{this.state.AdsText.AdText3}</Text>
+                </View>
+            </Carousel>
             <FlatList
               horizontal={true}
               showsHorizontalScrollIndicator={false}
-              style={{ maxHeight: 80, }}
+              style={{ maxHeight: 80,height:130}}
               data = {this.state.mainCats}
               keyExtractor={this._keyExtractor0}
               renderItem = {({ item }) => (
@@ -135,6 +155,8 @@ _keyExtractor2 = (item, index) => item.book_ID;
                       <Text style={{ color: 'white', backgroundColor: '#106234', paddingVertical: 10, paddingHorizontal: 40, margin: 20, borderRadius: 18, fontSize: 12, fontWeight: 'bold' }}>{item.name.toUpperCase()}</Text>
                   </TouchableOpacity>
               )} />
+              </View>
+
         );
     }
 
@@ -162,7 +184,7 @@ _keyExtractor2 = (item, index) => item.book_ID;
                     return (
                         <View style={{marginBottom:22}}>
                             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                              <TouchableOpacity style={{ flexDirection: 'row' }} onPress={ () => {
+                              <TouchableOpacity style={{ flexDirection: 'row'}} onPress={ () => {
                                   this.props.navigation.navigate('Category', {main_cat_id: item.cat_ID, cat_name: item.cat_name})
                                 }}>
                                 <Text style={{ marginLeft: 20, fontWeight: 'bold', color: '#555555', fontSize: 20 }}>
