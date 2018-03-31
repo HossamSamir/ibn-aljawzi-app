@@ -22,6 +22,17 @@ export default class Signin extends React.Component {
         }));
     };
 
+    componentDidMount() {
+
+        AsyncStorage.getItem("language").then((value) => {
+          if (value == '1') {
+            this.setState({ thingsToTranslate: { username:'اسم المستخدم', pass:'كله المرور'  , login:'تسجيل دخول', skip:'تخطي' , createe:'تسجيل حساب جديد' , acc:'ليس لديك حساب ؟' , errorus:'اسم مستخدم او كلمة مرور غير صحيحتان' , shortpass:'كلمه المرور قصيره جدا', } })
+          } else {
+            this.setState({ thingsToTranslate: { username:'username' , pass:'Password' , login:'Login' , skip:'Skip' , createe:'Create new account' , acc:'Have an account?' , errorus:'The username or password wrong' , shortpass:'Password is very short'} })
+          }
+        });
+    }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -30,6 +41,16 @@ export default class Signin extends React.Component {
             username: '',
             password: '',
             errorMsg: '',
+            thingsToTranslate : {
+                username:'username' ,
+                 pass:'Password' ,
+                  login:'Login' ,
+                   skip:'Skip' ,
+                   createe:'Create new account',
+                   acc:'Have an account?',
+                   errorus:'The username or password wrong' ,
+                   shortpass:'Password is very short'
+               },
         }
 
         AsyncStorage.getItem('SkippedLogin').then(
@@ -61,7 +82,7 @@ export default class Signin extends React.Component {
         if(this.state.username == '' || this.state.password == '' ||
             this.state.username.length < 3 || this.state.password.length < 4)
         {
-            this.setState({ errorMsg: 'كلمه المرور قصيره جدا' });
+            this.setState({ errorMsg: this.state.thingsToTranslate.shortpass });
             return;
         }
         this.setState({ errorMsg: '' });
@@ -69,7 +90,7 @@ export default class Signin extends React.Component {
         fetch(Server.dest + '/api/signin?username='+this.state.username+'&password='+this.state.password, {headers: {'Cache-Control': 'no-cache'}}).
         then((res) => res.json()).then((resJson) => {
             if(resJson.response == 0)
-                this.setState({ errorMsg: 'اسم مستخدم او كلمة مرور غير صحيحتان'});
+                this.setState({ errorMsg: this.state.thingsToTranslate.errorus});
             else if(resJson.response > 0)
             {
                 AsyncStorage.setItem('userid', resJson.response);
@@ -138,7 +159,7 @@ export default class Signin extends React.Component {
 
                               <TextInput
                                   underlineColorAndroid='transparent'
-                                  placeholder='اسم المستخدم'
+                                  placeholder={this.state.thingsToTranslate.username}
                                   placeholderTextColor='#BBBBBB'
                                   autoGrow={false}
                                   multiline={false}
@@ -158,7 +179,7 @@ export default class Signin extends React.Component {
 
                               <TextInput
                                   underlineColorAndroid='transparent'
-                                  placeholder='كلمه المرور'
+                                  placeholder={this.state.thingsToTranslate.pass}
                                   placeholderTextColor='#BBBBBB'
                                   autoGrow={false}
                                   multiline={false}
@@ -181,11 +202,11 @@ export default class Signin extends React.Component {
                                 borderRadius={20}
                                 fontWeight='bold'
                                 buttonStyle={{width: '100%', padding: 9}}
-                                title="تسجيل دخول" />
+                                title= {this.state.thingsToTranslate.login} />
                         </View>
 
                         <View style={styles.signupButtonContainer}>
-                            <Text style={{color: '#106234', marginBottom: 4}}>{"ليس لديك حساب؟"}</Text>
+                            <Text style={{color: '#106234', marginBottom: 4}}>{this.state.thingsToTranslate.acc}</Text>
 
                             <View style={{flex: 1, marginBottom: 7, width: '90%'}}>
                                 <Button
@@ -210,7 +231,7 @@ export default class Signin extends React.Component {
                                     fontWeight='bold'
                                     buttonStyle={{padding: 9}}
                                     containerViewStyle={{width: '100%', marginLeft: 0}}
-                                    title="تخطي" />
+                                    title={this.state.thingsToTranslate.skip}/>
                             </View>
 
                             <View style={{flex: 1, width: '90%'}}>
@@ -223,7 +244,7 @@ export default class Signin extends React.Component {
                                     fontWeight='bold'
                                     buttonStyle={{padding: 9}}
                                     containerViewStyle={{width: '100%', marginLeft: 0}}
-                                    title="تسجيل حساب جديد" />
+                                    title={this.state.thingsToTranslate.createe} />
                             </View>
                         </View>
                     </View>

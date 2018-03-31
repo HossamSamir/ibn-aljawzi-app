@@ -13,6 +13,18 @@ export default class Signup extends React.Component {
         this.setState({ 'login': value });
     }
 
+    componentDidMount() {
+
+        AsyncStorage.getItem("language").then((value) => {
+          if (value == '1') {
+            this.setState({ thingsToTranslate: { username:'اسم المستخدم', pass:'كله المرور'  ,  createe:'تسجيل'  , confirm:'تأكيد كلمة المرور' , email:'البريد الالكتروني' , address:'العنوان' , condition:'عندما اضغط "تسجيل" اقر اني قرأت و اوافق على الشروط و الاحكام و سياسة تطبيق دار ابن الجوزي' , shortpass:'كلمه المرور قصيره جدا' , matchpass:'كلمه المرور غير متطابقة' , avauser:'اسم المستخدم غير متاح' , avaemail:'البريد الاكتروني غير صالح'  , } })
+          } else {
+            this.setState({ thingsToTranslate: { username:'username' , pass:'Password'  , createe:'Create' , acc:'Have an account?' , confirm:'Confim password' , email:'Email' , address:'Address' , condition:'By creating an account, I agree to the terms and conditions of Ibn Al-Jawzi app' ,  shortpass:'Password is very short' , matchpass : "Password don't match" , avauser:'Username not avalible' , avaemail:'Invalid email' ,  } })
+          }
+        });
+    }
+
+
     constructor(props) {
         super(props);
         this.state = {
@@ -23,6 +35,20 @@ export default class Signup extends React.Component {
             address: '',
             email: '',
             errorMsg: '',
+            thingsToTranslate : {
+                username:'username' ,
+                 pass:'Password'  ,
+                  createe:'Create' ,
+                   acc:'Have an account?',
+                   confirm:'Confim password' ,
+                    email:'Email' ,
+                    address:'Address',
+                     condition:'By creating an account, I agree to the terms and conditions of Ibn Al-Jawzi app' ,
+                      shortpass:'Password is very short',
+                       matchpass : "Password don't match" ,
+                        avauser:'Username not avalible' ,
+                         avaemail:'Invalid email' ,
+               },
         }
 
         AsyncStorage.getItem('login').then(
@@ -48,19 +74,19 @@ export default class Signup extends React.Component {
             this.state.username.length < 3 || this.state.password.length < 4 || this.state.cpassword.length < 4 ||
             this.state.address.length < 4 || this.state.email.length < 4)
         {
-            this.setState({ errorMsg: 'كلمه المرور قصيره جدا' });
+            this.setState({ errorMsg: this.state.thingsToTranslate.shortpass});
             return;
         }
         if(this.state.password != this.state.cpassword)
         {
-            this.setState({ errorMsg: 'كلمه المرور غير متطابقه' });
+            this.setState({ errorMsg: this.state.thingsToTranslate.matchpass });
             return;
         }
         var emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         var isValidEmail = emailRegex.test(this.state.email);
         if(!isValidEmail)
         {
-            this.setState({ errorMsg: 'بريد الكتروني غير صالح'});
+            this.setState({ errorMsg:this.state.thingsToTranslate.avaemail});
             return;
         }
 
@@ -70,7 +96,7 @@ export default class Signup extends React.Component {
         {headers: {'Cache-Control': 'no-cache'}}).
         then((res) => res.json()).then((resJson) => {
             if(resJson.response == 0)
-                this.setState({ errorMsg: 'اسم المستخدم غير متاح' });
+                this.setState({ errorMsg: this.state.thingsToTranslate.avauser });
             else if(resJson.response > 0)
             {
                 AsyncStorage.setItem('userid', resJson.response);
@@ -141,7 +167,7 @@ export default class Signup extends React.Component {
 
                               <TextInput
                                   underlineColorAndroid='transparent'
-                                  placeholder='اسم المستخدم'
+                                  placeholder={this.state.thingsToTranslate.username}
                                   placeholderTextColor='#BBBBBB'
                                   autoGrow={false}
                                   multiline={false}
@@ -161,7 +187,7 @@ export default class Signup extends React.Component {
 
                               <TextInput
                                   underlineColorAndroid='transparent'
-                                  placeholder='كلمه المرور'
+                                  placeholder={this.state.thingsToTranslate.pass}
                                   placeholderTextColor='#BBBBBB'
                                   autoGrow={false}
                                   multiline={false}
@@ -182,7 +208,7 @@ export default class Signup extends React.Component {
 
                               <TextInput
                                   underlineColorAndroid='transparent'
-                                  placeholder='تأكيد كلمه المرور'
+                                  placeholder={this.state.thingsToTranslate.confirm}
                                   placeholderTextColor='#BBBBBB'
                                   autoGrow={false}
                                   multiline={false}
@@ -203,7 +229,7 @@ export default class Signup extends React.Component {
 
                               <TextInput
                                   underlineColorAndroid='transparent'
-                                  placeholder='البريد الالكتروني'
+                                  placeholder={this.state.thingsToTranslate.email}
                                   placeholderTextColor='#BBBBBB'
                                   autoGrow={false}
                                   multiline={false}
@@ -223,7 +249,7 @@ export default class Signup extends React.Component {
 
                               <TextInput
                                   underlineColorAndroid='transparent'
-                                  placeholder='العنوان'
+                                  placeholder={this.state.thingsToTranslate.address}
                                   placeholderTextColor='#BBBBBB'
                                   autoGrow={false}
                                   multiline={false}
@@ -245,12 +271,13 @@ export default class Signup extends React.Component {
                                 borderRadius={20}
                                 fontWeight='bold'
                                 buttonStyle={{width: '100%', padding: 9}}
-                                title="تسجيل" />
+                                title={this.state.thingsToTranslate.createe}/>
                         </View>
 
                         <Text style={{flex:0.4, textDecorationLine:'underline', color: '#63BA83', textAlign: 'center', paddingBottom: 5}}
                               onPress={() => Linking.openURL('http://178.62.17.251/terms-and-condition-and-policy')}>
-                          عندما اضغط "تسجيل" اقر اني قرأت و اوافق على الشروط و الاحكام و سياسة تطبيق دار ابن الجوزي
+
+                              {this.state.thingsToTranslate.condition}
                         </Text>
                     </View>
                     </KeyboardAvoidingView>
