@@ -12,9 +12,10 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 
 //import Header from '../components/Header';
-import OneBookCard from '../components/OneBookCard';
-import LoadingIndicator from '../components/LoadingIndicator';
-import Server from '../constants/server';
+import MenuBackButton from './MenuBackButton'
+import OneBookCard from '../../components/OneBookCard';
+import LoadingIndicator from '../../components/LoadingIndicator';
+import Server from '../../constants/server';
 
 export default class MyLibrary extends React.Component {
     static navigationOptions = ({ navigation }) => {
@@ -140,6 +141,7 @@ export default class MyLibrary extends React.Component {
     {
         return (
               <View style={styles.container}>
+                <MenuBackButton navigation={this.props.navigation} />
                   <FlatList
                     style={{ flexDirection: 'column' }}
                     contentContainerStyle={{ alignItems: 'center' }}

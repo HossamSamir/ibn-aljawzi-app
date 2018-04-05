@@ -7,8 +7,9 @@ import Colors from '../constants/Colors';
 
 import HomeScreen from '../screens/HomeScreen';
 import Categories from '../screens/Categories';
-import MyLibrary from '../screens/MyLibrary';
+//import MyLibrary from '../screens/MyLibrary';
 import Stores from '../screens/Stores';
+import AddBookScreen from '../screens/AddBookScreen';
 import MenuNavigation from './MenuNavigation';
 
 import Header from '../components/Header';
@@ -17,10 +18,13 @@ export default TabNavigator(
   {
     "الرئيسيه": {
       screen: HomeScreen,
-    },
+  },"الكتب": {
+    screen: AddBookScreen,
+},
+  /*
     "مكتبتي": {
         screen: MyLibrary,
-    },
+    },*/
     "الأقسام": {
       screen: Categories,
     },
@@ -30,6 +34,7 @@ export default TabNavigator(
     "المزيد": {
       screen: MenuNavigation,
     },
+
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -47,10 +52,10 @@ export default TabNavigator(
           case 'الأقسام':
             iconName = Platform.OS === 'ios' ? `ios-albums${focused ? '' : '-outline'}` : 'ios-albums';
             break;
-        case 'مكتبتي':
+/*        case 'مكتبتي':
             iconName =
               Platform.OS === 'ios' ? `ios-star${focused ? '' : '-outline'}` : 'md-star';
-            break;
+            break;*/
         case 'الفروع':
             iconName =
               Platform.OS === 'ios' ? `ios-map${focused ? '' : '-outline'}` : 'md-map';
@@ -58,6 +63,10 @@ export default TabNavigator(
         case 'المزيد':
             iconName =
               Platform.OS === 'ios' ? `ios-more${focused ? '' : '-outline'}` : 'md-more';
+            break;
+        case 'الكتب':
+            iconName =
+              Platform.OS === 'ios' ? `ios-add-circle${focused ? '' : '-outline'}` : 'md-add-circle';
             break;
         }
         return (

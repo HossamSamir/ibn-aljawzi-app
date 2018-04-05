@@ -13,7 +13,6 @@ import subCategory from '../screens/subCategory';
 import Signup from '../screens/menu/Signup';
 import Signin from '../screens/menu/Signin';
 import SearchResult from '../screens/SearchResult';
-
 import Header from '../components/Header';
 
 const RootStackNavigator = StackNavigator(
