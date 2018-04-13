@@ -131,16 +131,17 @@ _keyExtractor2 = (item, index) => item.book_ID;
         return (
 
             <View style ={{flex:1,flexDirection:'column',alignItems:'center'}}>
+
             <Carousel width={280} height={150} delay={3500} indicatorSize={10} indicatorColor='#106234' >
-                <View style={{flex:1,width:280,height:40}}>
-                    <Text>{this.state.AdsText.AdText1}</Text>
-                </View>
-                <View style={{flex:1,width:280,height:40}}>
-                    <Text>{this.state.AdsText.AdText2}</Text>
-                </View>
-                <View style={{flex:1,width:280,height:40}}>
-                    <Text>{this.state.AdsText.AdText3}</Text>
-                </View>
+            <View style={{flex:1,width:280,height:40}}>
+                <Text>{this.state.AdsText.AdText1}</Text>
+            </View>
+            <View style={{flex:1,width:280,height:40}}>
+                <Text>{this.state.AdsText.AdText2}</Text>
+            </View>
+            <View style={{flex:1,width:280,height:40}}>
+                <Text>{this.state.AdsText.AdText3}</Text>
+            </View>
             </Carousel>
             <FlatList
               horizontal={true}

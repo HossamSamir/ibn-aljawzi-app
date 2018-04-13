@@ -7,11 +7,21 @@ import {
   AsyncStorage,
   Alert,
   StyleSheet,
-  Dimensions
+  Dimensions,
 } from 'react-native';
+import SingleImageZoomViewer from 'react-native-single-image-zoom-viewer';
+import { Modal } from 'react-native';
+import ImageViewer from 'react-native-image-zoom-viewer';
+//import ImageZoom from 'react-native-image-pan-zoom';
+//import PhotoView from 'react-native-photo-view';
+//import ImageZoom from 'react-native-image-pan-zoom';
+//import ImageViewer from 'react-native-image-zoom-viewer';
+//import SingleImageZoomViewer from 'react-native-single-image-zoom-viewer';
+//import PhotoView from "@merryjs/photo-viewer";
+//import PinchZoomView from 'react-native-pinch-zoom-view';
 import { Constants } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
-
+//import ZoomImage from 'react-native-zoom-image';
 import Server from '../constants/server';
 import Lightbox from 'react-native-lightbox';
 
@@ -437,12 +447,12 @@ export default class OneBookCard extends React.Component {
     _TrimName = (name) => {
         return (name.length > 45) ? (name.substring(0, 42) + "...") : name;
     }
-
     render() {
+        const images = [ { url:this.props.book_photo} ];
         if(this.props.horizontal == 0)
         {
             return (
-                <View style={{ margin: 20, flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <View style={{ margin: 35, flex: 1, alignItems: 'center', justifyContent: 'center',width:'70%' }}>
                     <Image source={{uri: this.props.book_photo}}
                        style={{width: 99, height: 140, borderRadius: 1, marginBottom: 9}} />
 
@@ -460,23 +470,61 @@ export default class OneBookCard extends React.Component {
                 </View>
             );
         }
-        else
+        else if(this.props.horizontal == 1)
         {
             return (
                 <View style={{ flexDirection:'column', justifyContent:'center', alignItems:'center' }}>
                     <View style={{ width:'100%', flexDirection: 'row', margin: 10, flex: 1, alignItems: 'center', justifyContent: 'space-between' }}>
                         <Lightbox
+
                               renderContent={ () => {
                                   return (
-                                      <Image source={{uri: this.props.book_photo}}
-                                        resizeMode='contain'
-                                        style={{width: null, resizeMode: 'contain', height: Dimensions.get('window').height, borderRadius: 3 }} />
+        //                              <ImageZoom cropWidth={Dimensions.get('window').width}
+        //                               cropHeight={Dimensions.get('window').height}
+        //                               imageWidth={200}
+        //                               imageHeight={200}>
+        //                        <Image style={{width:200, height:200}}
+        //                               source={{uri: this.props.book_photo}}/>
+        //                    </ImageZoom>
+                                //      <Modal visible={true} transparent={true}>
+                                //      <ImageViewer imageUrls={images}
+                                //                    enableImageZoom={true}
+                            //          />
+                            //        </Modal>
+                    //              <PhotoView
+                    //                  visible={this.state.visible}
+                    //                  data={images}
+                    //                  hideStatusBar={true}
+                    //                  initial={this.state.initial}
+                    //                  onDismiss={e => {
+                                        // don't forgot set state back.
+                    //                    this.setState({ visible: false });
+                    //                  }}
+                    //                />
+                                    //<SingleImageZoomViewer
+                                    //source={{uri: this.props.book_photo}}
+                                    // />
+        //                            <PhotoView
+        //                              source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+        //                              minimumZoomScale={0.5}
+        //                              maximumZoomScale={3}
+        //                              androidScaleType="center"
+        //                              onLoad={() => console.log("Image loaded!")}
+        //                              style={{width: 300, height: 300}} />
+                                                         <Image source={{uri: this.props.book_photo}}
+                                                           resizeMode='contain'
+                                                           style={{width: null, resizeMode: 'contain', height: Dimensions.get('window').height, borderRadius: 3 }} />
+
+
+    //                                <SingleImageZoomViewer
+    //                                source={{uri:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1972890221,1494503013&fm=26&gp=0.jpg'}}/>
+                                    //    <Modal visible={true} transparent={true}>
+                                //    <ImageViewer imageUrls={images}/>
                                   );
                               }}>
                               <Image source={{uri: this.props.book_photo}}
                                 style={{ width: 100, height: 140, borderRadius: 3 }} />
                         </Lightbox>
-
                         <View style={{
                             flex:1,
                             flexDirection: 'column',
@@ -494,6 +542,26 @@ export default class OneBookCard extends React.Component {
                         {this.renderPriceButton_BookScreen()}
                     </View>
                 </View>
+            );
+        }
+        else if(this.props.horizontal == 2)
+        {
+            return (
+                    <View style={{flex:1,flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
+                    <View style={{flex:1,flexDirection:'row',alignItems:'center',justifyContent:'center',width:'70%',margin: 10}}>
+                             <Image source={{uri: this.props.book_photo}}
+                             style={{ width: 100, height: 140, borderRadius: 3 }} />
+                        <View style={{flex:1,flexDirection: 'column',alignItems: 'flex-end',justifyContent: 'flex-start',paddingTop:4,paddingLeft:9 }}>
+                            <Text style={{ fontSize: 15, maxWidth:'100%', fontWeight: 'bold', color: '#106234' }}>{this.props.book_name.toUpperCase()}</Text>
+                            <Text style={{  }}>{this.props.author_name}</Text>
+                            <View style={{ paddingVertical:10, flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                                {this.renderPriceButton()}
+                                {this.renderAddButton()}
+                            </View>
+                        </View>
+                    </View>
+                    </View>
+
             );
         }
     }

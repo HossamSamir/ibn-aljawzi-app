@@ -25,7 +25,7 @@ export default class ListAll extends React.Component {
               logout: 'Log out of your account.',
               signin: 'Sign into your account',
               signup: 'Create a new account',
-              MyLibrary:'open your library',
+              MyLibrary:'View your favorite books',
             }
           }
         });
