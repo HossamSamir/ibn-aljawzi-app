@@ -14,7 +14,6 @@ import {
   AsyncStorage
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-
 import LoadingIndicator from '../components/LoadingIndicator';
 import OneBookCard from '../components/OneBookCard';
 import Server from '../constants/server';
@@ -24,9 +23,9 @@ export default class BookCard extends React.Component {
         this.doTheFetching();
         AsyncStorage.getItem("language").then((value) => {
           if (value == '1') {
-            this.setState({ thingsToTranslate: { download: 'تحميل', links: 'نسخ الرابط' , favourite:'مُفضل' , falied:'فشل فى التحميل' , packing:'التغليف' , nopage:'عدد الصفحات' , width:'العرض', length:'الطول' , related:'كتب ذات صلة' , describtion:'الوصف'  } })
+            this.setState({ thingsToTranslate: { download: 'تحميل', links: 'نسخ الرابط' , favourite:'مُفضل' , falied:'فشل فى التحميل' , packing:'التغليف' , nopage:'عدد الصفحات' , width:'العرض', length:'الطول' , related:'كتب ذات صلة' , description:'الوصف'  } })
           } else {
-            this.setState({ thingsToTranslate: { download: 'Download', links: 'Copy Link' , favourite:'Favourite' , falied:'Falied download' , packing:'Packing' , nopage:'Number of pages' , width:'Width' , length:'Length' , related:'Related books' ,  describtion:'Describtion' } })
+            this.setState({ thingsToTranslate: { download: 'Download', links: 'Copy Link' , favourite:'Favourite' , falied:'Falied download' , packing:'Packing' , nopage:'Number of pages' , width:'Width' , length:'Length' , related:'Related books' ,  description:'Description' } })
           }
         });
     }
@@ -84,7 +83,7 @@ export default class BookCard extends React.Component {
               width:'Width',
               length:'Length',
               related:'Related books',
-              describtion:'Describtion'
+              description:'Description'
             },
             //similarity_type: 0
         }
@@ -251,7 +250,7 @@ export default class BookCard extends React.Component {
 
             <View style={{ flex:1, backgroundColor:'white'}}>
                 <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
-                    <Text style={{ color: '#0E142A', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 22, padding: 10, paddingTop: 14 }}>{this.state.thingsToTranslate.describtion}</Text>
+                    <Text style={{ color: '#0E142A', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 22, padding: 10, paddingTop: 14 }}>{this.state.thingsToTranslate.description}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                     <Text style={{ color: '#737481', backgroundColor: '#fff', fontWeight: 'bold', fontSize: 16, padding: 12, textAlign: 'right'}}>

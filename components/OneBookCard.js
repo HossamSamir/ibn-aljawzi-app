@@ -3,18 +3,19 @@ import {
   Image,
   Text,
   TouchableOpacity,
+  TouchableHighlight,
   View,
   AsyncStorage,
   Alert,
   StyleSheet,
   Dimensions,
+ Modal,
 } from 'react-native';
 import SingleImageZoomViewer from 'react-native-single-image-zoom-viewer';
-import { Modal } from 'react-native';
 import ImageViewer from 'react-native-image-zoom-viewer';
 //import ImageZoom from 'react-native-image-pan-zoom';
 //import PhotoView from 'react-native-photo-view';
-//import ImageZoom from 'react-native-image-pan-zoom';
+import ImageZoom from 'react-native-image-pan-zoom';
 //import ImageViewer from 'react-native-image-zoom-viewer';
 //import SingleImageZoomViewer from 'react-native-single-image-zoom-viewer';
 //import PhotoView from "@merryjs/photo-viewer";
@@ -31,16 +32,22 @@ export default class OneBookCard extends React.Component {
         super(props);
         this.state = {
             added: 0,
+            modalVisible: false,
             //addButtonText: 'مُفضل',
             addButtonIcon: 'ios-star-outline',
             addButtonBGCol: '#106234',
             book_price: 0,
             book_discount: 0,
             price_text: 'ر.س',
+
             thingsToTranslate: {
-            favourite:'Favourite'}
+            favourite:'Favourite',
+        buytext:'شراء',}
         }
     }
+    setModalVisible(visible) {
+       this.setState({modalVisible: visible});
+     }
 
     componentDidMount ()
     {
@@ -48,8 +55,10 @@ export default class OneBookCard extends React.Component {
         AsyncStorage.getItem("language").then((value) => {
           if (value == '1') {
             this.setState({ thingsToTranslate: {  favourite:'مُفضل' } })
+            this.setState({ thingsToTranslate:{buytext:'شراء'}})
           } else {
             this.setState({ thingsToTranslate: {  favourite:'Favourite' } })
+            this.setState({ thingsToTranslate:{buytext:'Buy'}})
           }
         });
 
@@ -85,9 +94,11 @@ export default class OneBookCard extends React.Component {
                 {
                     convert = 1;
                     this.setState({price_text: 'USD'});
+                    //this.setState({buytext:'Buy'});
                 }
                 else
-                    this.setState({price_text: 'ريال سعودى'});
+                    this.setState({price_text:'ر.س'});
+                    //this.setState({buytext:'شراء'});
 
                 fetch(Server.dest + '/api/price_of_book?book_id='+this.props.id+'&convert='+convert, {headers: {'Cache-Control': 'no-cache'}}).
                     then((res) => res.json()).then((resJson) => {
@@ -356,7 +367,7 @@ export default class OneBookCard extends React.Component {
                         style={ styles.buyButton }>
 
                         <Text style={{ color: 'white', textDecorationLine: 'line-through', marginRight: 4 }}>Free</Text>
-                        <Text style={{ color: 'white' }}>{this.state.book_discount} {this.state.price_text}</Text>
+                        <Text style={{ color: 'white' }}>{this.state.thingsToTranslate.buytext} {this.state.book_discount} {this.state.price_text} </Text>
                     </TouchableOpacity>
                 );
             }
@@ -370,7 +381,7 @@ export default class OneBookCard extends React.Component {
                         onPress={this.onClickBuyButton}
                         style={ styles.buyButton }>
 
-                        <Text style={{ color: 'white' }}>{this.state.book_price} {this.state.price_text}</Text>
+                        <Text style={{ color: 'white' }}>{this.state.thingsToTranslate.buytext} {this.state.book_price} {this.state.price_text} </Text>
                     </TouchableOpacity>
                 );
             }
@@ -382,7 +393,7 @@ export default class OneBookCard extends React.Component {
                         style={ styles.buyButton }>
 
                         <Text style={{ color: 'white', textDecorationLine: 'line-through', marginRight: 4 }}>{this.state.book_price}</Text>
-                        <Text style={{ color: 'white' }}>{this.state.book_discount} {this.state.price_text}</Text>
+                        <Text style={{ color: 'white' }}>{this.state.thingsToTranslate.buytext} {this.state.book_discount} {this.state.price_text}</Text>
                     </TouchableOpacity>
                 );
             }
@@ -400,7 +411,7 @@ export default class OneBookCard extends React.Component {
                         style={ styles.buyButton_BookScreen }>
 
                         <Text style={{ color: 'white', textDecorationLine: 'line-through', marginRight: 4 }}>مجاني</Text>
-                        <Text style={{ color: 'white' }}>{this.state.book_discount} {this.state.price_text}</Text>
+                        <Text style={{ color: 'white' }}>{this.state.thingsToTranslate.buytext} {this.state.book_discount} {this.state.price_text}</Text>
                     </TouchableOpacity>
                 );
             }
@@ -425,7 +436,7 @@ export default class OneBookCard extends React.Component {
                         onPress={this.onClickBuyButton}
                         style={ styles.buyButton_BookScreen }>
 
-                        <Text style={{ color: 'white' }}>{this.state.book_price} {this.state.price_text}</Text>
+                        <Text style={{ color: 'white' }}>{this.state.thingsToTranslate.buytext} {this.state.book_price} {this.state.price_text} </Text>
                     </TouchableOpacity>
                 );
             }
@@ -437,7 +448,7 @@ export default class OneBookCard extends React.Component {
                         style={ styles.buyButton_BookScreen }>
 
                         <Text style={{ color: 'white', textDecorationLine: 'line-through', marginRight: 4 }}>{this.state.book_price}</Text>
-                        <Text style={{ color: 'white' }}>{this.state.book_discount} {this.state.price_text}</Text>
+                        <Text style={{ color: 'white' }}>{this.state.thingsToTranslate.buytext} {this.state.book_discount} {this.state.price_text} </Text>
                     </TouchableOpacity>
                 );
             }
@@ -475,56 +486,42 @@ export default class OneBookCard extends React.Component {
             return (
                 <View style={{ flexDirection:'column', justifyContent:'center', alignItems:'center' }}>
                     <View style={{ width:'100%', flexDirection: 'row', margin: 10, flex: 1, alignItems: 'center', justifyContent: 'space-between' }}>
-                        <Lightbox
+                    <Modal
+                      transparent={false}
+                      visible={this.state.modalVisible}
+                      onRequestClose={() => {
+                               this.setModalVisible(!this.state.modalVisible);
+          }}>
+                      >
+                      <View style= {{flex:1,flexDirection:'column',justifyContent:'center',alignItems:'center',backgroundColor:'black'}}>
+                        <TouchableOpacity style={{marginRight:"90%",paddingVertical:-100,marginTop:44}}
+                            onPress={() => {
+                              this.setModalVisible(!this.state.modalVisible);
+                            }}>
+                            <Text style={{color:'white',fontSize:33}}>x</Text>
+                          </TouchableOpacity>
+                        <ImageZoom
+                       cropHeight={Dimensions.get('window').height}
+                       cropWidth={Dimensions.get('window').height}
+                       imageWidth={Dimensions.get('window').width}
+                      imageHeight={Dimensions.get('window').height+50}
+                         onLongPress={() => {
+                               this.setModalVisible(!this.state.modalVisible);
+                           }}>
+                           <Image source={{uri: this.props.book_photo}}
+                                     resizeMode='contain'
+                                  style={{width: null, resizeMode: 'contain', height: Dimensions.get('window').height, borderRadius: 3 }} />
+                           </ImageZoom>
+                      </View>
+                    </Modal>
 
-                              renderContent={ () => {
-                                  return (
-        //                              <ImageZoom cropWidth={Dimensions.get('window').width}
-        //                               cropHeight={Dimensions.get('window').height}
-        //                               imageWidth={200}
-        //                               imageHeight={200}>
-        //                        <Image style={{width:200, height:200}}
-        //                               source={{uri: this.props.book_photo}}/>
-        //                    </ImageZoom>
-                                //      <Modal visible={true} transparent={true}>
-                                //      <ImageViewer imageUrls={images}
-                                //                    enableImageZoom={true}
-                            //          />
-                            //        </Modal>
-                    //              <PhotoView
-                    //                  visible={this.state.visible}
-                    //                  data={images}
-                    //                  hideStatusBar={true}
-                    //                  initial={this.state.initial}
-                    //                  onDismiss={e => {
-                                        // don't forgot set state back.
-                    //                    this.setState({ visible: false });
-                    //                  }}
-                    //                />
-                                    //<SingleImageZoomViewer
-                                    //source={{uri: this.props.book_photo}}
-                                    // />
-        //                            <PhotoView
-        //                              source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
-        //                              minimumZoomScale={0.5}
-        //                              maximumZoomScale={3}
-        //                              androidScaleType="center"
-        //                              onLoad={() => console.log("Image loaded!")}
-        //                              style={{width: 300, height: 300}} />
-                                                         <Image source={{uri: this.props.book_photo}}
-                                                           resizeMode='contain'
-                                                           style={{width: null, resizeMode: 'contain', height: Dimensions.get('window').height, borderRadius: 3 }} />
-
-
-    //                                <SingleImageZoomViewer
-    //                                source={{uri:'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1972890221,1494503013&fm=26&gp=0.jpg'}}/>
-                                    //    <Modal visible={true} transparent={true}>
-                                //    <ImageViewer imageUrls={images}/>
-                                  );
-                              }}>
-                              <Image source={{uri: this.props.book_photo}}
-                                style={{ width: 100, height: 140, borderRadius: 3 }} />
-                        </Lightbox>
+                    <TouchableHighlight
+                      onPress={() => {
+                        this.setModalVisible(true);
+                      }}>
+                      <Image source={{uri: this.props.book_photo}}
+                        style={{ width: 100, height: 140, borderRadius: 3 }} />
+                    </TouchableHighlight>
                         <View style={{
                             flex:1,
                             flexDirection: 'column',
