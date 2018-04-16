@@ -11,18 +11,9 @@ import {
   Dimensions,
  Modal,
 } from 'react-native';
-import SingleImageZoomViewer from 'react-native-single-image-zoom-viewer';
-import ImageViewer from 'react-native-image-zoom-viewer';
-//import ImageZoom from 'react-native-image-pan-zoom';
-//import PhotoView from 'react-native-photo-view';
 import ImageZoom from 'react-native-image-pan-zoom';
-//import ImageViewer from 'react-native-image-zoom-viewer';
-//import SingleImageZoomViewer from 'react-native-single-image-zoom-viewer';
-//import PhotoView from "@merryjs/photo-viewer";
-//import PinchZoomView from 'react-native-pinch-zoom-view';
 import { Constants } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
-//import ZoomImage from 'react-native-zoom-image';
 import Server from '../constants/server';
 import Lightbox from 'react-native-lightbox';
 
@@ -39,10 +30,11 @@ export default class OneBookCard extends React.Component {
             book_price: 0,
             book_discount: 0,
             price_text: 'ر.س',
-
             thingsToTranslate: {
-            favourite:'Favourite',
-        buytext:'شراء',}
+            favourite:'Favourite'
+        },
+              thingsToTranslate1: {
+              buy_text:'شراء'  },
         }
     }
     setModalVisible(visible) {
@@ -55,10 +47,11 @@ export default class OneBookCard extends React.Component {
         AsyncStorage.getItem("language").then((value) => {
           if (value == '1') {
             this.setState({ thingsToTranslate: {  favourite:'مُفضل' } })
-            this.setState({ thingsToTranslate:{buytext:'شراء'}})
+            this.setState({ thingsToTranslate1: {  buy_text:'شراء' } })
+
           } else {
             this.setState({ thingsToTranslate: {  favourite:'Favourite' } })
-            this.setState({ thingsToTranslate:{buytext:'Buy'}})
+            this.setState({ thingsToTranslate1: {  buy_text:'Buy' } })
           }
         });
 
@@ -94,11 +87,9 @@ export default class OneBookCard extends React.Component {
                 {
                     convert = 1;
                     this.setState({price_text: 'USD'});
-                    //this.setState({buytext:'Buy'});
                 }
                 else
                     this.setState({price_text:'ر.س'});
-                    //this.setState({buytext:'شراء'});
 
                 fetch(Server.dest + '/api/price_of_book?book_id='+this.props.id+'&convert='+convert, {headers: {'Cache-Control': 'no-cache'}}).
                     then((res) => res.json()).then((resJson) => {
@@ -367,7 +358,7 @@ export default class OneBookCard extends React.Component {
                         style={ styles.buyButton }>
 
                         <Text style={{ color: 'white', textDecorationLine: 'line-through', marginRight: 4 }}>Free</Text>
-                        <Text style={{ color: 'white' }}>{this.state.thingsToTranslate.buytext} {this.state.book_discount} {this.state.price_text} </Text>
+                        <Text style={{ color: 'white' }}>{this.state.thingsToTranslate1.buy_text} - {this.state.book_discount} {this.state.price_text}</Text>
                     </TouchableOpacity>
                 );
             }
@@ -381,7 +372,7 @@ export default class OneBookCard extends React.Component {
                         onPress={this.onClickBuyButton}
                         style={ styles.buyButton }>
 
-                        <Text style={{ color: 'white' }}>{this.state.thingsToTranslate.buytext} {this.state.book_price} {this.state.price_text} </Text>
+                        <Text style={{ color: 'white' }}>{this.state.thingsToTranslate1.buy_text} - {this.state.book_price} {this.state.price_text}</Text>
                     </TouchableOpacity>
                 );
             }
@@ -393,7 +384,7 @@ export default class OneBookCard extends React.Component {
                         style={ styles.buyButton }>
 
                         <Text style={{ color: 'white', textDecorationLine: 'line-through', marginRight: 4 }}>{this.state.book_price}</Text>
-                        <Text style={{ color: 'white' }}>{this.state.thingsToTranslate.buytext} {this.state.book_discount} {this.state.price_text}</Text>
+                        <Text style={{ color: 'white' }}>{this.state.thingsToTranslate1.buy_text} - {this.state.book_discount} {this.state.price_text}</Text>
                     </TouchableOpacity>
                 );
             }
@@ -411,7 +402,7 @@ export default class OneBookCard extends React.Component {
                         style={ styles.buyButton_BookScreen }>
 
                         <Text style={{ color: 'white', textDecorationLine: 'line-through', marginRight: 4 }}>مجاني</Text>
-                        <Text style={{ color: 'white' }}>{this.state.thingsToTranslate.buytext} {this.state.book_discount} {this.state.price_text}</Text>
+                        <Text style={{ color: 'white' }}>{this.state.thingsToTranslate1.buy_text} - {this.state.book_discount} {this.state.price_text}</Text>
                     </TouchableOpacity>
                 );
             }
@@ -436,7 +427,7 @@ export default class OneBookCard extends React.Component {
                         onPress={this.onClickBuyButton}
                         style={ styles.buyButton_BookScreen }>
 
-                        <Text style={{ color: 'white' }}>{this.state.thingsToTranslate.buytext} {this.state.book_price} {this.state.price_text} </Text>
+                        <Text style={{ color: 'white' }}>{this.state.thingsToTranslate1.buy_text} - {this.state.book_price} {this.state.price_text}</Text>
                     </TouchableOpacity>
                 );
             }
@@ -448,7 +439,7 @@ export default class OneBookCard extends React.Component {
                         style={ styles.buyButton_BookScreen }>
 
                         <Text style={{ color: 'white', textDecorationLine: 'line-through', marginRight: 4 }}>{this.state.book_price}</Text>
-                        <Text style={{ color: 'white' }}>{this.state.thingsToTranslate.buytext} {this.state.book_discount} {this.state.price_text} </Text>
+                        <Text style={{ color: 'white' }}>{this.state.thingsToTranslate1.buy_text} - {this.state.book_discount} {this.state.price_text}</Text>
                     </TouchableOpacity>
                 );
             }
@@ -492,7 +483,6 @@ export default class OneBookCard extends React.Component {
                       onRequestClose={() => {
                                this.setModalVisible(!this.state.modalVisible);
           }}>
-                      >
                       <View style= {{flex:1,flexDirection:'column',justifyContent:'center',alignItems:'center',backgroundColor:'black'}}>
                         <TouchableOpacity style={{marginRight:"90%",paddingVertical:-100,marginTop:44}}
                             onPress={() => {
