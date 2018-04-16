@@ -10,22 +10,23 @@ export default class ListAll extends React.Component {
         this.setState({
           thingsToTranslate: {
             orders: 'Orders',
+            Myfavorites:'My favorites',
             about: 'About us',
             contact: 'Contact us',
             settings: 'Settings',
             logout: 'Log out',
             signup: 'Sign up',
             signin: 'Sign in',
-            MyLibrary:'my library',
+
             desc: {
               orders: 'You can control your orders here.',
+              Myfavorites:'View your favorite books',
               about: 'Who we are, what we\'re looking forward to and more.',
               contact: 'Send feedback or report problems. We like to hear from you.',
               settings: 'Adjust font size, currency and more.',
               logout: 'Log out of your account.',
               signin: 'Sign into your account',
               signup: 'Create a new account',
-              MyLibrary:'View your favorite books',
             }
           }
         });
@@ -33,22 +34,22 @@ export default class ListAll extends React.Component {
           this.setState({
             thingsToTranslate: {
             orders: 'المشتريات',
+            Myfavorites:'مكتبتي',
             about: 'من نحن',
             contact: 'الاتصال بنا',
             settings: 'الاعدادات',
             logout: 'تسجيل الخروج' ,
             signup: 'تسجيل حساب',
             signin: 'تسجيل الدخول',
-            MyLibrary:'مكتبتي',
           desc: {
             orders: 'يمكنك التحكم في طلبات الكتب الخاصه بك من هنا',
+            Myfavorites:'افتح مكتبتك',
             about: 'من نحن و ما الذي نتطلع لعمله',
             contact: 'ارسل لنا تعليقات حول التطبيق .. نحن نود ان نسمع منك',
             settings: 'تحكم في حجم الخط .. العمله و المزيد',
             logout: 'تسجيل الخروج من حسابك',
             signin: 'تسجيل الدخول الي حساابك',
             signup: 'حساب جديد',
-            MyLibrary:'افتح مكتبتك',
            }
           }
           });
@@ -64,22 +65,24 @@ export default class ListAll extends React.Component {
          listData: '',
          thingsToTranslate: {
          orders: 'المشتريات',
+         Myfavorites:'مكتبتي',
          about: 'من نحن',
          contact: 'الاتصال بنا',
          settings: 'الاعدادات',
          logout: 'تسجيل الخروج' ,
          signup: 'تسجيل حساب',
          signin: 'تسجيل الدخول',
-         MyLibrary:'مكتبتي',
+
        desc: {
          orders: 'يمكنك التحكم في طلبات الكتب الخاصه بك من هنا',
+         Myfavorites:'افتح مكتبتك',
          about: 'من نحن و ما الذي نتطلع لعمله',
          contact: 'ارسل لنا تعليقات حول التطبيق .. نحن نود ان نسمع منك',
          settings: 'تحكم في حجم الخط .. العمله و المزيد',
          logout: 'تسجيل الخروج من حسابك',
          signin: 'تسجيل الدخول الي حساابك',
          signup: 'حساب جديد',
-         MyLibrary:'افتح مكتبتك',
+
         }
        },
     }
@@ -90,10 +93,11 @@ export default class ListAll extends React.Component {
   prepareListData = () => {
       var arr = [
           {key: 'Orders', icon: 'ios-cart-outline', title: this.state.thingsToTranslate.orders, description: this.state.thingsToTranslate.desc.orders},
+           {key: 'Myfavorites',icon:'ios-star',title: this.state.thingsToTranslate.Myfavorites, description: this.state.thingsToTranslate.desc.Myfavorites},
           {key: 'AboutUs', icon: 'ios-people-outline', title: this.state.thingsToTranslate.about, description: this.state.thingsToTranslate.desc.about},
           {key: 'Feedback', icon: 'ios-mail-outline', title: this.state.thingsToTranslate.contact, description: this.state.thingsToTranslate.desc.contact},
           {key: 'Settings', icon: 'ios-cog', title: this.state.thingsToTranslate.settings, description: this.state.thingsToTranslate.desc.settings},
-          {key: 'MyLibrary',icon:'ios-star',title: this.state.thingsToTranslate.MyLibrary, description: this.state.thingsToTranslate.desc.MyLibrary}
+
       ];
       AsyncStorage.getItem('login').then(
           (logged) => {
@@ -138,6 +142,7 @@ export default class ListAll extends React.Component {
                         onPress={ () => {
                             if(item.key == 'Orders')
                             {
+
                                 AsyncStorage.getItem('login').then(
                                     (logged) => {
                                         if(logged == '1')
@@ -170,38 +175,10 @@ export default class ListAll extends React.Component {
                                     }
                                 );
                             }
-                            else if(item.key == 'MyLibrary')
+                            else if(item.key == 'Myfavorites')
                             {
-                                AsyncStorage.getItem('MyLibrary').then(
-                                //    (logged) => {
-                                //        if(logged == '1')
-                                //        {
-                                            this.props.navigation.navigate('MyLibrary', {})
-                                //        }
-                                /*    else
-                                        {
-                                            AsyncStorage.getItem("language").then((value) => {
-                                              if (value == '1') {
-                                            Alert.alert(
-                                            'لا يمكن عرض المشتريات',
-                                                'لا يمكن عرض المشتريات لانك لم تقوم بتسجيل الدخول',
-                                                  [
-                                                      {text: 'تم'}
-                                                  ],
-                                                  { cancelable: true })
-
-                                              } else {
-                                              Alert.alert(
-                                                    'Cannot view orders',
-                                                    'Cannot view orders because you are not logged in',
-                                                    [
-                                                      {text: 'Okay'},
-                                                    ],
-                                                    { cancelable: true }
-                                                )}
-                                            });
-                                        }*/
-                                    //}
+                                AsyncStorage.getItem('Myfavorites').then(
+                                            this.props.navigation.navigate('Myfavorites', {})
                                 );
                             }
                             else if(item.key == 'Logout')
