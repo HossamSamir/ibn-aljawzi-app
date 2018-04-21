@@ -93,7 +93,7 @@ export default class ListAll extends React.Component {
   prepareListData = () => {
       var arr = [
           {key: 'Orders', icon: 'ios-cart-outline', title: this.state.thingsToTranslate.orders, description: this.state.thingsToTranslate.desc.orders},
-           {key: 'Myfavorites',icon:'ios-star',title: this.state.thingsToTranslate.Myfavorites, description: this.state.thingsToTranslate.desc.Myfavorites},
+           {key: 'MyLibrary',icon:'ios-star',title: this.state.thingsToTranslate.Myfavorites, description: this.state.thingsToTranslate.desc.Myfavorites},
           {key: 'AboutUs', icon: 'ios-people-outline', title: this.state.thingsToTranslate.about, description: this.state.thingsToTranslate.desc.about},
           {key: 'Feedback', icon: 'ios-mail-outline', title: this.state.thingsToTranslate.contact, description: this.state.thingsToTranslate.desc.contact},
           {key: 'Settings', icon: 'ios-cog', title: this.state.thingsToTranslate.settings, description: this.state.thingsToTranslate.desc.settings},
@@ -175,10 +175,39 @@ export default class ListAll extends React.Component {
                                     }
                                 );
                             }
-                            else if(item.key == 'Myfavorites')
+                            else if(item.key == 'Feedback')
                             {
-                                AsyncStorage.getItem('Myfavorites').then(
-                                            this.props.navigation.navigate('Myfavorites', {})
+
+                                AsyncStorage.getItem('login').then(
+                                    (logged) => {
+                                        if(logged == '1')
+                                        {
+                                            this.props.navigation.navigate('Feedback', {})
+                                        }
+                                        else
+                                        {
+                                            AsyncStorage.getItem("language").then((value) => {
+                                              if (value == '1') {
+                                            Alert.alert(
+                                            'لا يمكن مراسلتنا',
+                                                'قم بتسجيل الدخول اولا لتستطيع مراسلتنا',
+                                                  [
+                                                      {text: 'تم'}
+                                                  ],
+                                                  { cancelable: true })
+
+                                              } else {
+                                              Alert.alert(
+                                                    'Cannot send feedback',
+                                                    'Cannot send feedback because you are not logged in',
+                                                    [
+                                                      {text: 'Okay'},
+                                                    ],
+                                                    { cancelable: true }
+                                                )}
+                                            });
+                                        }
+                                    }
                                 );
                             }
                             else if(item.key == 'Logout')

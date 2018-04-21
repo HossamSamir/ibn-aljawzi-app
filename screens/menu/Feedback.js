@@ -1,5 +1,5 @@
 import React from 'react';
-import { AsyncStorage, KeyboardAvoidingView, TextInput, View, Text } from "react-native";
+import { AsyncStorage, KeyboardAvoidingView, TextInput, View, Text, Alert } from "react-native";
 import { Button } from "react-native-elements";
 
 import MenuBackButton from './MenuBackButton'
@@ -28,14 +28,7 @@ export default class Feedback extends React.Component {
                                     if(resJson.status == 1)
                                     {
                                         this.setState({feedbackSent:1});
-                                        Alert.alert(
-                                          'Message delivered',
-                                          'Your message have been delivered successfully',
-                                          [
-                                            {text: 'Okay'},
-                                          ],
-                                          { cancelable: true }
-                                      );
+                                        this.props.navigation.goBack()
                                     }
                                     else
                                     {
@@ -51,17 +44,6 @@ export default class Feedback extends React.Component {
                                 });
                             }
                         );
-                    }
-                    else
-                    {
-                        Alert.alert(
-                          'Cannot send a message',
-                          'Cannot send us a message because you are not logged in',
-                          [
-                            {text: 'Okay'},
-                          ],
-                          { cancelable: true }
-                      );
                     }
                 }
             );
