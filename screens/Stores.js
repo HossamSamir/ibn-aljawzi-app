@@ -64,7 +64,7 @@ export default class Stores extends React.Component {
           }>
             <MapTab />
                 <TouchableOpacity style = {{justifyContent: 'center', alignItems: 'center',paddingVertical:11}}
-                    onPress={() => Linking.openURL('maps://app?saddr=24.845844,46.616029&markers&daddr=24.824744,46.615029&markers&daddr=26.425453,50.09854169999994&markers&daddr=24.8030267,46.70358149999993&markers&daddr=21.4805137,39.23751400000003&markers')}>
+                    onPress={() => Linking.openURL('maps://app?saddr=26.425453,50.09854169999994&markers&daddr=24.8030267,46.70358149999993&markers&daddr=21.4805137,39.23751400000003&markers')}>
                    <Text style={{color:'#106234',fontWeight:'bold'}}>{this.state.thingsToTranslate.buttonmaps}</Text>
                 </TouchableOpacity>
           </Tab>

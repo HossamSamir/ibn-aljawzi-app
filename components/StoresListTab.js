@@ -7,6 +7,8 @@ import {
   Linking,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 export default class StoresListTab extends React.Component {
     constructor(props) {
         super(props);
@@ -15,7 +17,7 @@ export default class StoresListTab extends React.Component {
             {
                 ID: 0,
                 name: 'فرع الدمام - طريق الملك فهد - المملكة العربية السعودية',
-                phone: '0138428146  - 0138467593 ',
+                tele: '0138428146  - 0138467593 ',
                 fax: '0138412100',
                 mailbox:'2957 ',
                 postalCode: '32253',
@@ -24,24 +26,24 @@ export default class StoresListTab extends React.Component {
             {
                 ID: 1,
                 name: 'فرع الرياض: مقابل جامعة الإمام محمد بن سعود بوابة 2',
-                phone:'0112107228',
-                tele:'0503857988',
+                tele:'0112107228',
+                phone:'0503857988',
             },
             {
                 ID: 2,
                 name: 'فرع جدة: حي الجامعة',
-                phone:'0126813706',
-                tele:'0592041371'
+                tele:'0126813706',
+                phone:'0592041371'
             },
             {
                 ID: 3,
                 name: 'فرع الإحساء: الهفوف - شارع الجامعة ',
-                phone:'0135883122',
+                tele:'0135883122',
             },
             {
                 ID: 4,
                 name: 'جمهورية مصر العربية -  فرع القاهرة',
-                phone:'010068237388',
+                tele:'010068237388',
             },
             {
                 ID:5,
@@ -50,7 +52,8 @@ export default class StoresListTab extends React.Component {
                 TwitterLink:'https://twitter.com/aljawzi',
                 Facebook:' دار ابن الجوزي للنشر والتوزيع',
                 FaceBookLink:'https://www.facebook.com/abnaljawzi/',
-                instagram:'https://www.instagram.com/aljawzi',
+                instagram:'@aljawzi',
+                instagramLink:'https://www.instagram.com/aljawzi',
                 whatsapp:'966503265348',
                 telegram:'@ibn_aljawzi',
                 telegramLink:'https://t.me/ibn_aljawzi',
@@ -62,11 +65,12 @@ export default class StoresListTab extends React.Component {
     //966503265348
     //Linking.openURL('whatsapp://send?phone=' + item.phone)}
     Rendersocial = (item) => {
-        if(item.Twitter&&item.TwitterLink&&item.Facebook&&item.Facebook&&item.FaceBookLink&&item.instagram&&item.whatsapp&&item.telegram&&item.telegramLink)
+        if(item.Twitter&&item.Facebook&&item.instagram&&item.whatsapp&&item.telegram)
         {
             return (
                 <View>
-                <Text style={{textAlign: 'right', marginVertical: 8, }}>
+                <Text style={{textAlign: 'right', marginVertical: 8, }}
+                onPress={() =>Linking.openURL(item.TwitterLink)}>
                     {item.Twitter + ' :'}
                     <Ionicons
                       name='logo-twitter'
@@ -75,11 +79,7 @@ export default class StoresListTab extends React.Component {
                     />
                 </Text>
                 <Text style={{textAlign: 'right', marginVertical: 8,color:'blue',textDecorationLine:'underline' }}
-                onPress={() =>Linking.openURL(item.TwitterLink)}>
-                    {item.TwitterLink + ' :'}
-                </Text>
-                <Text style={{textAlign: 'right', marginVertical: 8,color:'blue',textDecorationLine:'underline' }}
-                onPress={() =>Linking.openURL(item.instagram)}>
+                onPress={() =>Linking.openURL(item.instagramLink)}>
                     {item.instagram + ' :'}
                     <Ionicons
                       name='logo-instagram'
@@ -87,17 +87,14 @@ export default class StoresListTab extends React.Component {
                       style={{ color: '#106234', }}
                     />
                 </Text>
-                <Text style={{textAlign: 'right', marginVertical: 8, }}>
+                <Text style={{textAlign: 'right', marginVertical: 8, }}
+                onPress={() =>Linking.openURL(item.FaceBookLink)}>
                     {item.Facebook + ' :'}
                     <Ionicons
                       name='logo-facebook'
                       size={28}
                       style={{ color: '#106234', }}
                     />
-                </Text>
-                <Text style={{textAlign: 'right', marginVertical: 8,color:'blue',textDecorationLine:'underline' }}
-                onPress={() =>Linking.openURL(item.FaceBookLink)}>
-                    {item.FaceBookLink + ' :'}
                 </Text>
                 <Text style={{textAlign: 'right', marginVertical: 8,color:'blue',textDecorationLine:'underline' }}
                 onPress={() =>Linking.openURL('whatsapp://send?phone=' + item.whatsapp)}>
@@ -108,12 +105,14 @@ export default class StoresListTab extends React.Component {
                       style={{ color: '#106234', }}
                     />
                 </Text>
-                <Text style={{textAlign: 'right', marginVertical: 8, }}>
-                    {item.telegram + ' :'}
-                </Text>
-                <Text style={{textAlign: 'right', marginVertical: 8,color:'blue',textDecorationLine:'underline' }}
+                <Text style={{textAlign: 'right', marginVertical: 8, }}
                 onPress={() =>Linking.openURL(item.telegramLink)}>
-                    {item.telegramLink + ' :'}
+                    {item.telegram + ' :'}
+                    <EvilIcons
+                      name='sc-telegram'
+                      size={28}
+                      style={{ color: '#106234', }}
+                    />
                 </Text>
                 </View>
             );
@@ -168,11 +167,10 @@ RenderTele = (item) => {
     if (item.tele)
     {
         return(
-            <Text style={{textAlign: 'right', marginVertical: 8, }}
-            onPress={() => Linking.openURL('whatsapp://send?phone=' + item.phone)}>
+            <Text style={{textAlign: 'right', marginVertical: 8, }}>
                 {item.tele + ' :'}
-                <Ionicons
-                  name='ios-phone-portrait-outline'
+                <MaterialIcons
+                  name='ring-volume'
                   size={28}
                   style={{ color: '#106234', }}
                 />
