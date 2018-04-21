@@ -34,6 +34,7 @@ export default class HomeScreen extends React.Component {
         })
         .then(() => {
           this.setState({doneFetches: (this.state.doneFetches+1)})
+
       }).catch(error => {
           console.error(error);
       Alert.alert('Connection failure', "Please check your connection",[{text: 'Okay'} ])

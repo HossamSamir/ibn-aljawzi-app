@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { Platform, Dimensions, AsyncStorage, ScrollView, Text, View, StyleSheet } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import SelectInput from 'react-native-select-input-ios';
-
+import { I18nManager } from 'react-native';
 import MenuBackButton from './MenuBackButton'
 import Server from '../../constants/server';
 
+import util from 'react-native-util';
 // API: load this.state.currency from database
 // API: when user changes currency, send the new value to database
 
@@ -27,8 +28,10 @@ export default class App extends Component {
         AsyncStorage.getItem("language").then((value) => {
           if (value == '1') {
             this.setState({ thingsToTranslate: { lang : 'اللغة', currency:'العُملة' }})
+
           } else {
             this.setState({ thingsToTranslate: { lang:'Language' , currency:'Currency'  }})
+
         }
         });
 
@@ -68,6 +71,15 @@ export default class App extends Component {
         AsyncStorage.setItem('justAddedBook', '1');
         this.setState({language: newValue});
         this.props.navigation.navigate("Signin", {});
+        if (newValue==1)
+        {
+            I18nManager.forceRTL(true)
+            Expo.Util.reload(true)
+        }
+        else {
+            I18nManager.forceRTL(false)
+            Expo.Util.reload(true)
+        }
     };
 
     onCurrencyChange = (newValue) => {

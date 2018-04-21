@@ -103,7 +103,7 @@ export default class BookCard extends React.Component {
 
     return (
         <ScrollView style={{backgroundColor: 'white'}}>
-            <View style={{ flexDirection: 'column', paddingHorizontal:10, backgroundColor:'transparent' }}>
+            <View style={{ flexDirection: 'column', paddingHorizontal:10, backgroundColor:'transparent'}}>
                 <View style={{flex: 1}}>
                     <OneBookCard navigation={this.props.navigation}
                         id={this.props.navigation.state.params.book_ID}
@@ -177,7 +177,7 @@ export default class BookCard extends React.Component {
                       name='logo-buffer'
                       size={38}
                       color='#106234'
-                      style={{backgroundColor: 'transparent' }}
+                      style={{backgroundColor: 'transparent' ,marginHorizontal:30}}
                     />
                     <Text style={{ color: 'black',
                         backgroundColor: 'transparent', fontSize: 16, textAlign: 'center' }}>
@@ -220,7 +220,7 @@ export default class BookCard extends React.Component {
 
             <View style={{ flex:1, backgroundColor:'#F2F2F2', paddingVertical:8, paddingHorizontal:5 }}>
                 <View style={{ backgroundColor:'white', borderRadius:4, borderWidth:0.4, borderColor:'#EEEEEE' }}>
-                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
                         <Text style={{ color: '#0E142A', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 22, padding: 10, paddingTop: 14 }}>
                         {this.state.thingsToTranslate.related}
                         </Text>
@@ -249,7 +249,7 @@ export default class BookCard extends React.Component {
             </View>
 
             <View style={{ flex:1, backgroundColor:'white'}}>
-                <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
                     <Text style={{ color: '#0E142A', backgroundColor: 'transparent', fontWeight: 'bold', fontSize: 22, padding: 10, paddingTop: 14 }}>{this.state.thingsToTranslate.description}</Text>
                 </View>
                 <View style={{ flexDirection: 'row', justifyContent: 'center' }}>

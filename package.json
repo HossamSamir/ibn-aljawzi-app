@@ -16,10 +16,12 @@
     "react-native-carousel-view": "^0.5.1",
     "react-native-elements": "^0.18.5",
     "react-native-image-carousel": "^0.4.4",
+    "react-native-image-pan-zoom": "^2.1.2",
     "react-native-lightbox": "^0.7.0",
     "react-native-select-input-ios": "^1.1.4",
     "react-native-swiper": "^1.5.13",
     "react-native-table-component": "^1.1.2",
+    "react-native-util": "^1.0.2",
     "react-navigation": "^1.5.0"
   },
   "devDependencies": {
