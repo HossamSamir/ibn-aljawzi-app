@@ -20,7 +20,14 @@ export default class HomeScreen extends React.Component {
     componentDidMount() {
         this.doTheFetching();
     }
-
+    renderPage(ad, index) {
+                return (
+                    <View key={index}>
+                        <Text>{ad.title}</Text>
+                        <Image style={{ width:270, height: 120, resizeMode:'contain' }} source={{ uri: ad.image }} />
+                    </View>
+                );
+            }
     doTheFetching() {
         fetch(Server.dest + '/api/categories', {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json()).then((resJson) => {
             this.setState({mainCats: resJson});
@@ -34,6 +41,12 @@ export default class HomeScreen extends React.Component {
         })
         .then(() => {
           this.setState({doneFetches: (this.state.doneFetches+1)})
+      })
+      fetch(Server.dest + '/api/ads', {headers: {'Cache-Control': 'no-cache'}}).then((res) => res.json()).then((resJsontwo) => {
+          this.setState({myads: resJsontwo});
+      })
+      .then(() => {
+        this.setState({doneFetches: (this.state.doneFetches+1)})
 
       }).catch(error => {
           console.error(error);
@@ -47,6 +60,7 @@ export default class HomeScreen extends React.Component {
         super(props);
         this.state = {
             doneFetches: 0,
+            myads:[],
             mainCats: [
                 /*{id: 0, name: 'Top selling'},
                 {id: 1, name: 'Trending'},
@@ -123,6 +137,16 @@ export default class HomeScreen extends React.Component {
         },
         }
     }
+    shouldRenderCarousel = () => {
+        if(this.state.myads.length > 0)
+        {
+                return (
+                    <Carousel width={280} height={150} delay={3500} indicatorSize={10} indicatorColor='#106234' index={0} >
+                    {this.state.myads.map((ad, index) => this.renderPage(ad, index))}
+                    </Carousel>
+                );
+            }
+            };
 
 _keyExtractor0 = (item, index) => item.id;
 _keyExtractor = (item, index) => item.cat_ID;
@@ -132,18 +156,7 @@ _keyExtractor2 = (item, index) => item.book_ID;
         return (
 
             <View style ={{flex:1,flexDirection:'column',alignItems:'center'}}>
-
-            <Carousel width={280} height={150} delay={3500} indicatorSize={10} indicatorColor='#106234' >
-            <View style={{flex:1,width:280,height:40}}>
-                <Text>{this.state.AdsText.AdText1}</Text>
-            </View>
-            <View style={{flex:1,width:280,height:40}}>
-                <Text>{this.state.AdsText.AdText2}</Text>
-            </View>
-            <View style={{flex:1,width:280,height:40}}>
-                <Text>{this.state.AdsText.AdText3}</Text>
-            </View>
-            </Carousel>
+            {this.shouldRenderCarousel()}
             <FlatList
               horizontal={true}
               showsHorizontalScrollIndicator={false}
