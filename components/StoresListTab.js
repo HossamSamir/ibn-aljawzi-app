@@ -69,51 +69,61 @@ export default class StoresListTab extends React.Component {
         {
             return (
                 <View>
-                <Text style={{textAlign: 'right', marginVertical: 8, }}
+                <View style={{flexDirection:'row',justifyContent:'flex-start'}}>
+                <Ionicons
+                  name='logo-twitter'
+                  size={28}
+                  style={{ color: '#106234', }}
+                />
+                <Text style={{  marginVertical: 8, }}
                 onPress={() =>Linking.openURL(item.TwitterLink)}>
-                    {item.Twitter + ' :'}
-                    <Ionicons
-                      name='logo-twitter'
-                      size={28}
-                      style={{ color: '#106234', }}
-                    />
+                    {'  '+item.Twitter + '  '}
                 </Text>
-                <Text style={{textAlign: 'right', marginVertical: 8,color:'blue',textDecorationLine:'underline' }}
+                </View>
+                <View style={{flexDirection:'row',justifyContent:'flex-start'}}>
+                <Ionicons
+                  name='logo-instagram'
+                  size={28}
+                  style={{ color: '#106234', }}
+                />
+                <Text style={{  marginVertical: 8 }}
                 onPress={() =>Linking.openURL(item.instagramLink)}>
-                    {item.instagram + ' :'}
-                    <Ionicons
-                      name='logo-instagram'
-                      size={28}
-                      style={{ color: '#106234', }}
-                    />
+                    {'  '+item.instagram + '  '}
                 </Text>
-                <Text style={{textAlign: 'right', marginVertical: 8, }}
+                </View>
+                <View style={{flexDirection:'row',justifyContent:'flex-start'}}>
+                <Ionicons
+                  name='logo-facebook'
+                  size={28}
+                  style={{ color: '#106234', }}
+                />
+                <Text style={{  marginVertical: 8, }}
                 onPress={() =>Linking.openURL(item.FaceBookLink)}>
-                    {item.Facebook + ' :'}
-                    <Ionicons
-                      name='logo-facebook'
-                      size={28}
-                      style={{ color: '#106234', }}
-                    />
+                    {'  '+item.Facebook + '  '}
                 </Text>
-                <Text style={{textAlign: 'right', marginVertical: 8,color:'blue',textDecorationLine:'underline' }}
+                </View>
+                <View style={{flexDirection:'row',justifyContent:'flex-start'}}>
+                <Ionicons
+                  name='logo-whatsapp'
+                  size={28}
+                  style={{ color: '#106234', }}
+                />
+                <Text style={{  marginVertical: 8 }}
                 onPress={() =>Linking.openURL('whatsapp://send?phone=' + item.whatsapp)}>
-                    {item.whatsapp + ' :'}
-                    <Ionicons
-                      name='logo-whatsapp'
-                      size={28}
-                      style={{ color: '#106234', }}
-                    />
+                    {'  '+item.whatsapp + '  '}
                 </Text>
-                <Text style={{textAlign: 'right', marginVertical: 8, }}
+                </View>
+                <View style={{flexDirection:'row',justifyContent:'flex-start'}}>
+                <EvilIcons
+                  name='sc-telegram'
+                  size={28}
+                  style={{ color: '#106234', }}
+                />
+                <Text style={{  marginVertical: 8, }}
                 onPress={() =>Linking.openURL(item.telegramLink)}>
-                    {item.telegram + ' :'}
-                    <EvilIcons
-                      name='sc-telegram'
-                      size={28}
-                      style={{ color: '#106234', }}
-                    />
+                    {'  '+item.telegram + '  '}
                 </Text>
+                </View>
                 </View>
             );
         }
@@ -122,14 +132,16 @@ export default class StoresListTab extends React.Component {
         if(item.mailbox)
         {
             return (
-                <Text style={{textAlign: 'right', marginVertical: 8, }}>
-                    {item.mailbox + ' :'}
-                    <Ionicons
-                      name='md-mail-open'
-                      size={28}
-                      style={{ color: '#106234', }}
-                    />
+                <View style={{flexDirection:'row',justifyContent:'flex-start'}}>
+                <Ionicons
+                  name='md-mail-open'
+                  size={28}
+                  style={{ color: '#106234', }}
+                />
+                <Text style={{  marginVertical: 8, }}>
+                    {'  '+item.mailbox+'  '}
                 </Text>
+                </View>
             );
         }
     };
@@ -137,14 +149,16 @@ export default class StoresListTab extends React.Component {
     if(item.fax)
     {
         return (
-            <Text style={{textAlign: 'right', marginVertical: 8, }}>
-                {item.fax + ' :'}
-                <Ionicons
-                  name='ios-calculator-outline'
-                  size={28}
-                  style={{ color: '#106234', }}
-                />
+            <View style={{flexDirection:'row',justifyContent:'flex-start'}}>
+            <Ionicons
+              name='ios-calculator-outline'
+              size={28}
+              style={{ color: '#106234', }}
+            />
+            <Text style={{  marginVertical: 8, }}>
+                {'  '+item.fax+'  ' }
             </Text>
+            </View>
         );
     }
 };
@@ -152,14 +166,16 @@ RenderpostalCode = (item) => {
     if (item.postalCode)
     {
         return(
-            <Text style={{textAlign: 'right', marginVertical: 8, }}>
-                {item.postalCode + ' :'}
-                <Ionicons
-                  name='ios-mail-outline'
-                  size={28}
-                  style={{ color: '#106234', }}
-                />
+            <View style={{flexDirection:'row',justifyContent:'flex-start'}}>
+            <Ionicons
+              name='ios-mail-outline'
+              size={28}
+              style={{ color: '#106234', }}
+            />
+            <Text style={{  marginVertical: 8, }}>
+                {'  '+item.postalCode+'  '}
             </Text>
+            </View>
         );
     }
 };
@@ -167,14 +183,16 @@ RenderTele = (item) => {
     if (item.tele)
     {
         return(
-            <Text style={{textAlign: 'right', marginVertical: 8, }}>
-                {item.tele + ' :'}
-                <MaterialIcons
-                  name='ring-volume'
-                  size={28}
-                  style={{ color: '#106234', }}
-                />
+            <View style={{flexDirection:'row',justifyContent:'flex-start'}}>
+            <MaterialIcons
+              name='ring-volume'
+              size={28}
+              style={{ color: '#106234', }}
+            />
+            <Text style={{  marginVertical: 8, }}>
+                {'  '+item.tele+'  '}
             </Text>
+            </View>
         );
     }
 };
@@ -182,67 +200,71 @@ RenderEmail = (item) => {
     if (item.email)
     {
         return(
-            <Text style={{textAlign: 'right', marginVertical: 8, }}>
-                {item.email + ' :'}
-                <Ionicons
-                  name='ios-mail-open'
-                  size={28}
-                  style={{ color: '#106234', }}
-                />
+            <View style={{flexDirection:'row',justifyContent:'flex-start'}}>
+            <Ionicons
+              name='ios-mail-open'
+              size={28}
+              style={{ color: '#106234', }}
+            />
+            <Text style={{  marginVertical: 8, }}>
+                {'  '+item.email+'  '}
             </Text>
+            </View>
         );
     }
 };
-Rendermailbox5 = (item) => {
-    if (item.socialInfo)
-    {
-        return(
-            <Text style={{textAlign: 'right', marginVertical: 8, }}>
-                {item.socialInfo + ' :'}
-            </Text>
-        );
-    }
-};
+
 RenderPhone = (item) => {
     if (item.phone)
     {
         return(
-            <Text style={{textAlign: 'right', marginVertical: 8, }}>
-
-                {item.phone + ' :'}
-                <Ionicons
-                name='ios-phone-portrait-outline'
-                  size={28}
-                  style={{ color: '#106234', }}
-                />
+            <View style={{flexDirection:'row',justifyContent:'flex-start'}}>
+            <Ionicons
+            name='ios-phone-portrait-outline'
+              size={28}
+              style={{ color: '#106234', }}
+            />
+            <Text style={{  marginVertical: 8, }}>
+                {'  '+item.phone+'  '}
             </Text>
-
+            </View>
         );
     }
 };
-
+RenderName = (item) => {
+    if (item.name)
+    {
+        return(
+            <View style={{flexDirection:'row',justifyContent:'flex-start'}}>
+            <Text style={{   fontSize: 20, fontWeight: 'bold', color: '#106234' }}>
+                {item.name}
+            </Text>
+            </View>
+        );
+    }
+};
     _keyExtractor = (store, index) => store.ID;
   render() {
     return (
+            <View style={{justifyContent:'flex-start'}}>
         <FlatList
           data={this.state.storesInfo}
           renderItem={({item}) =>
-            <View style={{ marginVertical: 20, marginHorizontal: 30 }}>
-                <Text style={{ textAlign: 'right', fontSize: 20, fontWeight: 'bold', color: '#106234' }}>
-                    {item.name}
-                </Text>
+            <View style={{ marginVertical: 20, marginHorizontal: 30 , justifyContent:'flex-start'}}>
+
+                {this.RenderName(item)}
                 {this.RenderPhone(item)}
                 {this.RenderTele(item)}
                 {this.Renderfax(item)}
                 {this.Rendermailbox(item)}
                 {this.RenderpostalCode(item)}
                 {this.RenderEmail(item)}
-                {this.Rendermailbox5(item)}
                 {this.Rendersocial(item)}
             </View>
          }
           keyExtractor={this._keyExtractor}
         />
+        </View>
     );
   }
 }
