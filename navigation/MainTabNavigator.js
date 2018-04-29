@@ -103,8 +103,8 @@ export default TabNavigator(
     tabBarOptions: {showLabel:false},
     tabBarComponent: TabBarBottom,
     tabBarPosition: 'bottom',
-    animationEnabled: true,
-    swipeEnabled: false,
+    animationEnabled: false,
+    swipeEnabled: true,
     /*tabBarOptions: {
         style: {
             height: 57
